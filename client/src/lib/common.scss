@@ -1,0 +1,21 @@
+// Bootstrap Imports
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/' !default;
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+// Google Fonts Imports
+@import url('https://fonts.googleapis.com/css?family=Space+Mono');
+$space-mono: 'Space Mono', monospace;
+
+// Font Awesome Imports
+$fa-font-path: '~font-awesome/fonts';
+@import '~font-awesome/scss/font-awesome';
+
+// Colors
+$turquoise: #16a085;
+$green-sea: #16a085;
+$wet-asphalt: #34495e;
+$midnight-blue: #2c3e50;
+
+// UI Color Scheme
+$sidebar-bg: darken($green-sea, 10%);
+$logo-bg: mix($body-bg, $sidebar-bg, 90%);

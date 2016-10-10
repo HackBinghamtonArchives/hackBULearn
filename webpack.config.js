@@ -8,7 +8,7 @@ module.exports = {
   entry: {
     home: ['./client/src/bundles/home/home.js'],
     dashboard: ['./client/src/bundles/dashboard/dashboard.js'],
-    vendor: ['lodash']
+    vendor: ['lodash', 'jquery', 'bootstrap-sass']
   },
   output: {
     path: path.resolve('./public/bundles'),
@@ -37,6 +37,22 @@ module.exports = {
         test: /\.(jpg|png)$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'file?name=[name].[hash].[ext]'
+      },
+      {
+        test: /\.(woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url?limit=10000&mimetype=application/font-woff&name=[name].[ext]'
+      },
+      {
+        test: /\.ttf(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url?limit=10000&mimetype=application/octet-stream&name=[name].[ext]'
+      },
+      {
+        test: /\.eot(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file?name=[name].[ext]'
+      },
+      {
+        test: /\.svg(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url?limit=10000&mimetype=image/svg+xml&name=[name].[ext]'
       }
     ]
   },
@@ -47,7 +63,10 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('[name].learn.hackbu.css'),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.learn.hackbu.js", Infinity),
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.learn.hackbu.js', Infinity),
+    new webpack.ProvidePlugin({
+      'jQuery': 'jquery'
+    }),
     new CleanWebpackPlugin(['bundles'], {
       root: path.resolve('./public'),
       verbose: true

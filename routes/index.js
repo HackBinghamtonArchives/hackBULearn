@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* GET dashboard page. TODO: improve this logic */
+router.get('/dashboard*', function(req, res, next) {
+  res.render('dashboard', { title: 'HackBU Learn' });
+});
+
 module.exports = router;

@@ -1,0 +1,11 @@
+@import '../../lib/common.scss';
+
+.sidebar {
+  @include make-xs-column(2);
+  height: 100%;
+  min-height: 100%;
+  margin-top: -1 * $navbar-height;
+  z-index: -1;
+  background-color: $sidebar-bg;
+  border-right: 1px solid darken($sidebar-bg, 10%);
+}

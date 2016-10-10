@@ -1,0 +1,59 @@
+@import '../../lib/common.scss';
+
+.navigation {
+  height: $navbar-height;
+  line-height: $navbar-height;
+  background-color: $body-bg;
+
+  &__logo {
+    @include make-xs-column(2);
+    height: $navbar-height;
+    text-align: center;
+    background-color: $logo-bg;
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+    border-color: darken($logo-bg, 10%);
+
+    img {
+      height: $font-size-large;
+    }
+  }
+
+  &__filler {
+    @include make-xs-column(8);
+    height: $navbar-height;
+    border-bottom: 1px solid darken($body-bg, 10%);
+  }
+
+  &__user_menu {
+    @include make-xs-column(2);
+    height: $navbar-height;
+    border-color: darken($body-bg, 10%);
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    cursor: pointer;
+
+    &__name {
+      color: $text-color;
+      text-align: center;
+      color: $gray;
+      text-indent: -5px;
+
+      &::before {
+        @include fa-icon;
+        content: '\f007';
+        margin-right: 15px;
+        color: $gray-light;
+      }
+
+      &::after {
+        @include fa-icon;
+        content: '\f107';
+        float: right;
+        height: $navbar-height;
+        line-height: $navbar-height;
+        color: $gray-light;
+      }
+    }
+  }
+}

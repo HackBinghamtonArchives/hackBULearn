@@ -1,6 +1,6 @@
 @import '../../lib/common.scss';
 
-body, html, #dashboard_container {
+.dashboard_layout, .container-fluid {
   height: 100%;
   min-height: 100%;
 }
