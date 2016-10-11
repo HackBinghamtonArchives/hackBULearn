@@ -4,11 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+app.use(session({
+    store: new RedisStore(),
+    secret: 'Change this once on server',
+    saveUninitialized: false,
+    resave: false
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
