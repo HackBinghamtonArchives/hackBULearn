@@ -12,7 +12,7 @@ export default class OverviewLayout extends React.Component {
   render () {
     return (
       <div className='overview_layout'>
-        
+
       </div>
     )
   }

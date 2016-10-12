@@ -1,0 +1,6 @@
+import _ from 'lodash'
+import jQuery from 'jquery'
+import 'bootstrap-sass'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './vendor.scss'

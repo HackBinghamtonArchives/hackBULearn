@@ -1,19 +1,16 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: {
-    home: ['./client/src/bundles/home/home.js'],
-    dashboard: ['./client/src/bundles/dashboard/dashboard.js'],
-    vendor: ['lodash', 'jquery', 'bootstrap-sass']
+    vendor: ['./client/src/bundles/vendor/vendor.js']
   },
   output: {
     path: path.resolve('./public/bundles'),
     filename: '[name].learn.hackbu.js',
-    chunkFilename: '[id].learn.hackbu.bundle.js'
+    library: '[name]'
   },
   module: {
     loaders: [
@@ -62,14 +59,9 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin('[name].learn.hackbu.css'),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.learn.hackbu.js', Infinity),
-    new webpack.ProvidePlugin({
-      'jQuery': 'jquery'
-    }),
-    new CleanWebpackPlugin(['bundles'], {
-      root: path.resolve('./public'),
-      verbose: true
+    new webpack.DllPlugin({
+      name: '[name]',
+      path: path.join('./public/bundles', '[name].json')
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
