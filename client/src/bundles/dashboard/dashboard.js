@@ -19,6 +19,9 @@ ReactDOM.render(
       <Route path='/dashboard' component={DashboardLayout}>
         <IndexRedirect to='overview' />
         <Route path='overview' component={OverviewLayout} />
+        <Route path='courses' component={OverviewLayout} />
+        <Route path='achievements' component={OverviewLayout} />
+        <Route path='questions' component={OverviewLayout} />
       </Route>
     </Router>
   ),

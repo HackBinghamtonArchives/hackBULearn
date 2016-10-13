@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { UserMenu } from 'components'
+
 import './Navigation.scss'
-import logo from './logo.png'
+import logo from './logo_white.png'
 
 export default class Navigation extends React.Component {
   static propTypes = {}
@@ -19,11 +21,7 @@ export default class Navigation extends React.Component {
           <img src={'/bundles/' + logo} />
         </div>
         <div className='navigation__filler'></div>
-        <div className='navigation__user_menu'>
-          <div className='navigation__user_menu__name'>
-            Zach Power
-          </div>
-        </div>
+        <UserMenu name='Zach Power' />
       </div>
     )
   }

@@ -1,0 +1,77 @@
+@import '../../lib/common.scss';
+
+.user_menu {
+  @include make-xs-column(2);
+  border-bottom: 1px solid darken($body-bg, 10%);
+  height: $navbar-height;
+  position: relative;
+  padding-right: 0;
+
+  &__button {
+    border-left: 1px solid darken($body-bg, 10%);
+    text-align: center;
+    height: $navbar-height;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    position: relative;
+
+    &__icon {
+      height: $navbar-height * 0.6;
+      width: $navbar-height * 0.6;
+      line-height: ($navbar-height * 0.6);
+      margin: $navbar-height * 0.2 15px;
+      font-weight: 100;
+      font-size: $font-size-small;
+      letter-spacing: 1px;
+      text-align: center;
+      border-radius: 5px;
+      color: darken($gray-lighter, 20%);
+      border: 1px solid darken($gray-lighter, 10%);
+      background-color: $gray-lighter;
+      float: left;
+    }
+
+    &__name {
+      color: $gray;
+      display: inline;
+    }
+
+    &::after {
+      @include fa-icon;
+      content: '\f107';
+      float: right;
+      height: $navbar-height;
+      line-height: $navbar-height;
+      margin: 0 15px;
+      color: $gray-light;
+    }
+
+    &__list {
+      position: absolute;
+      top: $navbar-height;
+      right: 0;
+      min-width: 100%;
+      border-left: 1px solid darken($body-bg, 10%);
+      box-sizing: content-box;
+
+      &__item {
+        display: block;
+        cursor: pointer;
+        color: $gray;
+        text-decoration: none !important;
+        padding: 0 15px;
+        border-bottom: 1px solid darken($body-bg, 10%);
+        transition: color 0.25s ease-in-out;
+
+        .fa {
+          margin-right: 15px;
+        }
+
+        &:hover {
+          color: $belize-hole;
+        }
+      }
+    }
+  }
+}

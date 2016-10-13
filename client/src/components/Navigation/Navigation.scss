@@ -4,6 +4,8 @@
   height: $navbar-height;
   line-height: $navbar-height;
   background-color: $body-bg;
+  position: relative;
+  z-index: 2;
 
   &__logo {
     @include make-xs-column(2);
@@ -23,37 +25,5 @@
     @include make-xs-column(8);
     height: $navbar-height;
     border-bottom: 1px solid darken($body-bg, 10%);
-  }
-
-  &__user_menu {
-    @include make-xs-column(2);
-    height: $navbar-height;
-    border-color: darken($body-bg, 10%);
-    border-style: solid;
-    border-width: 0 0 1px 1px;
-    cursor: pointer;
-
-    &__name {
-      color: $text-color;
-      text-align: center;
-      color: $gray;
-      text-indent: -5px;
-
-      &::before {
-        @include fa-icon;
-        content: '\f007';
-        margin-right: 15px;
-        color: $gray-light;
-      }
-
-      &::after {
-        @include fa-icon;
-        content: '\f107';
-        float: right;
-        height: $navbar-height;
-        line-height: $navbar-height;
-        color: $gray-light;
-      }
-    }
   }
 }
