@@ -6,6 +6,7 @@
   height: $navbar-height;
   position: relative;
   padding-right: 0;
+  background-color: $body-bg;
 
   &__button {
     border-left: 1px solid darken($body-bg, 10%);
@@ -54,6 +55,8 @@
       min-width: 100%;
       border-left: 1px solid darken($body-bg, 10%);
       box-sizing: content-box;
+      background-color: $body-bg;
+      box-shadow: 0 2px 5px transparentize($gray, 0.9);
 
       &__item {
         display: block;

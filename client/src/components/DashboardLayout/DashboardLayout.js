@@ -18,7 +18,9 @@ export default class DashboardLayout extends React.Component {
       <div className='dashboard_layout'>
         <Navigation />
         <Sidebar />
-        {this.props.children}
+        <div className='dashboard_layout__content_container'>
+          {this.props.children}
+        </div>
       </div>
     )
   }

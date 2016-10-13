@@ -6,8 +6,7 @@ import { Route } from 'react-router'
 import { IndexRedirect } from 'react-router'
 import { browserHistory } from 'react-router'
 
-import { DashboardLayout } from 'components'
-import { OverviewLayout } from 'components'
+import { DashboardLayout, OverviewLayout, CoursesLayout } from 'components'
 
 import "./dashboard.scss"
 
@@ -19,7 +18,7 @@ ReactDOM.render(
       <Route path='/dashboard' component={DashboardLayout}>
         <IndexRedirect to='overview' />
         <Route path='overview' component={OverviewLayout} />
-        <Route path='courses' component={OverviewLayout} />
+        <Route path='courses' component={CoursesLayout} />
         <Route path='achievements' component={OverviewLayout} />
         <Route path='questions' component={OverviewLayout} />
       </Route>

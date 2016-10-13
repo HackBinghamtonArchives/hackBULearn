@@ -18,7 +18,7 @@ export default class Sidebar extends React.Component {
         <Link to='/dashboard/overview' className='sidebar__link'
                                        activeClassName='active'>
           <i className='fa fa-square-o sidebar__link__icon' aria-hidden='true'></i>
-          Dashboard
+          Overview
         </Link>
         <Link to='/dashboard/courses' className='sidebar__link'
                                       activeClassName='active'>
