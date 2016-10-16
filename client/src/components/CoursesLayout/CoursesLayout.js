@@ -17,7 +17,6 @@ export default class CoursesLayout extends React.Component {
       return (
         <CourseThumbnail title={'Course ' + (i+1)}
                          author='Zach Power'
-                         src='https://media.licdn.com/mpr/mpr/p/3/005/08c/1cc/0f286f6.jpg'
                          key={i} />
       )
     })

@@ -2,6 +2,8 @@ import React from 'react'
 
 import './CourseThumbnail.scss'
 
+import placeholder from './placeholder.png'
+
 export default class CourseThumbnail extends React.Component {
   static propTypes = {
     title: React.PropTypes.string,
@@ -33,13 +35,27 @@ export default class CourseThumbnail extends React.Component {
     }
   }
 
+  renderThumbnailImage() {
+    if(this.props.src) {
+      return (
+        <div className='course_thumbnail__content__image'
+             style={{backgroundImage: 'url(' + this.props.src + ')'}}>
+        </div>
+      )
+    } else {
+      return (
+        <div className='course_thumbnail__content__image'
+             style={{backgroundImage: 'url(/bundles/' + placeholder + ')'}}>
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <div className='course_thumbnail'>
         <div className='course_thumbnail__content'>
-          <div className='course_thumbnail__content__image'
-               style={{backgroundImage: 'url(' + this.props.src + ')'}}>
-          </div>
+          {this.renderThumbnailImage()}
           <div className='course_thumbnail__content__title'>
             {this.props.title}
           </div>
