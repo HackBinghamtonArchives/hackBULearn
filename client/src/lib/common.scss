@@ -10,9 +10,18 @@
 $space-mono: 'Space Mono', monospace;
 $roboto: 'Roboto', sans-serif;
 
+// Import Mixins
+@import './mixins/gradients';
+@import './mixins/effects';
+
 // Import Color Scheme
 @import './colors/flat';
 
-// UI Color Scheme
+// Main Page Colors
+$content-bg: darken($body-bg, 3%);
 $sidebar-bg: $wet-asphalt;
+
+// Navbar Colors
 $logo-bg: darken($sidebar-bg, 10%);
+$user-icon-bg: $content-bg;
+$navbar-border-color: darken($content-bg, 10%);

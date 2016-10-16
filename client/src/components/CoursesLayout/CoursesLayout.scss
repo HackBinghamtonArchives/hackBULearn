@@ -8,49 +8,18 @@
     font-size: $font-size-h1;
     font-weight: bolder;
     padding-bottom: 15px;
+    margin-bottom: 15px;
+    text-shadow: 0 1px 0 white;
 
     &::after {
       content: ' ';
       display: block;
       height: 15px;
-      border-bottom: 1px solid $gray-lighter;
+      border-bottom: 1px solid $navbar-border-color;
     }
   }
 
   &__tile_container {
     margin: 0 -15px;
-
-    &__item {
-      @include make-xs-column(3);
-      cursor: pointer;
-      transition: transform 0.25s ease-in-out;
-      transform: scale(1.00);
-
-      &__content {
-        width: 100%;
-        padding-top: 56.25%;
-        height: 0px;
-        background-color: $peter-river;
-        margin-bottom: 30 + $font-size-base;
-        border-radius: 5px;
-        border: 1px solid darken($peter-river, 10%);
-        box-shadow: inset 0 1px 0 lighten($peter-river, 10%);
-        line-height: 15 + $font-size-base;
-        text-align: center;
-        color: $gray;
-        background-image: url('./bearcat.png');
-        background-position: center center;
-        background-size: 25%;
-        background-repeat: no-repeat;
-
-        span {
-          color: $gray-light;
-        }
-      }
-
-      &:hover {
-        transform: scale(1.03);
-      }
-    }
   }
 }

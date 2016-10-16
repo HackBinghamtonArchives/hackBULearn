@@ -1,4 +1,5 @@
 import React from 'react'
+import { CourseThumbnail } from 'components'
 
 import './CoursesLayout.scss'
 
@@ -14,11 +15,10 @@ export default class CoursesLayout extends React.Component {
   renderTiles(series) {
     return _.times(20, (i) => {
       return (
-        <div className='courses_layout__tile_container__item'>
-          <div className='courses_layout__tile_container__item__content'>
-            Course {i + 1} <span>- {series}</span>
-          </div>
-        </div>
+        <CourseThumbnail title={'Course ' + (i+1)}
+                         author='Zach Power'
+                         src='https://media.licdn.com/mpr/mpr/p/3/005/08c/1cc/0f286f6.jpg'
+                         key={i} />
       )
     })
   }

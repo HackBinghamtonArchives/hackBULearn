@@ -1,0 +1,65 @@
+@import '../../lib/common.scss';
+
+.hero_unit {
+  @include linear-gradient(135deg, $turquoise, $emerald);
+  @include content-box-shadow;
+
+  height: 0px;
+  margin: 30px 15px;
+  padding-top: 37.5%;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+
+  &__iphone_image {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    bottom: 30px;
+    left: 50%;
+    text-align: center;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    right: 50%;
+    text-align: center;
+    transform: translateY(-50%);
+
+    &__logo {
+      width: 50%;
+    }
+
+    &__text {
+      color: lighten($turquoise, 40%);
+      font-size: $font-size-large;
+      font-weight: 100;
+      margin-top: 10px;
+
+      &__button {
+        @include content-box-hover-zoom(1.1);
+        background-color: $body-bg;
+        font-size: $font-size-base;
+        color: $turquoise;
+        padding: ($font-size-base / 2) ($font-size-base);
+        margin-top: 30px;
+        display: inline-block;
+        border-radius: 5px;
+        font-weight: 300;
+        border: 2px solid $body-bg;
+        text-decoration: none;
+
+        &:hover, &:active {
+          text-decoration: none;
+          color: $turquoise;
+        }
+      }
+    }
+  }
+}

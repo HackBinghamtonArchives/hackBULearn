@@ -1,4 +1,5 @@
 import React from 'react'
+import { HeroUnit } from 'components'
 
 export default class OverviewLayout extends React.Component {
   static propTypes = {}
@@ -12,7 +13,7 @@ export default class OverviewLayout extends React.Component {
   render () {
     return (
       <div className='overview_layout'>
-
+        <HeroUnit />
       </div>
     )
   }

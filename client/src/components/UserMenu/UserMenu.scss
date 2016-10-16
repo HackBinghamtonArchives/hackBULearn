@@ -2,14 +2,14 @@
 
 .user_menu {
   @include make-xs-column(2);
-  border-bottom: 1px solid darken($body-bg, 10%);
+  border-bottom: 1px solid $navbar-border-color;
   height: $navbar-height;
   position: relative;
   padding-right: 0;
   background-color: $body-bg;
 
   &__button {
-    border-left: 1px solid darken($body-bg, 10%);
+    border-left: 1px solid $navbar-border-color;
     text-align: center;
     height: $navbar-height;
     cursor: pointer;
@@ -27,9 +27,9 @@
       letter-spacing: 1px;
       text-align: center;
       border-radius: 5px;
-      color: darken($gray-lighter, 20%);
-      border: 1px solid darken($gray-lighter, 10%);
-      background-color: $gray-lighter;
+      color: darken($user-icon-bg, 20%);
+      border: 1px solid $navbar-border-color;
+      background-color: $user-icon-bg;
       float: left;
     }
 
@@ -53,7 +53,7 @@
       top: $navbar-height;
       right: 0;
       min-width: 100%;
-      border-left: 1px solid darken($body-bg, 10%);
+      border-left: 1px solid $navbar-border-color;
       box-sizing: content-box;
       background-color: $body-bg;
       box-shadow: 0 2px 5px transparentize($gray, 0.9);
@@ -64,7 +64,7 @@
         color: $gray;
         text-decoration: none !important;
         padding: 0 15px;
-        border-bottom: 1px solid darken($body-bg, 10%);
+        border-bottom: 1px solid $navbar-border-color;
         transition: color 0.25s ease-in-out;
 
         .fa {

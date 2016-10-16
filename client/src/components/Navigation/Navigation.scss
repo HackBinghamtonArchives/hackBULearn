@@ -24,6 +24,6 @@
   &__filler {
     @include make-xs-column(8);
     height: $navbar-height;
-    border-bottom: 1px solid darken($body-bg, 10%);
+    border-bottom: 1px solid $navbar-border-color;
   }
 }
