@@ -1,5 +1,7 @@
 import React from 'react'
-import { HeroUnit } from 'components'
+import { HeroUnit, CourseProgressOverview, OverviewGraph } from 'components'
+
+import './OverviewLayout.scss'
 
 export default class OverviewLayout extends React.Component {
   static propTypes = {}
@@ -12,8 +14,10 @@ export default class OverviewLayout extends React.Component {
 
   render () {
     return (
-      <div className='overview_layout'>
+      <div className='overview_layout clearfix'>
         <HeroUnit />
+        <CourseProgressOverview />
+        <OverviewGraph />
       </div>
     )
   }
