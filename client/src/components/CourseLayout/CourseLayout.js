@@ -13,9 +13,11 @@ export default class CourseLayout extends React.Component {
   }
 
   render() {
+    const course_layout = BEM('course_layout')
+
     return (
-      <div className='course_layout'>
-        <div className='courses_layout__heading'>
+      <div className={course_layout}>
+        <div className={course_layout.element('heading')}>
           Courses &amp; Workshops
         </div>
       </div>

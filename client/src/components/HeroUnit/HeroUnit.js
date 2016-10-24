@@ -1,4 +1,5 @@
 import React from 'react'
+import { block as BEM } from 'bem-class'
 
 import './HeroUnit.scss'
 
@@ -15,18 +16,21 @@ export default class HeroUnit extends React.Component {
   }
 
   render() {
+    const hero_unit = BEM('hero_unit')
+
     return (
-      <div className='hero_unit'>
-        <div className='hero_unit__content'>
-          <img className='hero_unit__content__logo' src={'/bundles/' + heroText} />
-          <div className='hero_unit__content__text'>
+      <div className={hero_unit}>
+        <div className={hero_unit.element('content')}>
+          <img className={hero_unit.element('logo')}
+               src={'/bundles/' + heroText} />
+          <div className={hero_unit.element('text')}>
             Create something new.
           </div>
-          <a href='#' className='hero_unit__content__text__button'>
+          <a href='#' className={hero_unit.element('button')}>
             View our courses
           </a>
         </div>
-        <div className='hero_unit__iphone_image'>
+        <div className={hero_unit.element('iphone_image')}>
           <img src={'/bundles/' + iphoneImage} />
         </div>
       </div>

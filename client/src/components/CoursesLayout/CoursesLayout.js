@@ -1,4 +1,5 @@
 import React from 'react'
+import { block as BEM } from 'bem-class'
 import { CourseThumbnail } from 'components'
 
 import './CoursesLayout.scss'
@@ -23,12 +24,14 @@ export default class CoursesLayout extends React.Component {
   }
 
   render() {
+    const courses_layout = BEM('courses_layout')
+
     return (
-      <div className='courses_layout'>
-        <div className='courses_layout__heading'>
+      <div className={courses_layout}>
+        <div className={courses_layout.element('heading')}>
           Courses &amp; Workshops
         </div>
-        <div className='courses_layout__tile_container'>
+        <div className={courses_layout.element('tile_container')}>
           {this.renderTiles('Workshops')}
         </div>
       </div>

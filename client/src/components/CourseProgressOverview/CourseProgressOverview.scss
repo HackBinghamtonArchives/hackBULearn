@@ -7,81 +7,79 @@
     @include content-box-shadow;
     background-color: $body-bg;
     border-radius: 5px;
+  }
 
-    &__title {
-      font-size: $font-size-base;
-      font-weight: 800;
-      color: $gray;
-      padding: 15px;
+  &__title {
+    font-size: $font-size-base;
+    font-weight: 800;
+    color: $gray;
+    padding: 15px;
 
-      .fa {
-        text-align: center;
-        width: 10px;
-        margin-right: 15px;
-      }
+    .fa {
+      text-align: center;
+      width: 10px;
+      margin-right: 15px;
+    }
+  }
+
+  &__subtitle {
+    padding: 5px 15px;
+    background-color: darken($body-bg, 5%);
+    color: darken($gray-lighter, 10%);
+    border-color: darken($body-bg, 10%);
+    border-width: 1px 0;
+    border-style: solid;
+    font-size: $font-size-small;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__item {
+    padding: 15px;
+    border-bottom: 1px solid $gray-lighter;
+    font-weight: 800;
+    position: relative;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.25s ease-in-out;
+
+    &:last-child {
+      border: none;
     }
 
-    &__subtitle {
-      padding: 5px 15px;
-      background-color: darken($body-bg, 5%);
-      color: darken($gray-lighter, 10%);
-      border-color: darken($body-bg, 10%);
-      border-width: 1px 0;
-      border-style: solid;
+    &__icon {
+      $icon-size: 40px;
+      height: $icon-size;
+      width: $icon-size;
+      border-radius: 5px;
+      vertical-align: middle;
+      margin-right: 15px;
+      float: left;
+    }
+
+    &__author {
+      color: $gray-light;
       font-size: $font-size-small;
-      font-weight: 300;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      font-weight: 100;
     }
 
-    &__section {
-      &__item {
-        padding: 15px;
-        border-bottom: 1px solid $gray-lighter;
-        font-weight: 800;
-        position: relative;
-        cursor: pointer;
-        background-color: white;
-        transition: background-color 0.25s ease-in-out;
+    &::after {
+      @include fa-icon;
+      content: '\f105';
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
-        &:last-child {
-          border: none;
-        }
+    &:hover {
+      background-color: darken($body-bg, 3%);
+    }
 
-        &__icon {
-          $icon-size: 40px;
-          height: $icon-size;
-          width: $icon-size;
-          border-radius: 5px;
-          vertical-align: middle;
-          margin-right: 15px;
-          float: left;
-        }
-
-        &__subtitle {
-          color: $gray-light;
-          font-size: $font-size-small;
-          font-weight: 100;
-        }
-
-        &::after {
-          @include fa-icon;
-          content: '\f105';
-          position: absolute;
-          right: 15px;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-
-        &:hover {
-          background-color: darken($body-bg, 3%);
-        }
-
-        &:last-child {
-          border-bottom-left-radius: 5px;
-          border-bottom-right-radius: 5px;
-        }
-      }
+    &:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
     }
   }
 }

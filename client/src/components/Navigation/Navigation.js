@@ -1,4 +1,5 @@
 import React from 'react'
+import { block as BEM } from 'bem-class'
 
 import { UserMenu } from 'components'
 
@@ -15,12 +16,14 @@ export default class Navigation extends React.Component {
   }
 
   render () {
+    const navigation = BEM('navigation')
+
     return (
-      <div className='navigation'>
-        <div className='navigation__logo'>
+      <div className={navigation}>
+        <div className={navigation.element('logo')}>
           <img src={'/bundles/' + logo} />
         </div>
-        <div className='navigation__filler'></div>
+        <div className={navigation.element('filler')}></div>
         <UserMenu name='Zach Power' />
       </div>
     )

@@ -1,4 +1,5 @@
 import React from 'react'
+import { block as BEM } from 'bem-class'
 
 import { Navigation, Sidebar } from 'components'
 
@@ -14,11 +15,13 @@ export default class DashboardLayout extends React.Component {
   }
 
   render () {
+    const dashboard_layout = BEM('dashboard_layout')
+    
     return (
-      <div className='dashboard_layout'>
+      <div className={dashboard_layout}>
         <Navigation />
         <Sidebar />
-        <div className='dashboard_layout__content_container'>
+        <div className={dashboard_layout.element('content_container')}>
           {this.props.children}
         </div>
       </div>
