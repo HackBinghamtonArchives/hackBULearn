@@ -15,12 +15,17 @@ export default class OverviewLayout extends React.Component {
 
   render () {
     const overview_layout = BEM('overview_layout')
+    const row = overview_layout.element('row')
 
     return (
       <div className={overview_layout + ' clearfix'}>
-        <HeroUnit />
-        <CourseProgressOverview />
-        <OverviewGraph />
+        <div className={row}>
+          <HeroUnit />
+        </div>
+        <div className={row}>
+          <CourseProgressOverview />
+          <OverviewGraph />
+        </div>
       </div>
     )
   }
