@@ -28,6 +28,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: $gray;
+    text-decoration: none;
   }
 
   &__footer {
@@ -40,5 +42,9 @@
     .fa {
       margin-right: 8px;
     }
+  }
+
+  &:hover {
+    text-decoration: none !important;
   }
 }

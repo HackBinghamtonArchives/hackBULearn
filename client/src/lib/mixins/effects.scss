@@ -1,5 +1,5 @@
-@mixin content-box-shadow {
-  box-shadow: 0 0 15px darken($content-bg, 10%);
+@mixin content-box-shadow($color: $content-bg) {
+  box-shadow: 0 0 15px darken($color, 10%);
 }
 
 @mixin content-box-hover-zoom($zoom: 1.02) {

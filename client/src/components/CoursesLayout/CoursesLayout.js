@@ -17,8 +17,9 @@ export default class CoursesLayout extends React.Component {
     return _.times(20, (i) => {
       return (
         <CourseThumbnail title={'Course ' + (i+1)}
-                         author='Zach Power'
-                         key={i} />
+                         video_count={5}
+                         key={i}
+                         course_id={i} />
       )
     })
   }
