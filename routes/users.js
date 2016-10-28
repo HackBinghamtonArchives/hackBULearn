@@ -20,7 +20,7 @@ MongoClient.connect(url, function(err, database) {
     else {
         db = database;
         users = db.collection('users');
-        console.log("Connected correctly to server");
+        console.log("Connected correctly to users");
     }
 });
 
@@ -174,7 +174,7 @@ router.get('/courses', function(req, res, next) {
     });
 });
 
-router.post('/addProduct', function(req, res, next) {
+router.post('/addCourse', function(req, res, next) {
     if(!req.session.user) {
         res.status(401);
         res.send("Not logged in");
@@ -199,7 +199,7 @@ router.post('/addProduct', function(req, res, next) {
     });
 });
 
-router.post('/updateProduct', function(req, res, next) {
+router.post('/updateCourses', function(req, res, next) {
     if(!req.session.user) {
         res.status(401);
         res.send("Not logged in");
@@ -214,7 +214,7 @@ router.post('/updateProduct', function(req, res, next) {
     courses = db.collection('courses');
     product = req.body;
     product.user = req.session.user;
-    courses.updateOne({ "_id": new ObjectID(product._id) }, { $set: { "qty": product.qty }}, function(err, result) {
+    courses.updateOne({ "_id": new ObjectID(product._id) }, { $set: { "watched": true }}, function(err, result) {
         if(err) {
             res.status(500);
             res.send(err);
@@ -224,7 +224,8 @@ router.post('/updateProduct', function(req, res, next) {
     });
 });
 
-router.post('/deleteProduct', function(req, res, next) {
+/*
+router.post('/deleteCourses', function(req, res, next) {
     if(!req.session.user) {
         res.status(401);
         res.send("Not logged in");
@@ -246,5 +247,5 @@ router.post('/deleteProduct', function(req, res, next) {
         res.send(results);
     });
 });
-
+*/
 module.exports = router;
