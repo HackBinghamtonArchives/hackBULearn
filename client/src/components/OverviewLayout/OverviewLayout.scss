@@ -1,3 +1,10 @@
+@import '../../lib/common.scss';
+
 .overview_layout {
   padding-bottom: 30px;
+
+  &__row {
+    @include clearfix;
+    position: relative;
+  }
 }

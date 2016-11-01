@@ -1,15 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { block as BEM } from 'bem-class'
 
-import './CourseThumbnail.scss'
-
 import placeholder from './placeholder.png'
+
+import './CourseThumbnail.scss'
 
 export default class CourseThumbnail extends React.Component {
   static propTypes = {
     title: React.PropTypes.string,
-    author: React.PropTypes.string,
-    src: React.PropTypes.string
+    thumbnail: React.PropTypes.string,
+    video_count: React.PropTypes.number,
+    src: React.PropTypes.string,
+    course_id: React.PropTypes.number
   }
 
   state = {}
@@ -37,10 +40,10 @@ export default class CourseThumbnail extends React.Component {
   }
 
   renderThumbnailImage(className) {
-    if(this.props.src) {
+    if(this.props.thumbnail) {
       return (
         <div className={className.element('image')}
-             style={{backgroundImage: 'url(' + this.props.src + ')'}}>
+             style={{backgroundImage: 'url(' + this.props.thumbnail + ')'}}>
         </div>
       )
     } else {
@@ -54,23 +57,27 @@ export default class CourseThumbnail extends React.Component {
 
   render() {
     const course_thumbnail = BEM('course_thumbnail')
+    const content = course_thumbnail.element('content')
+    const title = course_thumbnail.element('title')
+    const footer = course_thumbnail.element('footer')
 
     return (
-      <div className={course_thumbnail}>
-        <div className={course_thumbnail.element('content')}>
+      <Link to={'/dashboard/course/' + this.props.course_id}
+            className={course_thumbnail}>
+        <div className={content}>
           {this.renderThumbnailImage(course_thumbnail)}
-          <div className={course_thumbnail.element('title')}>
+          <div className={title}>
             {this.props.title}
           </div>
-          <div className={course_thumbnail.element('footer') + ' clearfix'}>
+          <div className={footer + ' clearfix'}>
             <div className='pull-left'>
-              <i className='fa fa-user' aria-hidden='true'></i>
-              {this.props.author}
+              <i className='fa fa-video-camera' aria-hidden='true'></i>
+              {this.props.video_count} Videos
             </div>
             {this.renderCheckmark()}
           </div>
         </div>
-      </div>
+      </Link>
     )
   }
 }

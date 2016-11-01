@@ -75,7 +75,7 @@ router.post('/create', function(req, res, next) {
     async.waterfall([
         function(callback) {
             users.findOne({'user': req.body.user}, function(err, docs) {
-                if(docs) 
+                if(docs)
                     err = "There is already an account with that username";
                 else if(!req.body.user)
                     err = "Invalid username";
@@ -92,14 +92,14 @@ router.post('/create', function(req, res, next) {
                 else if (req.body.pass.length < 8)
                     err = "Password is not long enough";
                 else if(req.body.pass == req.body.pass.replace(/[A-Z]/g, '') ||
-                        req.body.pass == req.body.pass.replace(/[a-z]/g, '') || 
+                        req.body.pass == req.body.pass.replace(/[a-z]/g, '') ||
                         req.body.pass == req.body.pass.replace(/[0-9]/g, '')) {
                     err = "Password is missing: ";
                     if(req.body.pass == req.body.pass.replace(/[A-Z]/g, ''))
                         err += "\nUppercase letters";
                     if(req.body.pass == req.body.pass.replace(/[a-z]/g, ''))
                         err += "\nLowercase letters";
-                    if(req.body.pass == req.body.pass.replace(/[0-9]/g, '')) 
+                    if(req.body.pass == req.body.pass.replace(/[0-9]/g, ''))
                         err += "\nNumbers";
                 }
 
