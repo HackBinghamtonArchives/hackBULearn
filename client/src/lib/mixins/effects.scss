@@ -1,0 +1,12 @@
+@mixin content-box-shadow($color: $content-bg) {
+  box-shadow: 0 0 15px darken($color, 10%);
+}
+
+@mixin content-box-hover-zoom($zoom: 1.02) {
+  transform: scale(1.00);
+  transition: transform 0.25s ease-in-out;
+
+  &:hover {
+    transform: scale($zoom);
+  }
+}

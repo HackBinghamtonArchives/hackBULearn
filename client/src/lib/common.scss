@@ -1,0 +1,27 @@
+// Bootstrap Mixin & Variable Imports
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins';
+
+// Font Awesome Imports
+@import '~font-awesome/scss/variables';
+@import '~font-awesome/scss/mixins';
+
+// Font Families
+$space-mono: 'Space Mono', monospace;
+$roboto: 'Roboto', sans-serif;
+
+// Import Mixins
+@import './mixins/gradients';
+@import './mixins/effects';
+
+// Import Color Scheme
+@import './colors/flat';
+
+// Main Page Colors
+$content-bg: darken($body-bg, 3%);
+$sidebar-bg: $wet-asphalt;
+
+// Navbar Colors
+$logo-bg: darken($sidebar-bg, 10%);
+$user-icon-bg: $content-bg;
+$navbar-border-color: darken($content-bg, 10%);

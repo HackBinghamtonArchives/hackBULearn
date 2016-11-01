@@ -1,0 +1,66 @@
+@import '../../lib/common.scss';
+
+.course_progress_overview {
+  @include make-xs-column(4);
+
+  &__section_title {
+    padding: 5px 15px;
+    background-color: darken($body-bg, 5%);
+    color: darken($gray-lighter, 10%);
+    border-color: darken($body-bg, 10%);
+    border-width: 1px 0;
+    border-style: solid;
+    font-size: $font-size-small;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__item {
+    padding: 15px;
+    border-bottom: 1px solid $gray-lighter;
+    font-weight: 800;
+    position: relative;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.25s ease-in-out;
+
+    &:last-child {
+      border: none;
+    }
+
+    &::after {
+      @include fa-icon;
+      content: '\f105';
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:hover {
+      background-color: darken($body-bg, 3%);
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+
+  &__icon {
+    $icon-size: 40px;
+    height: $icon-size;
+    width: $icon-size;
+    border-radius: 5px;
+    vertical-align: middle;
+    margin-right: 15px;
+    float: left;
+  }
+
+  &__author {
+    color: $gray-light;
+    font-size: $font-size-small;
+    font-weight: 100;
+  }
+}
