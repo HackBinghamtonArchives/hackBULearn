@@ -9,12 +9,13 @@ var RedisStore = require('connect-redis')(session);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var courses = require('./routes/courses');
 
 var app = express();
 
 app.use(session({
     store: new RedisStore(),
-    secret: 'Change this once on server',
+    secret: 'glass lamp monitor board pencil speaker',
     saveUninitialized: false,
     resave: false
 }));
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/courses', courses);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

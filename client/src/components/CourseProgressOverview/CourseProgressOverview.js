@@ -1,5 +1,6 @@
 import React from 'react'
 import { block as BEM } from 'bem-class'
+
 import { Panel } from 'components'
 
 import './CourseProgressOverview.scss'
@@ -25,7 +26,6 @@ export default class CourseProgressOverview extends React.Component {
     const course_progress = BEM('course_progress_overview')
     const course_item = course_progress.element('item')
     const course_author = course_progress.element('author')
-
 
     return (
       <div className={course_item}>
