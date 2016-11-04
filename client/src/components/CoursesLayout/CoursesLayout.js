@@ -5,21 +5,26 @@ import { CourseThumbnail } from 'components'
 import './CoursesLayout.scss'
 
 export default class CoursesLayout extends React.Component {
-  static propTypes = {}
-
-  state = {}
+  static propTypes = {
+    courses: React.PropTypes.object.isRequired,
+    fetchCourses: React.PropTypes.func.isRequired
+  }
 
   constructor(props) {
     super(props)
   }
 
-  renderTiles(series) {
-    return _.times(20, (i) => {
+  componentDidMount() {
+    if(this.props.courses.data.length == 0) this.props.fetchCourses()
+  }
+
+  renderTiles() {
+    return _.map(this.props.courses.data, (course) => {
       return (
-        <CourseThumbnail title={'Course ' + (i+1)}
-                         video_count={5}
-                         key={i}
-                         course_id={i} />
+        <CourseThumbnail title={course.title}
+                         video_count={course.video_count}
+                         key={course.id}
+                         course_id={course.id} />
       )
     })
   }
@@ -33,7 +38,7 @@ export default class CoursesLayout extends React.Component {
           Courses &amp; Workshops
         </div>
         <div className={courses_layout.element('tile_container')}>
-          {this.renderTiles('Workshops')}
+          {this.renderTiles()}
         </div>
       </div>
     )
