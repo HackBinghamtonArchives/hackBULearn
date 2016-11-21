@@ -1,26 +1,27 @@
 import _ from 'lodash'
 import {
-  REQUEST_COURSES, RECEIVE_COURSES, RECEIVE_COURSES_ERROR
+  REQUEST_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_ERROR
 } from 'actions'
 
-export const courses = (state = {
+export const course = (state = {
   isFetching: false,
   caughtError: false,
-  data: []
+  data: {}
 }, action) => {
   switch(action.type) {
-    case REQUEST_COURSES:
+    case REQUEST_COURSE:
       return _.assign({}, state, {
         isFetching: true,
-        caughtError: false
+        caughtError: false,
+        data: {}
       })
-    case RECEIVE_COURSES:
+    case RECEIVE_COURSE:
       return _.assign({}, state, {
         isFetching: false,
         caughtError: false,
-        data: action.courses
+        data: action.course
       })
-    case RECEIVE_COURSES_ERROR:
+    case RECEIVE_COURSE_ERROR:
       return _.assign({}, state, {
         isFetching: false,
         caughtError: true

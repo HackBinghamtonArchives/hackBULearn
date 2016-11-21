@@ -21,6 +21,10 @@ $roboto: 'Roboto', sans-serif;
 $content-bg: darken($body-bg, 3%);
 $sidebar-bg: $wet-asphalt;
 
+$border-color: darken($content-bg, 5%);
+
+$dashboard-detail-title-height: 60px;
+
 // Navbar Colors
 $logo-bg: darken($sidebar-bg, 10%);
 $user-icon-bg: $content-bg;

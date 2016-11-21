@@ -1,1 +1,2 @@
-export CoursesLayout from './CoursesLayout/CoursesLayout'
+export Courses from './Courses/Courses'
+export Course from './Course/Course'

@@ -1,3 +1,4 @@
+// Dependencies
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -5,22 +6,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
+// Import Views
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var login = require('./routes/login');
 var courses = require('./routes/courses');
 
+// Initialize App
 var app = express();
 
-app.use(session({
-    store: new RedisStore(),
-    secret: 'glass lamp monitor board pencil speaker',
-    saveUninitialized: false,
-    resave: false
-}));
-
-// view engine setup
+// Configure Views
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -30,23 +27,34 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Attach Routes
 app.use('/', routes);
-app.use('/users', users);
+app.use('/login', login);
 app.use('/courses', courses);
 
-// catch 404 and forward to error handler
+// Configure passport
+var User = require('./models/user');
+passport.use(new LocalStrategy(User.authenticate));
+passport.serializeUser(User.serializeUser);
+passport.deserializeUser(User.deserializeUser);
+
+// Attach 404 Handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
+// Error Handler - Dev
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -57,8 +65,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// Error Handler - Prod
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
@@ -66,6 +73,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

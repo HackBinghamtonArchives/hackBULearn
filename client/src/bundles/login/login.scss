@@ -1,0 +1,14 @@
+@import '../../lib/common.scss';
+
+body, html, #login_container {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  @include linear-gradient(135deg, $turquoise, $emerald);
+}
+
+#login_container {
+  position: relative;
+}

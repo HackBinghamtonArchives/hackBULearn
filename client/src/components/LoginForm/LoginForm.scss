@@ -1,0 +1,102 @@
+@import '../../lib/common.scss';
+
+.login_form {
+  @include clearfix;
+  width: 33%;
+  padding: 15px;
+  position: relative;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &__title {
+    @include make-xs-column(12);
+    font-weight: 800;
+    font-size: $font-size-h1;
+    color: $content-bg;
+  }
+
+  &__subtitle {
+    @include make-xs-column(12);
+    font-weight: 100;
+    font-size: $font-size-large;
+    color: mix(saturate(mix($turquoise, $emerald), 50%), $body-bg, 40%);
+  }
+
+  &__content {
+    @include make-xs-column(12);
+
+    input {
+      display: block;
+      width: 100%;
+      outline: none;
+      background-color: transparentize($content-bg, 0.9);
+      border-width: 1px;
+      border-style: solid;
+      border-color: transparentize($content-bg, 0.8);
+      border-radius: 5px;
+      padding: 15px;
+      margin-top: 30px;
+      font-weight: normal;
+      color: $content-bg;
+      transition: background-color 0.5s, color 0.25s ease-in-out;
+
+      &:focus {
+        background-color: mix(saturate(mix($turquoise, $emerald), 50%), $body-bg, 40%);
+        color: $gray;
+
+        &::placeholder {
+          color: $gray-light;
+        }
+      }
+
+      &::placeholder {
+        color: transparentize($content-bg, 0.5);
+        font-weight: 100;
+      }
+    }
+  }
+
+  &__buttons {
+    @include make-xs-column(6);
+  }
+
+  &__button {
+    margin-top: 30px;
+    border-radius: 5px;
+    display: block;
+    padding: 15px;
+    text-align: center;
+    background-color: $content-bg;
+    color: mix($turquoise, $emerald);
+    border: 1px solid $content-bg;
+    transition: background-color 0.25s ease-in-out;
+
+    &:hover {
+      text-decoration: none;
+      color: mix($turquoise, $emerald);
+    }
+
+    &::before {
+      @include fa-icon;
+      content: '\f090';
+      padding-right: 5px;
+      margin-left: -5px;
+    }
+
+    &--signup {
+      background-color: transparent;
+      border-color: transparentize($content-bg, 0.3);
+      color: $content-bg;
+
+      &:hover {
+        color: $content-bg;
+        background-color: transparentize($content-bg, 0.9);
+      }
+
+      &::before {
+        content: '\f234';
+      }
+    }
+  }
+}
