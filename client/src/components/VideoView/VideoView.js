@@ -18,12 +18,17 @@ export default class VideoView extends React.Component {
 
   render () {
     const video_view = BEM('video_view')
+    var video_url = [
+      'https://www.youtube.com/embed/',
+      this.props.videoid,
+      '?color=white'
+    ].join('')
 
     return (
       <div className={video_view}>
         <div className='embed-responsive embed-responsive-16by9'>
           <iframe className='embed-responsive-item'
-                  src={'https://www.youtube.com/embed/' + this.props.videoid}
+                  src={video_url}
                   frameBorder='0' allowFullScreen>
           </iframe>
         </div>

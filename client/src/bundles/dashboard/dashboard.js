@@ -12,7 +12,7 @@ import reducers from 'reducers'
 import thunkMiddleware from 'redux-thunk'
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
-import { Dashboard, Overview } from 'components'
+import { DashboardMaster, Overview } from 'components'
 
 import { Courses, Course } from 'containers'
 
@@ -24,7 +24,7 @@ ReactDOM.render(
   (
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path='/dashboard' component={Dashboard}>
+        <Route path='/dashboard' component={DashboardMaster}>
           <IndexRedirect to='overview' />
           <Route path='overview' component={Overview} />
           <Route path='courses' component={Courses} />

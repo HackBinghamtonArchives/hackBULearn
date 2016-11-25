@@ -18,14 +18,9 @@ $roboto: 'Roboto', sans-serif;
 @import './colors/flat';
 
 // Main Page Colors
-$content-bg: darken($body-bg, 3%);
-$sidebar-bg: $wet-asphalt;
-
+$content-bg: $body-bg;
 $border-color: darken($content-bg, 5%);
 
-$dashboard-detail-title-height: 60px;
-
-// Navbar Colors
-$logo-bg: darken($sidebar-bg, 10%);
-$user-icon-bg: $content-bg;
-$navbar-border-color: darken($content-bg, 10%);
+$logo-height: 60px;
+$dashboard-detail-title-height: $logo-height;
+$sidebar-link-height: $logo-height * (3 / 4);

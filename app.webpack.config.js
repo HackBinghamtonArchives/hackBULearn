@@ -6,7 +6,8 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
   entry: {
     home: ['./client/src/bundles/home/home.js'],
-    dashboard: ['./client/src/bundles/dashboard/dashboard.js']
+    dashboard: ['./client/src/bundles/dashboard/dashboard.js'],
+    login: ['./client/src/bundles/login/login.js']
   },
   output: {
     path: path.resolve('./public/bundles'),

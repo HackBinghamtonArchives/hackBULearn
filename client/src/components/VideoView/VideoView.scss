@@ -52,7 +52,7 @@
     }
 
     &:hover {
-      background-color: lighten($silver, 5%);
+      background-color: darken($content-bg, 13%);
     }
 
     &--disabled {
@@ -61,7 +61,7 @@
       box-shadow: none;
 
       &:hover {
-        background-color: $silver;
+        background-color: darken($content-bg, 10%);
       }
 
       &:hover {

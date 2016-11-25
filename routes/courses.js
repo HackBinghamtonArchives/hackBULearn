@@ -1,35 +1,18 @@
 var express = require('express');
 var router = express.Router();
-var MongoClient = require('mongodb').MongoClient;
-var ObjectID = require('mongodb').ObjectID;
-var async = require('async');
-var validator = require('validator');
+var Course = require('../models/course');
 
-var BC_LEVEL = 10;
-var db = null;
-var courses = null;
-var url = 'mongodb://localhost:27017/hackBULearn';
-
-MongoClient.connect(url, function(err, database) {
-    if(err != null) {
-        console.error("Alert: no db connection :(");
-    }
-    else {
-        db = database;
-        courses = db.collection('courses');
-        console.log("Connected correctly to courses");
-    }
+router.get('/', function(req, res, next) {
+  Course.all(function(error, results) {
+    if(error) throw error;
+    res.json(results);
+  })
 });
 
-router.get('/allCourses', function(req, res, next) {
-    if(db == null) {
-        res.status(500);
-        res.send("No mongo connection, please try again later");
-        return;
-    }
-
-    courses.find({}).toArray(function(err, docs) {
-        res.send(docs);
-    });
+router.get('/:id', function(req, res, next) {
+  Course.read(req.params.id, function(error, results) {
+    if(error) throw error;
+    res.json(results);
+  })
 });
 module.exports = router;

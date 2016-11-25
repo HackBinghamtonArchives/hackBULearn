@@ -27,7 +27,7 @@ export default class Course extends React.Component {
   }
 
   isLastVideo() {
-    return this.state.selection == _.last(this.props.course.data.videos)._id
+    return this.state.selection == this.props.course.data.videos.length - 1
   }
 
   goToNextVideo() {
@@ -40,15 +40,15 @@ export default class Course extends React.Component {
     this.setState({ selection: i })
   }
 
-  renderTableViewItem(video, className) {
+  renderTableViewItem(video, index, className) {
     className = className.element('item').modifier({
       complete: false,
-      active: (video._id == this.state.selection)
+      active: this.state.selection == index
     })
 
     return (
       <div className={className} key={video._id}
-           onClick={() => this.changeSelection(video._id)}>
+           onClick={() => this.changeSelection(index)}>
         {video.title}
       </div>
     )
@@ -56,16 +56,14 @@ export default class Course extends React.Component {
 
   renderTableView() {
     const table_view = BEM('course__table_view');
-    return _.map(this.props.course.data.videos, (video) => {
-      return this.renderTableViewItem(video, table_view)
+    return _.map(this.props.course.data.videos, (video, i) => {
+      return this.renderTableViewItem(video, i, table_view)
     })
   }
 
   renderVideoView() {
     if(this.state.selection != -1) {
-      const selected_video = _.find(this.props.course.data.videos, (video) => {
-        return video._id == this.state.selection
-      })
+      const selected_video = this.props.course.data.videos[this.state.selection]
 
       return (
         <VideoView videoid={selected_video.videoid}

@@ -13,35 +13,31 @@ export default class Sidebar extends React.Component {
     super(props)
   }
 
+  renderLogo(className) {
+    return <div className={className.element('logo')}></div>
+  }
+
+  renderLink(text,icon,href,className) {
+    return (
+      <Link to={'/dashboard/' + href} className={className.element('link')}
+                                      activeClassName='active'>
+        <i className={'fa fa-' + icon + ' ' + className.element('link__icon')}
+           aria-hidden='true'></i>
+        {text}
+      </Link>
+    )
+  }
+
   render () {
     const sidebar = BEM('sidebar')
 
     return (
       <div className='sidebar'>
-        <Link to='/dashboard/overview' className={sidebar.element('link')}
-                                       activeClassName='active'>
-          <i className={'fa fa-square-o ' + sidebar.element('link__icon')}
-             aria-hidden='true'></i>
-          Overview
-        </Link>
-        <Link to='/dashboard/courses' className={sidebar.element('link')}
-                                      activeClassName='active'>
-          <i className={'fa fa-folder-o ' + sidebar.element('link__icon')}
-             aria-hidden='true'></i>
-          Courses
-        </Link>
-        <Link to='/dashboard/achievements' className={sidebar.element('link')}
-                                           activeClassName='active'>
-          <i className={'fa fa-star-o ' + sidebar.element('link__icon')}
-             aria-hidden='true'></i>
-          Achievements
-        </Link>
-        <Link to='/dashboard/questions' className={sidebar.element('link')}
-                                        activeClassName='active'>
-          <i className={'fa fa-comment-o ' + sidebar.element('link__icon')}
-             aria-hidden='true'></i>
-          Questions
-        </Link>
+        {this.renderLogo(sidebar)}
+        {this.renderLink('Overview', 'square-o', 'overview', sidebar)}
+        {this.renderLink('Courses', 'folder-o', 'courses', sidebar)}
+        {this.renderLink('Achievements', 'star-o', 'achievements', sidebar)}
+        {this.renderLink('Questions', 'comment-o', 'questions', sidebar)}
       </div>
     )
   }
