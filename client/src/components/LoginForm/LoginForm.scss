@@ -1,102 +1,184 @@
 @import '../../lib/common.scss';
 
-.login_form {
-  @include clearfix;
-  width: 33%;
-  padding: 15px;
-  position: relative;
-  margin: 0 auto;
+@keyframes auth_form_transition_in {
+  0% {
+    opacity: 0.0;
+    margin-top: -30px;
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  50% {
+    opacity: 0.0;
+    margin-top: -30px;
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  100% {
+    opacity: 1.0;
+    margin-top: 0px;
+    transform: translateY(-50%) scale(1.0);
+  }
+}
+
+@keyframes auth_form_display_message {
+  0% {
+    opacity: 0.0;
+    margin-top: -30px;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 0.0;
+    margin-top: -30px;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 1.0;
+    margin-top: 0px;
+    transform: scale(1.0);
+  }
+}
+
+.auth_form {
+  @include make-xs-column(4);
+  @include make-xs-column-offset(4);
+  position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(1.0);
+  animation-name: auth_form_transition_in;
+  animation-duration: 0.75s;
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-iteration-count: 1;
 
-  &__title {
-    @include make-xs-column(12);
-    font-weight: 800;
-    font-size: $font-size-h1;
-    color: $content-bg;
+  &__logo {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background-image: url('./bearcat_white.png');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: darken($content-bg, 20%);
+    margin: 0 auto;
+    margin-bottom: 30px;
   }
 
-  &__subtitle {
-    @include make-xs-column(12);
-    font-weight: 100;
-    font-size: $font-size-large;
-    color: mix(saturate(mix($turquoise, $emerald), 50%), $body-bg, 40%);
+  &__fields {
+    @include content-box-shadow;
+    width: 100%;
+    background-color: $content-bg;
+    padding: 30px;
+    border-radius: 5px;
   }
 
-  &__content {
-    @include make-xs-column(12);
+  &__field {
+    margin-bottom: 15px;
+
+    label {
+      font-size: $font-size-small - 2;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: $turquoise;
+      letter-spacing: 1px;
+      margin-bottom: 0;
+    }
 
     input {
+      outline: none;
       display: block;
       width: 100%;
-      outline: none;
-      background-color: transparentize($content-bg, 0.9);
-      border-width: 1px;
       border-style: solid;
-      border-color: transparentize($content-bg, 0.8);
-      border-radius: 5px;
-      padding: 15px;
-      margin-top: 30px;
-      font-weight: normal;
-      color: $content-bg;
-      transition: background-color 0.5s, color 0.25s ease-in-out;
+      border-width: 0 0 1px 0;
+      border-color: darken($content-bg, 5%);
+      font-size: $font-size-large;
+      padding-bottom: 2px;
+      transition: border-color 0.25s ease-in-out;
+      color: darken($content-bg, 75%);
 
       &:focus {
-        background-color: mix(saturate(mix($turquoise, $emerald), 50%), $body-bg, 40%);
-        color: $gray;
-
-        &::placeholder {
-          color: $gray-light;
-        }
-      }
-
-      &::placeholder {
-        color: transparentize($content-bg, 0.5);
-        font-weight: 100;
+        border-color: $turquoise;
       }
     }
   }
 
-  &__buttons {
-    @include make-xs-column(6);
-  }
-
   &__button {
-    margin-top: 30px;
-    border-radius: 5px;
-    display: block;
-    padding: 15px;
+    $dimensions: 40px;
+    position: relative;
+    width: 2 * $dimensions;
+    margin: 0 auto;
+    font-size: $font-size-base;
+    font-weight: 300;
+    color: $peter-river;
     text-align: center;
-    background-color: $content-bg;
-    color: mix($turquoise, $emerald);
-    border: 1px solid $content-bg;
-    transition: background-color 0.25s ease-in-out;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: color 0.25s ease-in-out;
 
     &:hover {
-      text-decoration: none;
-      color: mix($turquoise, $emerald);
+      color: darken($peter-river, 10%);
+
+      &::before {
+        border-color: darken($peter-river, 10%);
+      }
     }
 
     &::before {
       @include fa-icon;
-      content: '\f090';
-      padding-right: 5px;
-      margin-left: -5px;
+      content: '\f00c';
+      display: block;
+      width: $dimensions;
+      height: $dimensions;
+      border-radius: $dimensions;
+      border: 1px solid $peter-river;
+      text-align: center;
+      line-height: $dimensions - 1;
+      font-size: $dimensions / 2;
+      position: relative;
+      margin: 0 auto 2px;
+      transition: border-color 0.25s ease-in-out;
     }
+  }
 
-    &--signup {
-      background-color: transparent;
-      border-color: transparentize($content-bg, 0.3);
-      color: $content-bg;
+  &__activity_indicator {
+    @include content-box-shadow;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 50%;
+    margin-left: -30px;
+    top: 50%;
+    margin-top: -30px;
+    background-color: $content-bg;
+    border: 15px solid $content-bg;
+    border-radius: 5px;
+  }
 
-      &:hover {
-        color: $content-bg;
-        background-color: transparentize($content-bg, 0.9);
-      }
+  &__switch_link {
+    margin-top: 15px;
+    font-size: $font-size-small;
+    font-weight: 200;
+    text-align: center;
+    color: saturate(lighten(mix($turquoise, $emerald), 20%), 20%);
 
-      &::before {
-        content: '\f234';
-      }
+    b {
+      font-weight: 400;
+      text-decoration: underline;
+      cursor: pointer;
     }
+  }
+
+  &__message {
+    color: $alizarin;
+    font-size: $font-size-small;
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 0;
+    opacity: 1.0;
+    transform: scale(1.0);
+    animation-name: auth_form_display_message;
+    animation-duration: 0.75s;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation-iteration-count: 1;
   }
 }

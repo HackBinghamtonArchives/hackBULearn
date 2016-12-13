@@ -10,11 +10,11 @@ export const course = (state = {
 }, action) => {
   switch(action.type) {
     case REQUEST_COURSE:
-      return _.assign({}, state, {
+      return {
         isFetching: true,
         caughtError: false,
         data: {}
-      })
+      }
     case RECEIVE_COURSE:
       return _.assign({}, state, {
         isFetching: false,

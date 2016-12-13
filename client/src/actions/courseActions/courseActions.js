@@ -24,7 +24,7 @@ export const receiveCoursesError = (message) => {
 }
 
 export const fetchCourses = (dispatch) => () => {
-  dispatch(requestCourses)
+  dispatch(requestCourses())
 
   return fetch('/courses')
     .then(response => response.json())
@@ -56,7 +56,7 @@ export const receiveCourseError = (message) => {
 }
 
 export const fetchCourse = (dispatch) => (id) => {
-  dispatch(requestCourse)
+  dispatch(requestCourse())
 
   return fetch('/courses/' + id)
     .then(response => response.json())

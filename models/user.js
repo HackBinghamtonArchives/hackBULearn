@@ -1,36 +1,26 @@
 const ObjectId = require('mongodb').ObjectId;
 const async = require('async');
-const db = require('../config/db');
+var mongoose = require('mongoose');
+var bcrypt   = require('bcrypt');
 
-// Authentication Logic
-exports.authenticate = function(username, password, callback) {
-  return async.waterfall([
-    db.get,
-    function(database, done) {
-      if(error) return done(error);
-      database.collection('users').findOne({ username: username }, done);
-    },
-    function(user, done) {
-      if(!user) {
-        return done(null, false, { message: 'Invalid Username' });
-      }
+// Generate model
+const schema = mongoose.Schema({
+  local: {
+    username: String,
+    password: String,
+    email: String,
+    firstname: String,
+    lastname: String
+  }
+});
 
-      if(!user.validPassword(password)) {
-        return done(null, false, { message: 'Invalid Password' });
-      }
-
-      return done(null, user);
-    },
-    callback
-  ])
+// Authentication methods
+schema.methods.generateHash = function(password, callback) {
+  return bcrypt.hash(password, 10, callback);
 }
 
-// Serialization Logic
-exports.serializeUser = function(user, callback) {
-  return callback(null, user.id);
+schema.methods.validatePassword = function(password, callback) {
+  return bcrypt.compare(password, this.local.password, callback);
 }
 
-// Deserialization Logic
-exports.deserializeUser = function(id, callback) {
-  return User.findById(id, callback);
-}
+module.exports = mongoose.model('User', schema);

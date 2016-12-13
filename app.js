@@ -8,11 +8,15 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var mongoose = require('mongoose');
+var constants = require('./config/constants');
+var flash = require('connect-flash');
 
-// Import Views
-var routes = require('./routes/index');
-var login = require('./routes/login');
-var courses = require('./routes/courses');
+// Connect to database
+mongoose.connect(constants.dburl);
+
+// Configure Authentication Library
+require('./config/passport')(passport);
 
 // Initialize App
 var app = express();
@@ -27,25 +31,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
+app.use(session({secret: 'keyboard cat'}));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Attach Routes
-app.use('/', routes);
-app.use('/login', login);
-app.use('/courses', courses);
+require('./routes/index')(app);
+require('./routes/login')(app,passport);
+require('./routes/courses')(app);
 
 // Configure passport
-var User = require('./models/user');
-passport.use(new LocalStrategy(User.authenticate));
-passport.serializeUser(User.serializeUser);
-passport.deserializeUser(User.deserializeUser);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Attach 404 Handler
 app.use(function(req, res, next) {
@@ -57,8 +56,7 @@ app.use(function(req, res, next) {
 // Error Handler - Dev
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
+    res.json({
       message: err.message,
       error: err
     });
