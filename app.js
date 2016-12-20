@@ -10,7 +10,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var constants = require('./config/constants');
-var flash = require('connect-flash');
 
 // Connect to database
 mongoose.connect(constants.dburl);
@@ -32,7 +31,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));

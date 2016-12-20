@@ -2,6 +2,7 @@ import React from 'react'
 import { block as BEM } from 'bem-class'
 import { ActivityIndicator } from 'components'
 import fetch from 'isomorphic-fetch'
+import _ from 'lodash'
 
 import './LoginForm.scss'
 
@@ -16,7 +17,7 @@ export default class LoginForm extends React.Component {
     lastname: '',
     loading: false,
     currentForm: 'login',
-    message: null
+    messages: {}
   }
 
   constructor(props) {
@@ -82,21 +83,21 @@ export default class LoginForm extends React.Component {
       })
       .then((json) => {
         if(json.error) {
-          that.setState({ loading: false, message: json.error })
+          that.setState({ loading: false, messages: json.error })
         } else {
           window.location.href = '/dashboard';
         }
       })
       .catch((error) => {
-        that.setState({ loading: false, message: error.message })
+        that.setState({ loading: false, messages: error.message })
       })
   }
 
   switchForm() {
     if(this.state.currentForm == 'login') {
-      this.setState({ currentForm: 'signup', message: null })
+      this.setState({ currentForm: 'signup', messages: {} })
     } else {
-      this.setState({ currentForm: 'login', message: null })
+      this.setState({ currentForm: 'login', messages: {} })
     }
   }
 
@@ -111,12 +112,7 @@ export default class LoginForm extends React.Component {
   }
 
   renderHeader(className) {
-    return (
-      <div>
-        <div className={className.element('logo')}></div>
-        {this.renderMessage(className)}
-      </div>
-    )
+    return <div className={className.element('logo')}></div>
   }
 
   renderLoginForm(className) {
@@ -128,15 +124,29 @@ export default class LoginForm extends React.Component {
             <label>Username</label>
             <input type='text' value={this.state.username}
                    onChange={this.onUsernameChange} />
+            {this.renderMessageFor('username', className)}
           </div>
           <div className={className.element('field')}>
             <label>Password</label>
             <input type='password' value={this.state.password}
                    onChange={this.onPasswordChange} />
+            {this.renderMessageFor('password', className)}
           </div>
           {this.renderButton(className)}
         </div>
       )
+    }
+  }
+
+  renderMessageFor(field, className) {
+    if(this.state.messages[field]) {
+      return _.map(this.state.messages[field], (message) => {
+        return (
+          <div className={className.element('message')} key={message}>
+            {message}
+          </div>
+        )
+      })
     }
   }
 
@@ -149,26 +159,32 @@ export default class LoginForm extends React.Component {
             <label>First Name</label>
             <input type='text' value={this.state.firstname}
                    onChange={this.onFirstNameChange} />
+            {this.renderMessageFor('firstname', className)}
           </div>
           <div className={className.element('field')}>
             <label>Last Name</label>
             <input type='text' value={this.state.lastname}
                    onChange={this.onLastNameChange} />
+            {this.renderMessageFor('lastname', className)}
           </div>
           <div className={className.element('field')}>
             <label>Email Address</label>
             <input type='text' value={this.state.email}
                    onChange={this.onEmailChange} />
+            {this.renderMessageFor('email', className)}
           </div>
           <div className={className.element('field')}>
             <label>Username</label>
             <input type='text' value={this.state.username}
                    onChange={this.onUsernameChange} />
+            {this.renderMessageFor('username', className)}
           </div>
           <div className={className.element('field')}>
             <label>Password</label>
             <input type='password' value={this.state.password}
                    onChange={this.onPasswordChange} />
+
+            {this.renderMessageFor('password', className)}
           </div>
           {this.renderButton(className)}
         </div>
@@ -205,16 +221,6 @@ export default class LoginForm extends React.Component {
           </div>
         )
       }
-    }
-  }
-
-  renderMessage(className) {
-    if(this.state.message) {
-      return (
-        <div className={className.element('message')}>
-          {this.state.message}
-        </div>
-      );
     }
   }
 

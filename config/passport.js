@@ -2,6 +2,8 @@ const waterfall = require('async/waterfall');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 const strings = require('./strings');
+const validators = require('./validators');
+const validate = require('validate.js');
 
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
@@ -23,12 +25,16 @@ module.exports = function(passport) {
       // Register a new user
       waterfall([
         function(next) {
+          // Validate inputs
+          return next(validate(req.body, validators.userRegistration));
+        },
+        function(next) {
           // Check if username is taken
           return User.findOne({'local.username': username}, next);
         },
         function(user, next) {
           // Create new user
-          if(user) return next(strings.usernameTaken);
+          if(user) return next({ username: [ strings.usernameTaken ] });
           var newUser = new User({
             local: {
               username: username,
@@ -52,42 +58,34 @@ module.exports = function(passport) {
         }
       ], function(err, user) {
         // Return to router
-        if(err == strings.usernameTaken) {
-          return callback(err);
-        } else {
-          throw err;
-        }
-
-        return callback(null, user);
+        return callback(err, user);
       });
     } else {
       // Login an existing user
       waterfall([
+        function(next) {
+          // Validate inputs
+          return next(validate(req.body, validators.userLogin));
+        },
         function(next) {
           // Find if user exists
           return User.findOne({'local.username': username}, next);
         },
         function(user, next) {
           // Check if password matches
-          if(!user) return next(strings.userNotFound);
+          if(!user) return next({ username: [ strings.userNotFound ] });
           return user.validatePassword(password, function(err, isValid) {
             next(err, isValid, user);
           });
         },
         function(isValid, user, next) {
           // Send error message if password is invalid
-          if(!isValid) return next(strings.wrongPassword);
+          if(!isValid) return next({ password: [ strings.wrongPassword ] });
           return callback(null, user);
         }
       ], function(err, user) {
-        // Handle errors, return results to router
-        if(err == strings.userNotFound || err == strings.wrongPassword) {
-          return callback(err);
-        } else {
-          throw err;
-        }
-
-        return callback(null, user);
+        // Return to router
+        return callback(err, user);
       });
     }
   }));
