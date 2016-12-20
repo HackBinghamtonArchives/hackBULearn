@@ -37,6 +37,9 @@ export default class CourseThumbnail extends React.Component {
             <div className={course_thumbnail.element('description')}>
               {this.props.description}
             </div>
+            <div className={course_thumbnail.element('button')}>
+              Open Course
+            </div>
           </div>
         </Link>
       </div>
