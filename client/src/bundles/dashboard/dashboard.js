@@ -12,9 +12,9 @@ import reducers from 'reducers'
 import thunkMiddleware from 'redux-thunk'
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
-import { DashboardMaster, Overview } from 'components'
+import { DashboardMaster } from 'components'
 
-import { Courses, Course } from 'containers'
+import { Courses, Course, Overview } from 'containers'
 
 import "./dashboard.scss"
 

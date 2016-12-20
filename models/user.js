@@ -1,17 +1,19 @@
-const ObjectId = require('mongodb').ObjectId;
 const async = require('async');
-var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema,
+      ObjectId = Schema.ObjectId;
 
 // Generate model
-const schema = mongoose.Schema({
+const schema = Schema({
   local: {
     username: String,
     password: String,
     email: String,
     firstname: String,
     lastname: String
-  }
+  },
+  videos: [{ type: Schema.Types.ObjectId, ref: 'Video' }]
 });
 
 // Authentication methods

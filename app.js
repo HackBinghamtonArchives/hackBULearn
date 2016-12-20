@@ -39,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('./routes/index')(app);
 require('./routes/login')(app,passport);
 require('./routes/courses')(app);
+require('./routes/user')(app);
 
 // Configure passport
 app.use(passport.initialize());
