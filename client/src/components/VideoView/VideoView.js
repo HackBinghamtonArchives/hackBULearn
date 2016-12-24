@@ -31,7 +31,7 @@ export default class VideoView extends React.Component {
       <div className={video_view}>
         <div className='embed-responsive embed-responsive-16by9'>
         <YouTube videoId={this.props.videoid}
-                 onStateChange={this.videoStateChanged} />
+          onStateChange={this.videoStateChanged} />
         </div>
         <div className={video_view.element('download_button')}>
           Download Example Files
