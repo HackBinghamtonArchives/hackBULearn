@@ -61,7 +61,8 @@ export const addVideoToUser = (dispatch) => (id) => {
   dispatch(requestAddVideoToUser())
 
   return fetch('/user/videos/add/' + id, {
-      credentials: 'same-origin'
+      credentials: 'same-origin',
+      method: 'post'
     })
     .then(response => response.json())
     .then(json => dispatch(receiveAddVideoToUser(json)))

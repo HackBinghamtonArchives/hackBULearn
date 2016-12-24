@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import { block as BEM } from 'bem-class'
-import { DashboardDetail } from 'components'
+import { DashboardDetail, ActivityIndicator } from 'components'
 
 import './Overview.scss'
 
@@ -21,15 +21,22 @@ export default class Overview extends React.Component {
     super(props)
   }
 
+  renderActivityIndicator(className) {
+    if(this.props.user.isFetching) {
+      return (
+        <div className={className.element('activity_indicator')}>
+          <ActivityIndicator />
+        </div>
+      )
+    }
+  }
+
   render () {
     const overview = BEM('overview')
-    const row = overview.element('row')
 
     return (
       <DashboardDetail title='Overview' icon='square-o'>
-        <div className={overview + ' clearfix'}>
-          {JSON.stringify(this.props.user)}
-        </div>
+        {this.renderActivityIndicator(overview)}
       </DashboardDetail>
     )
   }

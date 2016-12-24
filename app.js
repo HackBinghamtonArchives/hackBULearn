@@ -40,6 +40,7 @@ require('./routes/index')(app);
 require('./routes/login')(app,passport);
 require('./routes/courses')(app);
 require('./routes/user')(app);
+require('./routes/hackathons')(app);
 
 // Configure passport
 app.use(passport.initialize());

@@ -13,6 +13,7 @@ $roboto: 'Roboto', sans-serif;
 // Import Mixins
 @import './mixins/gradients';
 @import './mixins/effects';
+@import './mixins/utilities';
 
 // Import Color Scheme
 @import './colors/flat';
@@ -20,6 +21,7 @@ $roboto: 'Roboto', sans-serif;
 // Main Page Colors
 $content-bg: $body-bg;
 $border-color: darken($content-bg, 5%);
+$detail-bg: lighten($border-color, 3%);
 
 $logo-height: 60px;
 $dashboard-detail-title-height: $logo-height;

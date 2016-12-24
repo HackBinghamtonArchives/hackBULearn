@@ -35,8 +35,8 @@ export default class Sidebar extends React.Component {
       <div className='sidebar'>
         {this.renderLogo(sidebar)}
         {this.renderLink('Overview', 'square-o', 'overview', sidebar)}
+        {this.renderLink('Hackathons', 'calendar-o', 'hackathons', sidebar)}
         {this.renderLink('Courses', 'folder-o', 'courses', sidebar)}
-        {this.renderLink('Achievements', 'star-o', 'achievements', sidebar)}
         {this.renderLink('Questions', 'comment-o', 'questions', sidebar)}
       </div>
     )

@@ -7,14 +7,14 @@ import { IndexRedirect } from 'react-router'
 import { browserHistory } from 'react-router'
 
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware,  } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import reducers from 'reducers'
 import thunkMiddleware from 'redux-thunk'
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 import { DashboardMaster } from 'components'
 
-import { Courses, Course, Overview } from 'containers'
+import { Courses, Course, Overview, Hackathons } from 'containers'
 
 import "./dashboard.scss"
 
@@ -29,7 +29,7 @@ ReactDOM.render(
           <Route path='overview' component={Overview} />
           <Route path='courses' component={Courses} />
           <Route path='courses/:id' component={Course} />
-          <Route path='achievements' component={Overview} />
+          <Route path='hackathons' component={Hackathons} />
           <Route path='questions' component={Overview} />
         </Route>
       </Router>

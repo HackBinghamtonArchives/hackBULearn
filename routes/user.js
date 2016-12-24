@@ -3,7 +3,7 @@ var User = require('../models/user');
 var Video = require('../models/video');
 
 module.exports = function(app) {
-  const publicFields = 'local.username local.firstname videos';
+  const publicFields = 'local.username local.firstname local.lastname videos';
 
   app.get('/user/info', function(req, res) {
     if(!req.isAuthenticated()) return res.json({ error: 'Access Denied' });
@@ -15,7 +15,7 @@ module.exports = function(app) {
       })
   });
 
-  app.get('/user/videos/add/:id', function(req, res) {
+  app.post('/user/videos/add/:id', function(req, res) {
     if(!req.isAuthenticated()) return res.json({ error: 'Access Denied' });
     async.waterfall([
       function(next) {
