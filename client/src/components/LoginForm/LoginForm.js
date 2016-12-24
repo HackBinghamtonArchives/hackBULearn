@@ -123,13 +123,13 @@ export default class LoginForm extends React.Component {
           <div className={className.element('field')}>
             <label>Username</label>
             <input type='text' value={this.state.username}
-                   onChange={this.onUsernameChange} />
+              onChange={this.onUsernameChange} />
             {this.renderMessageFor('username', className)}
           </div>
           <div className={className.element('field')}>
             <label>Password</label>
             <input type='password' value={this.state.password}
-                   onChange={this.onPasswordChange} />
+              onChange={this.onPasswordChange} />
             {this.renderMessageFor('password', className)}
           </div>
           {this.renderButton(className)}
@@ -158,31 +158,31 @@ export default class LoginForm extends React.Component {
           <div className={className.element('field')}>
             <label>First Name</label>
             <input type='text' value={this.state.firstname}
-                   onChange={this.onFirstNameChange} />
+              onChange={this.onFirstNameChange} />
             {this.renderMessageFor('firstname', className)}
           </div>
           <div className={className.element('field')}>
             <label>Last Name</label>
             <input type='text' value={this.state.lastname}
-                   onChange={this.onLastNameChange} />
+              onChange={this.onLastNameChange} />
             {this.renderMessageFor('lastname', className)}
           </div>
           <div className={className.element('field')}>
             <label>Email Address</label>
             <input type='text' value={this.state.email}
-                   onChange={this.onEmailChange} />
+              onChange={this.onEmailChange} />
             {this.renderMessageFor('email', className)}
           </div>
           <div className={className.element('field')}>
             <label>Username</label>
             <input type='text' value={this.state.username}
-                   onChange={this.onUsernameChange} />
+              onChange={this.onUsernameChange} />
             {this.renderMessageFor('username', className)}
           </div>
           <div className={className.element('field')}>
             <label>Password</label>
             <input type='password' value={this.state.password}
-                   onChange={this.onPasswordChange} />
+              onChange={this.onPasswordChange} />
 
             {this.renderMessageFor('password', className)}
           </div>

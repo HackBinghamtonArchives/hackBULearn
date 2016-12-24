@@ -20,10 +20,10 @@ export default class Sidebar extends React.Component {
   renderLink(text,icon,href,className) {
     return (
       <Link to={'/dashboard/' + href} className={className.element('link')}
-                                      activeClassName='active'>
-        <i className={'fa fa-' + icon + ' ' + className.element('link__icon')}
-           aria-hidden='true'></i>
-        {text}
+        activeClassName='active'>
+          <i className={'fa fa-' + icon + ' ' + className.element('link__icon')}
+             aria-hidden='true'></i>
+          {text}
       </Link>
     )
   }

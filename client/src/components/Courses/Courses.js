@@ -22,9 +22,9 @@ export default class Courses extends React.Component {
     return _.map(this.props.courses.data, (course) => {
       return (
         <CourseThumbnail title={course.title}
-                         key={course._id}
-                         course_id={course._id}
-                         description={course.description} />
+          key={course._id}
+          course_id={course._id}
+          description={course.description} />
       )
     })
   }

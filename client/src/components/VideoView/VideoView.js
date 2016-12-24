@@ -37,8 +37,8 @@ export default class VideoView extends React.Component {
           Download Example Files
         </div>
         <div className={video_view.element('next_video_button').modifier({
-               disabled: this.props.nextVideoAvailable
-             })} onClick={this.props.didClickNextVideo}>
+            disabled: this.props.nextVideoAvailable
+          })} onClick={this.props.didClickNextVideo}>
           Next Video
         </div>
       </div>

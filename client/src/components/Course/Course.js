@@ -82,9 +82,9 @@ export default class Course extends React.Component {
 
       return (
         <VideoView videoid={selected_video.videoid}
-                   nextVideoAvailable={this.isLastVideo()}
-                   didClickNextVideo={this.goToNextVideo}
-                   didCompleteVideo={this.markVideoAsComplete}/>
+          nextVideoAvailable={this.isLastVideo()}
+          didClickNextVideo={this.goToNextVideo}
+          didCompleteVideo={this.markVideoAsComplete} />
       )
     }
   }
@@ -118,10 +118,10 @@ export default class Course extends React.Component {
     const course = BEM('course')
     return (
       <DashboardDetail title='Courses' icon='folder-open-o'
-                       breadcrumb={this.props.course.data.title}
-                       rootPath='/courses'>
-        {this.renderActivityIndicator(course)}
-        {this.renderContent(course)}
+        breadcrumb={this.props.course.data.title}
+        rootPath='/courses'>
+          {this.renderActivityIndicator(course)}
+          {this.renderContent(course)}
       </DashboardDetail>
     )
   }
