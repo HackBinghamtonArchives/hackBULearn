@@ -66,3 +66,38 @@ export const addUserToHackathon = (dispatch) => (id) => {
     .then(json => dispatch(receiveAddUserToHackathon(json)))
     .catch((error) => dispatch(receiveAddUserToHackathonError(error.message)))
 }
+
+export const REQUEST_CREATE_HACKATHON = 'REQUEST_CREATE_HACKATHON'
+export const requestCreateHackathon = () => {
+  return {
+    type: REQUEST_CREATE_HACKATHON
+  }
+}
+
+export const RECEIVE_CREATE_HACKATHON = 'RECEIVE_CREATE_HACKATHON'
+export const receiveCreateHackathon = (json) => {
+  return {
+    type: RECEIVE_CREATE_HACKATHON,
+    hackathons: json
+  }
+}
+
+export const RECEIVE_CREATE_HACKATHON_ERROR = 'RECEIVE_CREATE_HACKATHON_ERROR'
+export const receiveCreateHackathonError = (message) => {
+  return {
+    type: RECEIVE_CREATE_HACKATHON_ERROR,
+    message: message
+  }
+}
+
+export const createHackathon = (dispatch) => () => {
+  dispatch(requestCreateHackathon())
+
+  return fetch('/hackathons/create', {
+      credentials: 'same-origin',
+      method: 'post'
+    })
+    .then(response => response.json())
+    .then(json => dispatch(receiveCreateHackathon(json)))
+    .catch((error) => dispatch(receiveCreateHackathonError(error.message)))
+}

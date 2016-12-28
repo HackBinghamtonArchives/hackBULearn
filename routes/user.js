@@ -3,7 +3,18 @@ var User = require('../models/user');
 var Video = require('../models/video');
 
 module.exports = function(app) {
-  const publicFields = 'local.username local.firstname local.lastname videos';
+  const publicFields = 'local.username local.firstname local.lastname videos permission';
+  const adminFields = publicFields + ' local.email';
+
+  app.get('/users', function(req, res) {
+    if(!req.isAuthenticated() || req.user['permission'] > 2)
+      return res.json({ error: 'Access Denied' });
+
+    User.find({}, adminFields, function(err, users) {
+      if(err) throw err;
+      res.json(users);
+    });
+  });
 
   app.get('/user/info', function(req, res) {
     if(!req.isAuthenticated()) return res.json({ error: 'Access Denied' });

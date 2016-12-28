@@ -1,7 +1,8 @@
 import {
   REQUEST_HACKATHONS, RECEIVE_HACKATHONS, RECEIVE_HACKATHONS_ERROR,
   REQUEST_ADD_USER_TO_HACKATHON, RECEIVE_ADD_USER_TO_HACKATHON,
-  RECEIVE_ADD_USER_TO_HACKATHON_ERROR
+  RECEIVE_ADD_USER_TO_HACKATHON_ERROR, REQUEST_CREATE_HACKATHON,
+  RECEIVE_CREATE_HACKATHON, RECEIVE_CREATE_HACKATHON_ERROR
 } from 'actions'
 
 export const hackathons = (state = {
@@ -29,7 +30,7 @@ export const hackathons = (state = {
       })
     case REQUEST_ADD_USER_TO_HACKATHON:
       return _.assign({}, state, {
-        isFetching: false,
+        isFetching: true,
         caughtError: false
       })
     case RECEIVE_ADD_USER_TO_HACKATHON:
@@ -39,6 +40,22 @@ export const hackathons = (state = {
         data: action.hackathons
       })
     case RECEIVE_ADD_USER_TO_HACKATHON_ERROR:
+      return _.assign({}, state, {
+        isFetching: false,
+        caughtError: true
+      })
+    case REQUEST_CREATE_HACKATHON:
+      return _.assign({}, state, {
+        isFetching: true,
+        caughtError: false
+      })
+    case RECEIVE_CREATE_HACKATHON:
+      return _.assign({}, state, {
+        isFetching: false,
+        caughtError: false,
+        data: action.hackathons
+      })
+    case RECEIVE_CREATE_HACKATHON_ERROR:
       return _.assign({}, state, {
         isFetching: false,
         caughtError: true

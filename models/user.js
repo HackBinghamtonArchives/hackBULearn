@@ -13,7 +13,8 @@ const schema = Schema({
     firstname: String,
     lastname: String
   },
-  videos: [{ type: Schema.Types.ObjectId, ref: 'Video' }]
+  videos: [{ type: Schema.Types.ObjectId, ref: 'Video' }],
+  permission: Number
 });
 
 // Authentication methods

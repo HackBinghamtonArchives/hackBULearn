@@ -73,7 +73,6 @@
   &__media_view {
     @include make-xs-column(9);
     @include make-xs-column-offset(3);
-    background-color: lighten($border-color, 3%);
     padding-top: 15px;
     position: absolute;
     right: 0;

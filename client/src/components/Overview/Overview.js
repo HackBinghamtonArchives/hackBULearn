@@ -14,7 +14,9 @@ export default class Overview extends React.Component {
   state = {}
 
   componentDidMount() {
-    if(_.isEmpty(this.props.user.data)) this.props.fetchUserInfo()
+    if(_.isEmpty(this.props.user.data) && !this.props.user.isLoading) {
+      this.props.fetchUserInfo()
+    }
   }
 
   constructor(props) {

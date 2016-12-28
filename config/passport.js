@@ -41,7 +41,9 @@ module.exports = function(passport) {
               firstname: req.body.firstname,
               lastname: req.body.lastname,
               email: req.body.email
-            }
+            },
+            permission: 5,
+            videos: []
           });
           next(null, newUser);
         },

@@ -1,7 +1,7 @@
 import React from 'react'
 import { block as BEM } from 'bem-class'
 
-import { Navigation, Sidebar } from 'components'
+import { Sidebar } from 'containers'
 
 import './DashboardMaster.scss'
 

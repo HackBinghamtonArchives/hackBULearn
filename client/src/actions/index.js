@@ -1,22 +1,25 @@
 export {
   REQUEST_COURSES, RECEIVE_COURSES, RECEIVE_COURSES_ERROR,
-  requestCourses, receiveCourses, fetchCourses, receiveCoursesError,
   REQUEST_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_ERROR,
-  requestCourse, receiveCourse, fetchCourse, receiveCourseError
+  REQUEST_UPDATED_COURSE, RECEIVE_UPDATED_COURSE, RECEIVE_UPDATED_COURSE_ERROR,
+  REQUEST_DELETED_COURSE,
+  fetchCourse, fetchCourses, updateCourse, deleteCourse
 } from './courseActions'
 
 export {
   REQUEST_USER_INFO, RECEIVE_USER_INFO, RECEIVE_USER_INFO_ERROR,
   REQUEST_ADD_VIDEO_TO_USER, RECEIVE_ADD_VIDEO_TO_USER,
-  RECEIVE_ADD_VIDEO_TO_USER_ERROR, requestUserInfo, receiveUserInfo,
-  fetchUserInfo, addVideoToUser
+  RECEIVE_ADD_VIDEO_TO_USER_ERROR, fetchUserInfo, addVideoToUser
 } from './userActions'
+
+export {
+  REQUEST_USERS, RECEIVE_USERS, RECEIVE_USERS_ERROR, fetchUsers
+} from './usersActions'
 
 export {
   REQUEST_HACKATHONS, RECEIVE_HACKATHONS, RECEIVE_HACKATHONS_ERROR,
   REQUEST_ADD_USER_TO_HACKATHON, RECEIVE_ADD_USER_TO_HACKATHON,
-  RECEIVE_ADD_USER_TO_HACKATHON_ERROR, requestAddUserToHackathon,
-  receiveAddUserToHackathon, receiveAddUserToHackathonError,
-  requestHackathons, receiveHackathons, receiveHackathonsError,
-  fetchHackathons, addUserToHackathon
+  RECEIVE_ADD_USER_TO_HACKATHON_ERROR, REQUEST_CREATE_HACKATHON,
+  RECEIVE_CREATE_HACKATHON, RECEIVE_CREATE_HACKATHON_ERROR,
+  fetchHackathons, addUserToHackathon, createHackathon
 } from './hackathonActions'

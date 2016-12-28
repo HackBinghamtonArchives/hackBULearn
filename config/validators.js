@@ -29,3 +29,26 @@ exports.userRegistration = {
     length: { minimum: 10, tooShort: strings.passwordTooShort }
   }
 };
+
+exports.hackathonForm = {
+  name : { presence: true },
+  facility : { presence: true },
+  university : { presence: true },
+  streetAddress : { presence: true },
+  city : { presence: true },
+  state : { presence: true },
+  zipCode : { presence: true },
+  country : { presence: true },
+  startDate : { presence: true },
+  endDate : { presence: true },
+  bannerImage : { presence: true },
+  websiteURL : { presence: true },
+  registrationURL : { presence: true },
+  capacity : { presence: true }
+};
+
+exports.courseForm = {
+  title : { presence: true },
+  description: { presence: true },
+  thumbnail: { presence: true }
+};

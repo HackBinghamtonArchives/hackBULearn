@@ -14,7 +14,8 @@ const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 import { DashboardMaster } from 'components'
 
-import { Courses, Course, Overview, Hackathons } from 'containers'
+import { Courses, Course, Overview, Hackathons,
+  Administration } from 'containers'
 
 import "./dashboard.scss"
 
@@ -31,6 +32,7 @@ ReactDOM.render(
           <Route path='courses/:id' component={Course} />
           <Route path='hackathons' component={Hackathons} />
           <Route path='questions' component={Overview} />
+          <Route path='admin' component={Administration} />
         </Route>
       </Router>
     </Provider>

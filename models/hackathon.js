@@ -21,7 +21,8 @@ const schema = new Schema({
   websiteURL : String,
   registrationURL : String,
   capacity : Number,
-  users : [{ type: Schema.Types.ObjectId, ref: 'User' }]
+  users : [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  creator: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
 module.exports = mongoose.model('Hackathon', schema);
