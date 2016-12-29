@@ -1,17 +1,24 @@
 import { connect } from 'react-redux'
-import { fetchUsers, fetchCourses, updateCourse, deleteCourse } from 'actions'
+import { fetchUsers, fetchCourses, saveCourse,
+  deleteCourse, createCourse, saveUser, deleteUser } from 'actions'
 import Administration from 'components/Administration/Administration'
 
 const mapStateToProps = (state) => {
-  return state
+  return {
+    courses: state.courses,
+    users: state.users
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUsers: fetchUsers(dispatch),
     fetchCourses: fetchCourses(dispatch),
-    updateCourse: updateCourse(dispatch),
-    deleteCourse: deleteCourse(dispatch)
+    saveCourse: saveCourse(dispatch),
+    deleteCourse: deleteCourse(dispatch),
+    createCourse: createCourse(dispatch),
+    saveUser: saveUser(dispatch),
+    deleteUser: deleteUser(dispatch)
   }
 }
 

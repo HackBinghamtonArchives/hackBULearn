@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import { block as BEM } from 'bem-class'
 
 import './EditableDocument.scss'
@@ -33,7 +34,7 @@ export default class EditableDocument extends React.Component {
   }
 
   updateData() {
-    this.props.updateDocument(this.state.row)
+    if(this.state.saved == false) this.props.updateDocument(this.state.row)
   }
 
   deleteData() {
@@ -41,10 +42,9 @@ export default class EditableDocument extends React.Component {
   }
 
   changeData(column, newData) {
-    const currentState = this.state
-    currentState.row[column] = newData
-    currentState.saved = false
-    this.setState(currentState)
+    const newState = _.set(this.state.row, column, newData)
+    newState.saved = false
+    this.setState(newState)
   }
 
   resetData() {

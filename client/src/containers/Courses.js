@@ -3,7 +3,9 @@ import { fetchCourses } from 'actions'
 import Courses from 'components/Courses/Courses'
 
 const mapStateToProps = (state) => {
-  return state
+  return {
+    courses: state.courses
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

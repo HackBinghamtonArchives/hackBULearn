@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import { block as BEM } from 'bem-class'
 import { CourseThumbnail, DashboardDetail, ActivityIndicator } from 'components'
 
@@ -15,22 +16,25 @@ export default class Courses extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.courses.data.length == 0) this.props.fetchCourses()
+    if(!this.props.courses.cached) this.props.fetchCourses()
   }
 
   renderTiles() {
-    return _.map(this.props.courses.data, (course) => {
-      return (
-        <CourseThumbnail title={course.title}
-          key={course._id}
-          course_id={course._id}
-          description={course.description} />
-      )
-    })
+    if(!this.props.courses.isFetching) {
+      return _.values(this.props.courses.data).map((course) => {
+        if(course._id === -1) return
+        return (
+          <CourseThumbnail title={course.title}
+            key={course._id}
+            course_id={course._id}
+            description={course.description} />
+        )
+      })
+    }
   }
 
   renderActivityIndicator(className) {
-    if(this.props.courses.data.length == 0) {
+    if(this.props.courses.isFetching) {
       return (
         <div className={className.element('activity_indicator')}>
           <ActivityIndicator />

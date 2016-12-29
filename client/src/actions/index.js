@@ -1,9 +1,7 @@
 export {
-  REQUEST_COURSES, RECEIVE_COURSES, RECEIVE_COURSES_ERROR,
-  REQUEST_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_ERROR,
-  REQUEST_UPDATED_COURSE, RECEIVE_UPDATED_COURSE, RECEIVE_UPDATED_COURSE_ERROR,
-  REQUEST_DELETED_COURSE,
-  fetchCourse, fetchCourses, updateCourse, deleteCourse
+  FETCH_COURSES, fetchCourses, FETCH_COURSE, fetchCourse,
+  SAVE_COURSE, saveCourse, DELETE_COURSE, deleteCourse,
+  CREATE_COURSE, createCourse, CLEAR_NEW_COURSE
 } from './courseActions'
 
 export {
@@ -13,7 +11,7 @@ export {
 } from './userActions'
 
 export {
-  REQUEST_USERS, RECEIVE_USERS, RECEIVE_USERS_ERROR, fetchUsers
+  FETCH_USERS, fetchUsers, SAVE_USER, saveUser, DELETE_USER, deleteUser
 } from './usersActions'
 
 export {

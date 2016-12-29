@@ -7,20 +7,30 @@ import './Course.scss'
 
 export default class Course extends React.Component {
   static propTypes = {
-    course: React.PropTypes.object,
     fetchCourse: React.PropTypes.func.isRequired,
     addVideoToUser: React.PropTypes.func,
     fetchUserInfo: React.PropTypes.func.isRequired,
-    user: React.PropTypes.object
+    user: React.PropTypes.object,
+    courses: React.PropTypes.object
   }
 
   state = {
     selection: -1
   }
 
-  componentDidMount() {
+  fetchCourseIfNeeded() {
+    const course = this.props.courses.data[this.props.routeParams.id]
+    if(course && course.cached) return
     this.props.fetchCourse(this.props.routeParams.id)
+  }
+
+  fetchUserInfoIfNeeded() {
     if(_.isEmpty(this.props.user.data)) this.props.fetchUserInfo()
+  }
+
+  componentDidMount() {
+    this.fetchCourseIfNeeded()
+    this.fetchUserInfoIfNeeded()
   }
 
   constructor(props) {
@@ -31,18 +41,18 @@ export default class Course extends React.Component {
     this.markVideoAsComplete = this.markVideoAsComplete.bind(this)
   }
 
-  isLastVideo() {
-    return this.state.selection == this.props.course.data.videos.length - 1
+  isLastVideo(course) {
+    return this.state.selection == course.videos.length - 1
   }
 
-  goToNextVideo() {
-    if(this.isLastVideo() == false) {
+  goToNextVideo(course) {
+    if(this.isLastVideo(course) == false) {
       this.changeSelection(this.state.selection + 1)
     }
   }
 
-  markVideoAsComplete() {
-    const selected_video = this.props.course.data.videos[this.state.selection]
+  markVideoAsComplete(course) {
+    const selected_video = course.videos[this.state.selection]
     if(this.props.user.data.videos.indexOf(selected_video._id) == -1) {
       this.props.addVideoToUser(selected_video._id)
     }
@@ -69,35 +79,35 @@ export default class Course extends React.Component {
     )
   }
 
-  renderTableView() {
+  renderTableView(course) {
     const table_view = BEM('course__table_view');
-    return _.map(this.props.course.data.videos, (video, i) => {
+    return _.map(course.videos, (video, i) => {
       return this.renderTableViewItem(video, i, table_view)
     })
   }
 
-  renderVideoView() {
+  renderVideoView(course) {
     if(this.state.selection != -1) {
-      const selected_video = this.props.course.data.videos[this.state.selection]
+      const selected_video = course.videos[this.state.selection]
 
       return (
         <VideoView videoid={selected_video.videoid}
-          nextVideoAvailable={this.isLastVideo()}
-          didClickNextVideo={this.goToNextVideo}
-          didCompleteVideo={this.markVideoAsComplete} />
+          nextVideoAvailable={this.isLastVideo(course)}
+          didClickNextVideo={() => this.goToNextVideo(course)}
+          didCompleteVideo={() => this.markVideoAsComplete(course)} />
       )
     }
   }
 
-  renderContent(className) {
-    if(!_.isEmpty(this.props.course.data)) {
+  renderContent(course, className) {
+    if(!_.isEmpty(course) && !this.props.courses.isFetching) {
       return (
         <div>
           <div className={className.element('table_view')}>
-            {this.renderTableView()}
+            {this.renderTableView(course)}
           </div>
           <div className={className.element('media_view')}>
-            {this.renderVideoView()}
+            {this.renderVideoView(course)}
           </div>
         </div>
       )
@@ -105,7 +115,7 @@ export default class Course extends React.Component {
   }
 
   renderActivityIndicator(className) {
-    if(_.isEmpty(this.props.course.data)) {
+    if(this.props.courses.isFetching) {
       return (
         <div className={className.element('activity_indicator')}>
           <ActivityIndicator />
@@ -115,13 +125,17 @@ export default class Course extends React.Component {
   }
 
   render() {
-    const course = BEM('course')
+    const className = BEM('course')
+    const id = this.props.routeParams.id
+    const course = this.props.courses.data[id]
+    const title = (course) ? course.title : ''
+
     return (
       <DashboardDetail title='Courses' icon='folder-open-o'
-        breadcrumb={this.props.course.data.title}
+        breadcrumb={title}
         rootPath='/courses'>
-          {this.renderActivityIndicator(course)}
-          {this.renderContent(course)}
+          {this.renderActivityIndicator(className)}
+          {this.renderContent(course, className)}
       </DashboardDetail>
     )
   }

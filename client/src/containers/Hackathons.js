@@ -3,7 +3,9 @@ import { fetchHackathons, addUserToHackathon } from 'actions'
 import Hackathons from 'components/Hackathons/Hackathons'
 
 const mapStateToProps = (state) => {
-  return state
+  return {
+    hackathons: state.hackathons
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

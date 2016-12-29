@@ -45,13 +45,13 @@
     bottom: 1px;
     left: 1px;
     right: 1px;
-    background-color: $content-bg;
+    background-color: $detail-bg;
     border-radius: 100%;
   }
 
   &::after {
     content: ' ';
-    background-color: $content-bg;
+    background-color: $detail-bg;
     display: block;
     width: 50%;
     height: 50%;

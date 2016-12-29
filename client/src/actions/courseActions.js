@@ -1,117 +1,152 @@
 import fetch from 'isomorphic-fetch'
+import _ from 'lodash'
 
-export const REQUEST_COURSES = 'REQUEST_COURSES'
-export const requestCourses = () => {
+// ACTION: Fetch Courses
+export const FETCH_COURSES = 'FETCH_COURSES'
+
+const fetchingCourses = () => {
   return {
-    type: REQUEST_COURSES
+    type: FETCH_COURSES,
+    isFetching: true,
+    caughtError: false
   }
 }
 
-export const RECEIVE_COURSES = 'RECEIVE_COURSES'
-export const receiveCourses = (json) => {
+const fetchedCourses = (courses) => {
   return {
-    type: RECEIVE_COURSES,
-    courses: json
+    type: FETCH_COURSES,
+    isFetching: false,
+    caughtError: false,
+    courses: _.keyBy(courses, '_id')
   }
 }
 
-export const RECEIVE_COURSES_ERROR = 'RECEIVE_COURSES_ERROR'
-export const receiveCoursesError = (message) => {
+const caughtCoursesError = (message) => {
   return {
-    type: RECEIVE_COURSES_ERROR,
-    message: message
+    type: FETCH_COURSES,
+    isFetching: false,
+    caughtError: true,
+    message
   }
 }
 
 export const fetchCourses = (dispatch) => () => {
-  dispatch(requestCourses())
+  dispatch(fetchingCourses())
 
   return fetch('/courses')
     .then(response => response.json())
-    .then(json => dispatch(receiveCourses(json)))
-    .catch((error) => dispatch(receiveCoursesError(error.message)))
+    .then(json => dispatch(fetchedCourses(json)))
+    .catch((error) => dispatch(caughtCoursesError(error.message)))
 }
 
-export const REQUEST_COURSE = 'REQUEST_COURSE'
-export const requestCourse = () => {
+// ACTION: Fetch course
+export const FETCH_COURSE = 'FETCH_COURSE'
+
+const fetchingCourse = () => {
   return {
-    type: REQUEST_COURSE
+    type: FETCH_COURSE,
+    isFetching: true,
+    caughtError: false
   }
 }
 
-export const RECEIVE_COURSE = 'RECEIVE_COURSE'
-export const receiveCourse = (json) => {
+const fetchedCourse = (course) => {
   return {
-    type: RECEIVE_COURSE,
-    course: json
+    type: FETCH_COURSE,
+    isFetching: false,
+    caughtError: false,
+    course
   }
 }
 
-export const RECEIVE_COURSE_ERROR = 'RECEIVE_COURSE_ERROR'
-export const receiveCourseError = (message) => {
+const caughtCourseError = (message) => {
   return {
-    type: RECEIVE_COURSE_ERROR,
-    message: message
+    type: FETCH_COURSE,
+    isFetching: false,
+    caughtError: true,
+    message
   }
 }
 
 export const fetchCourse = (dispatch) => (id) => {
-  dispatch(requestCourse())
+  dispatch(fetchingCourse())
 
-  return fetch('/courses/' + id)
+  return fetch(`/courses/${id}`)
     .then(response => response.json())
-    .then(json => dispatch(receiveCourse(json)))
-    .catch((error) => dispatch(receiveCourseError(error.message)))
+    .then(json => dispatch(fetchedCourse(json)))
+    .catch((error) => dispatch(caughtCourseError(error.message)))
 }
 
-export const REQUEST_UPDATED_COURSE = 'REQUEST_UPDATED_COURSE'
-export const requestUpdatedCourse = () => {
+// ACTION: Save course
+export const SAVE_COURSE = 'SAVE_COURSE'
+
+const savingCourse = () => {
   return {
-    type: REQUEST_UPDATED_COURSE
+    type: SAVE_COURSE,
+    isFetching: true,
+    caughtError: false
   }
 }
 
-export const RECEIVE_UPDATED_COURSE = 'RECEIVE_UPDATED_COURSE'
-export const receiveUpdatedCourse = (json) => {
+const savedCourse = (course) => {
   return {
-    type: RECEIVE_UPDATED_COURSE,
-    course: json
+    type: SAVE_COURSE,
+    isFetching: false,
+    caughtError: false,
+    course
   }
 }
 
-export const RECEIVE_UPDATED_COURSE_ERROR = 'RECEIVE_UPDATED_COURSE_ERROR'
-export const receiveUpdatedCourseError = (message) => {
-  return {
-    type: RECEIVE_UPDATED_COURSE_ERROR,
-    message: message
-  }
-}
+export const saveCourse = (dispatch) => (course) => {
+  dispatch(savingCourse())
 
-export const updateCourse = (dispatch) => (data) => {
-  dispatch(requestUpdatedCourse())
-
-  return fetch('/courses/update', {
+  const route = (course._id == -1) ? '/courses/create' : '/courses/update'
+  return fetch(route, {
       credentials: 'same-origin',
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(course)
     })
     .then(response => response.json())
-    .then(json => dispatch(receiveUpdatedCourse(json)))
-    .catch((error) => dispatch(receiveUpdatedCourseError(error.message)))
+    .then(json => dispatch(savedCourse(json)))
+    .catch((error) => dispatch(caughtCourseError(error.message)))
 }
 
-export const REQUEST_DELETED_COURSE = 'REQUEST_DELETED_COURSE'
-export const requestDeletedCourse = () => {
+// ACTION: Delete course
+export const DELETE_COURSE = 'DELETE_COURSE'
+
+const deletingCourse = () => {
   return {
-    type: REQUEST_DELETED_COURSE
+    type: DELETE_COURSE,
+    isFetching: true,
+    caughtError: false
   }
 }
 
-export const deleteCourse = (dispatch) => (data) => {
-  dispatch(requestDeletedCourse())
+const deletedCourse = (courses) => {
+  return {
+    type: DELETE_COURSE,
+    isFetching: false,
+    caughtError: false,
+    courses
+  }
+}
+
+// ACTION: Clear new course
+export const CLEAR_NEW_COURSE = 'CLEAR_NEW_COURSE'
+const clearNewCourse = (course) => {
+  return {
+    type: CLEAR_NEW_COURSE,
+    isFetching: false,
+    caughtError: false
+  }
+}
+
+export const deleteCourse = (dispatch) => (course) => {
+  if(course._id === -1) return dispatch(clearNewCourse(course))
+  dispatch(deletingCourse())
 
   return fetch('/courses/delete', {
       credentials: 'same-origin',
@@ -119,9 +154,20 @@ export const deleteCourse = (dispatch) => (data) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(course)
     })
     .then(response => response.json())
-    .then(json => dispatch(receiveCourses(json)))
-    .catch((error) => dispatch(receiveCoursesError(error.message)))
+    .then(json => dispatch(deletedCourse(json)))
+    .catch((error) => dispatch(caughtCourseError(error.message)))
+}
+
+// ACTION: Create course
+export const CREATE_COURSE = 'CREATE_COURSE'
+
+export const createCourse = (dispatch) => () => {
+  dispatch({
+    type: CREATE_COURSE,
+    isFetching: false,
+    caughtError: false
+  })
 }

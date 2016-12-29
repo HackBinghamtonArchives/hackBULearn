@@ -4,7 +4,9 @@ import { fetchUserInfo } from 'actions'
 import Sidebar from 'components/Sidebar/Sidebar'
 
 const mapStateToProps = (state) => {
-  return state
+  return {
+    user: state.user
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

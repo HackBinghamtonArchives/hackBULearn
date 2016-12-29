@@ -3,7 +3,10 @@ import { fetchCourse, addVideoToUser, fetchUserInfo } from 'actions'
 import Course from 'components/Course/Course'
 
 const mapStateToProps = (state) => {
-  return state
+  return {
+    courses: state.courses,
+    user: state.user
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

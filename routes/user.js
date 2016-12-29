@@ -59,4 +59,52 @@ module.exports = function(app) {
       res.json(results);
     });
   });
+
+  app.post('/user/update', function(req, res) {
+    if(!req.isAuthenticated() || req.user['permission'] > 2
+      || req.user['permission'] >= req.body.permission)
+      return res.json({ error: 'Access Denied' });
+
+    async.waterfall([
+      function(next) {
+        // Map form data to schema
+        var formData = {
+          local: {
+            firstname : req.body.local.firstname,
+            lastname : req.body.local.lastname,
+            username : req.body.local.username,
+            email : req.body.local.email
+          },
+          permission: req.body.permission
+        };
+
+        User.findOneAndUpdate({_id: req.body._id},
+          formData, { new: true }, next);
+      }
+    ], function(err, result) {
+      if(err) throw err;
+      res.json(result);
+    });
+  });
+
+  app.post('/user/delete', function(req, res) {
+    if(!req.isAuthenticated() || req.user['permission'] > 2
+      || req.user['permission'] > req.body.permission)
+      return res.json({ error: 'Access Denied' });
+
+    if(req.body._id == req.user['_id'])
+      return res.status(500).json({ error: 'Cannot delete self' });
+
+    async.waterfall([
+      function(next) {
+        User.remove({_id: req.body._id}).exec(next);
+      },
+      function(result, next) {
+        User.find({}, adminFields, next)
+      }
+    ], function(err, result) {
+      if(err) throw err;
+      res.json(result);
+    });
+  });
 }

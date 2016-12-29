@@ -3,7 +3,9 @@ import { fetchUserInfo } from 'actions'
 import Overview from 'components/Overview/Overview'
 
 const mapStateToProps = (state) => {
-  return state
+  return {
+    user: state.user
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

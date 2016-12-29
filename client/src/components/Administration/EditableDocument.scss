@@ -32,6 +32,10 @@
       transition: border-color 0.25s ease-in-out;
       width: 100%;
 
+      &:hover {
+        border-color: $gray-lighter;
+      }
+
       &:focus {
         border-color: $turquoise;
       }

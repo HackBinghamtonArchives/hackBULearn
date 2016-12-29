@@ -1,58 +1,85 @@
 import _ from 'lodash'
 import {
-  REQUEST_COURSES, RECEIVE_COURSES, RECEIVE_COURSES_ERROR, REQUEST_DELETED_COURSE,
-  REQUEST_UPDATED_COURSE, RECEIVE_UPDATED_COURSE, RECEIVE_UPDATED_COURSE_ERROR
+  FETCH_COURSES, FETCH_COURSE, SAVE_COURSE, DELETE_COURSE,
+  CREATE_COURSE, CLEAR_NEW_COURSE
 } from 'actions'
 
 export const courses = (state = {
   isFetching: false,
   caughtError: false,
-  data: []
+  message: null,
+  data: {},
+  cached: false
 }, action) => {
   switch(action.type) {
-    case REQUEST_COURSES:
-      return _.assign({}, state, {
-        isFetching: true,
-        caughtError: false
-      })
-    case RECEIVE_COURSES:
-      return _.assign({}, state, {
-        isFetching: false,
-        caughtError: false,
-        data: action.courses
-      })
-    case RECEIVE_COURSES_ERROR:
-      return _.assign({}, state, {
-        isFetching: false,
-        caughtError: true
-      })
-    case REQUEST_UPDATED_COURSE:
-      return {
-        isFetching: true,
-        caughtError: false,
-        data: state.data
-      }
-    case RECEIVE_UPDATED_COURSE:
-      const data = state.data.map((course) => {
-        if(course._id == action.course._id) return action.course
-        return course
+    case FETCH_COURSES:
+      const data = _.merge(state.data, action.courses, (a, b) => {
+        return (a.cached) ? a : b
       })
 
-      return _.assign({}, state, {
-        isFetching: false,
-        caughtError: false,
-        data: data
-      })
-    case RECEIVE_UPDATED_COURSE_ERROR:
-      return _.assign({}, state, {
-        isFetching: false,
-        caughtError: true
-      })
-    case REQUEST_DELETED_COURSE:
       return {
-        isFetching: true,
-        caughtError: false,
-        data: state.data
+        isFetching: action.isFetching,
+        caughtError: action.caughtError,
+        message: action.message,
+        data: data,
+        cached: true
+      }
+    case FETCH_COURSE:
+      if(action.course && !action.course.cached) {
+        action.course.cached = true
+        state.data[action.course._id] = action.course
+      }
+
+      return {
+        isFetching: action.isFetching,
+        caughtError: action.caughtError,
+        message: action.message,
+        data: state.data,
+        cached: state.cached
+      }
+    case SAVE_COURSE:
+      if(action.course) {
+        action.course.cached = true
+        state.data[action.course._id] = action.course
+      }
+
+      return {
+        isFetching: action.isFetching,
+        caughtError: action.caughtError,
+        message: action.message,
+        data: _.omit(state.data, '-1'),
+        cached: state.cached
+      }
+    case CREATE_COURSE:
+      state.data[-1] = {
+        _id: -1,
+        title: '',
+        description: '',
+        thumbnail: ''
+      }
+
+      return {
+        isFetching: action.isFetching,
+        caughtError: action.caughtError,
+        message: action.message,
+        data: state.data,
+        cached: state.cached
+      }
+    case DELETE_COURSE:
+      return {
+        isFetching: action.isFetching,
+        caughtError: action.caughtError,
+        message: action.message,
+        data: action.courses,
+        cached: true
+      }
+    case CLEAR_NEW_COURSE:
+      return {
+        isFetching: action.isFetching,
+        caughtError: action.caughtError,
+        message: action.message,
+        data: _.omit(state.data, '-1'),
+        cached: state.cached
       }
     default:
       return state

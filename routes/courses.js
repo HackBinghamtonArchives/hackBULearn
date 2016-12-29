@@ -52,11 +52,35 @@ module.exports = function(app) {
 
     async.waterfall([
       function(next) {
-        console.log('step1');
         Course.remove({_id: req.body._id}).exec(next);
       },
       function(result, next) {
         Course.find({}, 'title description thumbnail', next)
+      }
+    ], function(err, result) {
+      if(err) throw err;
+      res.json(result);
+    });
+  });
+
+  app.post('/courses/create', function(req, res) {
+    if(!req.isAuthenticated() || req.user['permission'] > 2)
+      return res.json({ error: 'Access Denied' });
+
+    async.waterfall([
+      function(next) {
+        // Validate inputs
+        return next(validate(req.body, validators.courseForm));
+      },
+      function(next) {
+        // Map form data to schema
+        var formData = {
+          title : req.body.title,
+          description: req.body.description,
+          thumbnail: req.body.thumbnail
+        };
+
+        Course.create(formData, next);
       }
     ], function(err, result) {
       if(err) throw err;

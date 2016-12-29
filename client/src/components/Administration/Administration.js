@@ -10,8 +10,13 @@ export default class Administration extends React.Component {
   static propTypes = {
     fetchUsers: React.PropTypes.func.isRequired,
     fetchCourses: React.PropTypes.func.isRequired,
-    updateCourse: React.PropTypes.func.isRequired,
-    deleteCourse: React.PropTypes.func.isRequired
+    saveCourse: React.PropTypes.func.isRequired,
+    deleteCourse: React.PropTypes.func.isRequired,
+    createCourse: React.PropTypes.func.isRequired,
+    saveUser: React.PropTypes.func.isRequired,
+    deleteUser: React.PropTypes.func.isRequired,
+    users: React.PropTypes.object.isRequired,
+    courses: React.PropTypes.object.isRequired
   }
 
   componentDidMount() {
@@ -32,11 +37,11 @@ export default class Administration extends React.Component {
   }
 
   renderUsersView(className) {
-    if(this.props.users.isLoading || this.props.users.caughtError || _.isEmpty(this.props.users.data)) {
+    if(this.props.users.isFetching || this.props.users.caughtError || _.isEmpty(this.props.users.data)) {
       return this.renderActivityIndicator(className)
     }
 
-    const rows = this.props.users.data.map((user) => {
+    const rows = _.values(this.props.users.data).map((user) => {
       const columns = {
         'First Name': 'local.firstname',
         'Last Name': 'local.lastname',
@@ -45,7 +50,11 @@ export default class Administration extends React.Component {
         'Permission': 'permission'
       }
 
-      return <EditableDocument row={user} columns={columns} key={user._id} />
+      return (
+        <EditableDocument row={user} columns={columns} key={user._id}
+          updateDocument={this.props.saveUser}
+          deleteDocument={this.props.deleteUser}/>
+      )
     })
 
     return (
@@ -56,11 +65,11 @@ export default class Administration extends React.Component {
   }
 
   renderCoursesView(className) {
-    if(this.props.courses.isLoading || this.props.courses.caughtError || _.isEmpty(this.props.courses.data)) {
+    if(this.props.courses.isFetching || this.props.courses.caughtError || _.isEmpty(this.props.courses.data)) {
       return this.renderActivityIndicator(className)
     }
 
-    const rows = this.props.courses.data.map((course) => {
+    const rows = _.values(this.props.courses.data).map((course) => {
       const columns = {
         'Title': 'title',
         'Description': 'description',
@@ -69,14 +78,18 @@ export default class Administration extends React.Component {
 
       return (
         <EditableDocument row={course} columns={columns} key={course._id}
-          updateDocument={this.props.updateCourse}
+          updateDocument={this.props.saveCourse}
           deleteDocument={this.props.deleteCourse} />
       )
     })
 
     return (
-      <div className={className.element('user_table')}>
+      <div className={className.element('course_table')}>
         {rows}
+        <div className={className.element('new_document_button')}
+          onClick={this.props.createCourse}>
+          New Course
+        </div>
       </div>
     )
   }
