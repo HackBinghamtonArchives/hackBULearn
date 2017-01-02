@@ -42,7 +42,7 @@ module.exports = function(passport) {
               lastname: req.body.lastname,
               email: req.body.email
             },
-            permission: 5,
+            permission: 'member',
             videos: []
           });
           next(null, newUser);

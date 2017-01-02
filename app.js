@@ -12,7 +12,9 @@ var mongoose = require('mongoose');
 var constants = require('./config/constants');
 
 // Connect to database
-mongoose.connect(constants.dburl);
+const env = process.env.NODE_ENV;
+const dbUrl = constants.dburl[env];
+mongoose.connect(dbUrl);
 
 // Configure Authentication Library
 require('./config/passport')(passport);
@@ -26,7 +28,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+if(env !== 'test') app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -35,16 +37,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Attach Routes
-require('./routes/index')(app);
-require('./routes/login')(app,passport);
-require('./routes/courses')(app);
-require('./routes/user')(app);
-require('./routes/hackathons')(app);
-
 // Configure passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Attach Routes
+require('./routes/login')(app, passport);
+app.use('/api/courses', require('./routes/api/courses'));
 
 // Attach 404 Handler
 app.use(function(req, res, next) {
@@ -54,12 +53,10 @@ app.use(function(req, res, next) {
 });
 
 // Error Handler - Dev
-if (app.get('env') === 'development') {
+if (app.get('env') === 'dev' ||
+    app.get('env') === 'test') {
   app.use(function(err, req, res, next) {
-    res.json({
-      message: err.message,
-      error: err
-    });
+    res.json(err);
   });
 }
 

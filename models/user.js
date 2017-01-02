@@ -14,7 +14,7 @@ const schema = Schema({
     lastname: String
   },
   videos: [{ type: Schema.Types.ObjectId, ref: 'Video' }],
-  permission: Number
+  permission: String
 });
 
 // Authentication methods
