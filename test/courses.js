@@ -20,7 +20,7 @@ describe('Courses', function() {
    * before running tests.
    */
   var agent = request.agent(app);
-  
+
   before(function(done) {
     User.remove({}, function(err) {
       agent
@@ -92,9 +92,10 @@ describe('Courses', function() {
           .end(function(err, res) {
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.should.have.property('title');
-            res.body.should.have.property('description');
-            res.body.should.have.property('thumbnail');
+            res.body.should.have.property('title').eql(sample.title);
+            res.body.should.have.property('description')
+              .eql(sample.description);
+            res.body.should.have.property('thumbnail').eql(sample.thumbnail);
             done();
           });
       });
