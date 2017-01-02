@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var router = require('express').Router();
-var Hackathon = require('../../models/hackathon');
-var minimumRole = require('../../middleware').roles;
+var Hackathon = require('../../../models/hackathon');
+var minimumRole = require('../../../middleware').roles;
 
 const publicFields = [
   '_id', 'name', 'location', 'dates',

@@ -1,8 +1,8 @@
 var _ = require('lodash');
 var router = require('express').Router();
-var Course = require('../../models/course');
-var Video = require('../../models/video');
-var minimumRole = require('../../middleware').roles;
+var Course = require('../../../models/course');
+var Video = require('../../../models/video');
+var minimumRole = require('../../../middleware').roles;
 
 const publicFields = ['_id', 'title', 'description', 'thumbnail', 'videos'];
 
