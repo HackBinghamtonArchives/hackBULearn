@@ -59,7 +59,7 @@ router.post('/', minimumRole('administrator'), function(req, res, next) {
   }, _.isNil);
 
   const hackathon = new Hackathon(formData);
-  hackathon.save(function(err, course) {
+  hackathon.save(function(err, hackathon) {
     if(err) return next(err);
     return res.json(_.pick(hackathon, publicFields));
   });
@@ -101,9 +101,9 @@ router.put('/:id', minimumRole('administrator'), function(req, res, next) {
     new: true,
     runValidators: true,
     select: publicFields.join(' ')
-  }, function(err, course) {
+  }, function(err, hackathon) {
     if(err) return next(err);
-    return res.json(course);
+    return res.json(hackathon);
   });
 });
 
