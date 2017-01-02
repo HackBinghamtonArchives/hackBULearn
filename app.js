@@ -44,6 +44,7 @@ app.use(passport.session());
 // Attach Routes
 require('./routes/login')(app, passport);
 app.use('/api/courses', require('./routes/api/courses'));
+app.use('/api/hackathons', require('./routes/api/hackathons'));
 
 // Attach 404 Handler
 app.use(function(req, res, next) {

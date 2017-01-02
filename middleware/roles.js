@@ -20,17 +20,16 @@ const roles = [
 module.exports = function(role) {
   return function(req, res, next) {
     if(!req.isAuthenticated() || !req.user)
-      return next(new Error('Access Denied'));
+      return next('Access Denied');
 
     const currentRole = roles.indexOf(req.user['permission']);
-    if(currentRole === -1) return next(new Error('Access Denied'));
+    if(currentRole === -1) return next('Access Denied');
 
     const requiredRole = roles.indexOf(role);
     if(requiredRole === -1) throw new Error('Role does not exist');
 
     if(currentRole > requiredRole) {
-      res.status(401);
-      return next(new Error('Access Denied'));
+      return next('Access Denied');
     }
 
     return next();
