@@ -3,8 +3,8 @@ const Schema = mongoose.Schema,
       ObjectId = Schema.ObjectId;
 
 const schema = new Schema({
-  title   : String,
-  videoid : String,
+  title   : { type: String, required: true },
+  videoid : { type: String, required: true },
   course  : { type: Schema.Types.ObjectId, ref: 'Course' }
 });
 
