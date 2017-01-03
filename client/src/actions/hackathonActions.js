@@ -26,7 +26,10 @@ export const receiveHackathonsError = (message) => {
 export const fetchHackathons = (dispatch) => () => {
   dispatch(requestHackathons())
 
-  return fetch('/hackathons')
+  return fetch('/api/hackathons', {
+      credentials: 'same-origin',
+      method: 'get'
+    })
     .then(response => response.json())
     .then(json => dispatch(receiveHackathons(json)))
     .catch((error) => dispatch(receiveHackathonsError(error.message)))
@@ -58,7 +61,7 @@ export const receiveAddUserToHackathonError = (message) => {
 export const addUserToHackathon = (dispatch) => (id) => {
   dispatch(requestAddUserToHackathon())
 
-  return fetch('/hackathons/' + id + '/register', {
+  return fetch('/api/hackathons/' + id + '/register', {
       credentials: 'same-origin',
       method: 'post'
     })

@@ -17,11 +17,11 @@ export default class EditableDocument extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ row: _.clone(this.props.row) })
+    this.setState({ row: _.cloneDeep(this.props.row) })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ row: _.clone(nextProps.row), saved: true })
+    this.setState({ row: _.cloneDeep(nextProps.row), saved: true })
   }
 
   constructor(props) {
@@ -42,13 +42,12 @@ export default class EditableDocument extends React.Component {
   }
 
   changeData(column, newData) {
-    const newState = _.set(this.state.row, column, newData)
-    newState.saved = false
-    this.setState(newState)
+    const newRow = _.set(this.state.row, column, newData)
+    this.setState({ row: newRow, saved: false })
   }
 
   resetData() {
-    this.setState({ row: _.clone(this.props.row), saved: true })
+    this.setState({ row: _.cloneDeep(this.props.row), saved: true })
   }
 
   renderCell(key, header, data, className) {

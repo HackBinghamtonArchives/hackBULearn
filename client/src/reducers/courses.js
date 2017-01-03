@@ -66,11 +66,13 @@ export const courses = (state = {
         cached: state.cached
       }
     case DELETE_COURSE:
+      if(action.courseId) delete state.data[action.courseId]
+
       return {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
-        data: action.courses,
+        data: state.data,
         cached: true
       }
     case CLEAR_NEW_COURSE:

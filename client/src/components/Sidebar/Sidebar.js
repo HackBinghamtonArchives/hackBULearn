@@ -37,7 +37,10 @@ export default class Sidebar extends React.Component {
   }
 
   renderAdminLink(className) {
-    if(this.props.user.data.permission <= 2) {
+    const currentRole = this.props.user.data.permission;
+    const requiredRoles = ['superuser', 'administrator'];
+    const isAdmin = requiredRoles.indexOf(currentRole) != -1;
+    if(isAdmin) {
       return this.renderLink('Administration', 'gears', 'admin', className)
     }
   }

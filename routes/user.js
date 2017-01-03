@@ -1,24 +1,20 @@
 const async = require('async');
 var User = require('../models/user');
 var Video = require('../models/video');
+var minimumRole = require('../middleware').roles;
 
 module.exports = function(app) {
   const publicFields = 'local.username local.firstname local.lastname videos permission';
   const adminFields = publicFields + ' local.email';
 
-  app.get('/users', function(req, res) {
-    if(!req.isAuthenticated() || req.user['permission'] > 2)
-      return res.json({ error: 'Access Denied' });
-
+  app.get('/users', minimumRole('administrator'), function(req, res) {
     User.find({}, adminFields, function(err, users) {
       if(err) throw err;
       res.json(users);
     });
   });
 
-  app.get('/user/info', function(req, res) {
-    if(!req.isAuthenticated()) return res.json({ error: 'Access Denied' });
-
+  app.get('/user/info', minimumRole('member'), function(req, res) {
     User.findOne({ _id: req.user.id }, publicFields,
       function(error, results) {
         if(error) throw error;
@@ -26,8 +22,7 @@ module.exports = function(app) {
       })
   });
 
-  app.post('/user/videos/add/:id', function(req, res) {
-    if(!req.isAuthenticated()) return res.json({ error: 'Access Denied' });
+  app.post('/user/videos/add/:id', minimumRole('member'), function(req, res) {
     async.waterfall([
       function(next) {
         // Find the current User and the requested Video
@@ -60,11 +55,7 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/user/update', function(req, res) {
-    if(!req.isAuthenticated() || req.user['permission'] > 2
-      || req.user['permission'] >= req.body.permission)
-      return res.json({ error: 'Access Denied' });
-
+  app.post('/user/update', minimumRole('superuser'), function(req, res) {
     async.waterfall([
       function(next) {
         // Map form data to schema
@@ -87,11 +78,7 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/user/delete', function(req, res) {
-    if(!req.isAuthenticated() || req.user['permission'] > 2
-      || req.user['permission'] > req.body.permission)
-      return res.json({ error: 'Access Denied' });
-
+  app.post('/user/delete', minimumRole('superuser'), function(req, res) {
     if(req.body._id == req.user['_id'])
       return res.status(500).json({ error: 'Cannot delete self' });
 

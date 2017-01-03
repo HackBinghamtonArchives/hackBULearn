@@ -43,6 +43,10 @@ app.use(passport.session());
 
 // Attach Routes
 require('./routes/login')(app, passport);
+require('./routes/user')(app);
+app.use('/dashboard', require('./routes/dashboard'));
+
+// Attach API
 app.use('/api', require('./routes/api/v1'));
 
 // Attach 404 Handler

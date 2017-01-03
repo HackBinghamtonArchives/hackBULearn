@@ -33,7 +33,10 @@ const caughtCoursesError = (message) => {
 export const fetchCourses = (dispatch) => () => {
   dispatch(fetchingCourses())
 
-  return fetch('/courses')
+  return fetch('/api/courses', {
+      credentials: 'same-origin',
+      method: 'get'
+    })
     .then(response => response.json())
     .then(json => dispatch(fetchedCourses(json)))
     .catch((error) => dispatch(caughtCoursesError(error.message)))
@@ -71,7 +74,10 @@ const caughtCourseError = (message) => {
 export const fetchCourse = (dispatch) => (id) => {
   dispatch(fetchingCourse())
 
-  return fetch(`/courses/${id}`)
+  return fetch(`/api/courses/${id}`, {
+      credentials: 'same-origin',
+      method: 'get'
+    })
     .then(response => response.json())
     .then(json => dispatch(fetchedCourse(json)))
     .catch((error) => dispatch(caughtCourseError(error.message)))
@@ -100,10 +106,12 @@ const savedCourse = (course) => {
 export const saveCourse = (dispatch) => (course) => {
   dispatch(savingCourse())
 
-  const route = (course._id == -1) ? '/courses/create' : '/courses/update'
-  return fetch(route, {
+  const method = (course._id == -1) ? 'POST' : 'PUT'
+  const route = (course._id == -1) ? '' : course._id
+
+  return fetch('/api/courses/' + route, {
       credentials: 'same-origin',
-      method: 'post',
+      method: method,
       headers: {
         'Content-Type': 'application/json'
       },
@@ -125,12 +133,12 @@ const deletingCourse = () => {
   }
 }
 
-const deletedCourse = (courses) => {
+const deletedCourse = (id) => {
   return {
     type: DELETE_COURSE,
     isFetching: false,
     caughtError: false,
-    courses
+    courseId: id
   }
 }
 
@@ -148,16 +156,16 @@ export const deleteCourse = (dispatch) => (course) => {
   if(course._id === -1) return dispatch(clearNewCourse(course))
   dispatch(deletingCourse())
 
-  return fetch('/courses/delete', {
+  return fetch('/api/courses/' + course._id, {
       credentials: 'same-origin',
-      method: 'post',
+      method: 'delete',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(course)
     })
     .then(response => response.json())
-    .then(json => dispatch(deletedCourse(json)))
+    .then(json => dispatch(deletedCourse(course._id)))
     .catch((error) => dispatch(caughtCourseError(error.message)))
 }
 

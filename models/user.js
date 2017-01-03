@@ -7,14 +7,14 @@ const Schema = mongoose.Schema,
 // Generate model
 const schema = Schema({
   local: {
-    username: String,
-    password: String,
-    email: String,
-    firstname: String,
-    lastname: String
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    email: { type: String, required: true },
+    firstname: { type: String, required: true },
+    lastname: { type: String, required: true }
   },
   videos: [{ type: Schema.Types.ObjectId, ref: 'Video' }],
-  permission: String
+  permission: { type: String, required: true }
 });
 
 // Authentication methods
