@@ -7,14 +7,15 @@
   &__cells {
     @include content-box-shadow;
     display: flex;
-    padding: 15px 120px 15px 7.5px;
+    flex-wrap: wrap;
+    padding: 15px 120px 0 7.5px;
     background-color: $content-bg;
     border-radius: 5px;
   }
 
   &__cell {
     flex-grow: 1;
-    padding: 0 7.5px;
+    padding: 0 7.5px 10px 7.5px;
 
     &_header {
       color: $turquoise;

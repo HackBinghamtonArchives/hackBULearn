@@ -1,106 +1,139 @@
 import fetch from 'isomorphic-fetch'
 
-export const REQUEST_HACKATHONS = 'REQUEST_HACKATHONS'
-export const requestHackathons = () => {
+// ACTION: Fetch Hackathons
+export const FETCH_HACKATHONS = 'FETCH_HACKATHONS'
+
+const fetchingHackathons = () => {
   return {
-    type: REQUEST_HACKATHONS
+    type: FETCH_HACKATHONS,
+    isFetching: true,
+    caughtError: false
   }
 }
 
-export const RECEIVE_HACKATHONS = 'RECEIVE_HACKATHONS'
-export const receiveHackathons = (json) => {
+const fetchedHackathons = (hackathons) => {
   return {
-    type: RECEIVE_HACKATHONS,
-    hackathons: json
+    type: FETCH_HACKATHONS,
+    isFetching: false,
+    caughtError: false,
+    hackathons: _.keyBy(hackathons, '_id')
   }
 }
 
-export const RECEIVE_HACKATHONS_ERROR = 'RECEIVE_HACKATHONS_ERROR'
-export const receiveHackathonsError = (message) => {
+const caughtHackathonsError = (message) => {
   return {
-    type: RECEIVE_HACKATHONS_ERROR,
-    message: message
+    type: FETCH_HACKATHONS,
+    isFetching: false,
+    caughtError: true,
+    message
   }
 }
 
 export const fetchHackathons = (dispatch) => () => {
-  dispatch(requestHackathons())
+  dispatch(fetchingHackathons())
 
   return fetch('/api/hackathons', {
       credentials: 'same-origin',
       method: 'get'
     })
     .then(response => response.json())
-    .then(json => dispatch(receiveHackathons(json)))
-    .catch((error) => dispatch(receiveHackathonsError(error.message)))
+    .then(json => dispatch(fetchedHackathons(json)))
+    .catch((error) => dispatch(caughtHackathonsError(error.message)))
 }
 
-export const REQUEST_ADD_USER_TO_HACKATHON = 'REQUEST_ADD_USER_TO_HACKATHON'
-export const requestAddUserToHackathon = () => {
+// ACTION: Save hackathon
+export const SAVE_HACKATHON = 'SAVE_HACKATHON'
+
+const savingHackathon = () => {
   return {
-    type: REQUEST_ADD_USER_TO_HACKATHON
+    type: SAVE_HACKATHON,
+    isFetching: true,
+    caughtError: false
   }
 }
 
-export const RECEIVE_ADD_USER_TO_HACKATHON = 'RECEIVE_ADD_USER_TO_HACKATHON'
-export const receiveAddUserToHackathon = (json) => {
+const savedHackathon = (hackathon) => {
   return {
-    type: RECEIVE_ADD_USER_TO_HACKATHON,
-    hackathons: json
+    type: SAVE_HACKATHON,
+    isFetching: false,
+    caughtError: false,
+    hackathon
   }
 }
 
-export const RECEIVE_ADD_USER_TO_HACKATHON_ERROR = 'RECEIVE_ADD_USER_TO_HACKATHON_ERROR'
-export const receiveAddUserToHackathonError = (message) => {
-  return {
-    type: RECEIVE_ADD_USER_TO_HACKATHON_ERROR,
-    message: message
-  }
-}
+export const saveHackathon = (dispatch) => (hackathon) => {
+  dispatch(savingHackathon())
 
-export const addUserToHackathon = (dispatch) => (id) => {
-  dispatch(requestAddUserToHackathon())
+  const method = (hackathon._id == -1) ? 'POST' : 'PUT'
+  const route = (hackathon._id == -1) ? '' : hackathon._id
 
-  return fetch('/api/hackathons/' + id + '/register', {
+  return fetch('/api/hackathons/' + route, {
       credentials: 'same-origin',
-      method: 'post'
+      method: method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(hackathon)
     })
     .then(response => response.json())
-    .then(json => dispatch(receiveAddUserToHackathon(json)))
-    .catch((error) => dispatch(receiveAddUserToHackathonError(error.message)))
+    .then(json => dispatch(savedHackathon(json)))
+    .catch((error) => dispatch(caughtHackathonError(error.message)))
 }
 
-export const REQUEST_CREATE_HACKATHON = 'REQUEST_CREATE_HACKATHON'
-export const requestCreateHackathon = () => {
+// ACTION: Delete hackathon
+export const DELETE_HACKATHON = 'DELETE_HACKATHON'
+
+const deletingHackathon = () => {
   return {
-    type: REQUEST_CREATE_HACKATHON
+    type: DELETE_HACKATHON,
+    isFetching: true,
+    caughtError: false
   }
 }
 
-export const RECEIVE_CREATE_HACKATHON = 'RECEIVE_CREATE_HACKATHON'
-export const receiveCreateHackathon = (json) => {
+const deletedHackathon = (id) => {
   return {
-    type: RECEIVE_CREATE_HACKATHON,
-    hackathons: json
+    type: DELETE_HACKATHON,
+    isFetching: false,
+    caughtError: false,
+    hackathonId: id
   }
 }
 
-export const RECEIVE_CREATE_HACKATHON_ERROR = 'RECEIVE_CREATE_HACKATHON_ERROR'
-export const receiveCreateHackathonError = (message) => {
+export const deleteHackathon = (dispatch) => (hackathon) => {
+  if(hackathon._id === -1) return dispatch(clearNewHackathon(hackathon))
+  dispatch(deletingHackathon())
+
+  return fetch('/api/hackathons/' + hackathon._id, {
+      credentials: 'same-origin',
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(hackathon)
+    })
+    .then(response => response.json())
+    .then(json => dispatch(deletedHackathon(hackathon._id)))
+    .catch((error) => dispatch(caughtHackathonError(error.message)))
+}
+
+// ACTION: Clear new hackathon
+export const CLEAR_NEW_HACKATHON = 'CLEAR_NEW_HACKATHON'
+const clearNewHackathon = (hackathon) => {
   return {
-    type: RECEIVE_CREATE_HACKATHON_ERROR,
-    message: message
+    type: CLEAR_NEW_HACKATHON,
+    isFetching: false,
+    caughtError: false
   }
 }
+
+// ACTION: Create hackathon
+export const CREATE_HACKATHON = 'CREATE_HACKATHON'
 
 export const createHackathon = (dispatch) => () => {
-  dispatch(requestCreateHackathon())
-
-  return fetch('/hackathons/create', {
-      credentials: 'same-origin',
-      method: 'post'
-    })
-    .then(response => response.json())
-    .then(json => dispatch(receiveCreateHackathon(json)))
-    .catch((error) => dispatch(receiveCreateHackathonError(error.message)))
+  dispatch({
+    type: CREATE_HACKATHON,
+    isFetching: false,
+    caughtError: false
+  })
 }

@@ -142,16 +142,6 @@ const deletedCourse = (id) => {
   }
 }
 
-// ACTION: Clear new course
-export const CLEAR_NEW_COURSE = 'CLEAR_NEW_COURSE'
-const clearNewCourse = (course) => {
-  return {
-    type: CLEAR_NEW_COURSE,
-    isFetching: false,
-    caughtError: false
-  }
-}
-
 export const deleteCourse = (dispatch) => (course) => {
   if(course._id === -1) return dispatch(clearNewCourse(course))
   dispatch(deletingCourse())
@@ -167,6 +157,16 @@ export const deleteCourse = (dispatch) => (course) => {
     .then(response => response.json())
     .then(json => dispatch(deletedCourse(course._id)))
     .catch((error) => dispatch(caughtCourseError(error.message)))
+}
+
+// ACTION: Clear new course
+export const CLEAR_NEW_COURSE = 'CLEAR_NEW_COURSE'
+const clearNewCourse = (course) => {
+  return {
+    type: CLEAR_NEW_COURSE,
+    isFetching: false,
+    caughtError: false
+  }
 }
 
 // ACTION: Create course

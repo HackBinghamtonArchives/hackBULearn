@@ -15,13 +15,19 @@ export default class Administration extends React.Component {
     createCourse: React.PropTypes.func.isRequired,
     saveUser: React.PropTypes.func.isRequired,
     deleteUser: React.PropTypes.func.isRequired,
+    fetchHackathons: React.PropTypes.func.isRequired,
+    createHackathon: React.PropTypes.func.isRequired,
+    saveHackathon: React.PropTypes.func.isRequired,
+    deleteHackathon: React.PropTypes.func.isRequired,
     users: React.PropTypes.object.isRequired,
-    courses: React.PropTypes.object.isRequired
+    courses: React.PropTypes.object.isRequired,
+    hackathons: React.PropTypes.object.isRequired
   }
 
   componentDidMount() {
     this.props.fetchUsers();
     this.props.fetchCourses();
+    this.props.fetchHackathons();
   }
 
   constructor(props) {
@@ -94,11 +100,53 @@ export default class Administration extends React.Component {
     )
   }
 
+  renderHackathonsView(className) {
+    if(this.props.hackathons.isFetching || this.props.hackathons.caughtError || _.isEmpty(this.props.hackathons.data)) {
+      return this.renderActivityIndicator(className)
+    }
+
+    const rows = _.values(this.props.hackathons.data).map((hackathon) => {
+      const columns = {
+        'Name': 'name',
+        'Start Date': 'dates.start',
+        'End Date': 'dates.end',
+        'Facility': 'location.facility',
+        'University': 'location.university',
+        'Address': 'location.streetAddress',
+        'City': 'location.city',
+        'State': 'location.state',
+        'Zip Code': 'location.zipCode',
+        'Country': 'location.country',
+        'Banner URL': 'bannerImage',
+        'Website URL': 'websiteURL',
+        'Registration URL': 'registrationURL',
+        'Capacity': 'capacity'
+      }
+
+      return (
+        <EditableDocument row={hackathon} columns={columns} key={hackathon._id}
+          updateDocument={this.props.saveHackathon}
+          deleteDocument={this.props.deleteHackathon} />
+      )
+    })
+
+    return (
+      <div className={className.element('course_table')}>
+        {rows}
+        <div className={className.element('new_document_button')}
+          onClick={this.props.createHackathon}>
+          New Hackathon
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const administration = BEM('administration')
     const subviews = [
       'User Management',
-      'Course Data'
+      'Course Data',
+      'Hackathons'
     ]
 
     return (
@@ -106,6 +154,7 @@ export default class Administration extends React.Component {
         <SplitView subviews={subviews}>
           {this.renderUsersView(administration)}
           {this.renderCoursesView(administration)}
+          {this.renderHackathonsView(administration)}
         </SplitView>
       </DashboardDetail>
     )

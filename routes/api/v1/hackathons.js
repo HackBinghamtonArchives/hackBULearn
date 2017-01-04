@@ -72,18 +72,18 @@ router.post('/', minimumRole('administrator'), function(req, res, next) {
  */
 router.put('/:id', minimumRole('administrator'), function(req, res, next) {
   const locationData = _.omitBy({
-    facility      : req.body.facility,
-    university    : req.body.university,
-    streetAddress : req.body.streetAddress,
-    city          : req.body.city,
-    state         : req.body.state,
-    zipCode       : req.body.zipCode,
-    country       : req.body.country
+    facility      : req.body.location.facility,
+    university    : req.body.location.university,
+    streetAddress : req.body.location.streetAddress,
+    city          : req.body.location.city,
+    state         : req.body.location.state,
+    zipCode       : req.body.location.zipCode,
+    country       : req.body.location.country
   }, _.isNil);
 
   const datesData = _.omitBy({
-    start : req.body.start,
-    end   : req.body.end
+    start : req.body.dates.start,
+    end   : req.body.dates.end
   }, _.isNil);
 
   const formData = _.omitBy({
@@ -95,7 +95,7 @@ router.put('/:id', minimumRole('administrator'), function(req, res, next) {
   }, _.isNil);
 
   if(!_.isEmpty(locationData)) formData.location = locationData;
-  if(!_.isEmpty(datesData)) datesData.dates = datesData;
+  if(!_.isEmpty(datesData)) formData.dates = datesData;
 
   Hackathon.findByIdAndUpdate(req.params.id, formData, {
     new: true,
