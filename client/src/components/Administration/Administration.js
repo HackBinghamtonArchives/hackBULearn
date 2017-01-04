@@ -42,6 +42,30 @@ export default class Administration extends React.Component {
     )
   }
 
+  renderValidationErrors(store) {
+    const errors = []
+
+    if(store.caughtError) {
+      if(store.error.errors) {
+        _.values(store.error.errors).forEach((error) => {
+          errors.push(
+            <div className='alert alert-danger' key={error.message}>
+              {error.message}
+            </div>
+          )
+        })
+      } else {
+        errors.push(
+          <div className='alert alert-danger' key='error'>
+            {store.error.message}
+          </div>
+        )
+      }
+    }
+
+    return errors
+  }
+
   renderUsersView(className) {
     if(this.props.users.isFetching || this.props.users.caughtError || _.isEmpty(this.props.users.data)) {
       return this.renderActivityIndicator(className)
@@ -89,26 +113,9 @@ export default class Administration extends React.Component {
       )
     })
 
-    if(this.props.courses.caughtError) {
-      if(this.props.courses.error.errors) {
-        _.values(this.props.courses.error.errors).forEach((error) => {
-          rows.unshift(
-            <div className='alert alert-danger' key={error.message}>
-              {error.message}
-            </div>
-          )
-        })
-      } else {
-        rows.unshift(
-          <div className='alert alert-danger' key='error'>
-            {this.props.courses.error.message}
-          </div>
-        )
-      }
-    }
-
     return (
       <div className={className.element('course_table')}>
+        {this.renderValidationErrors(this.props.courses)}
         {rows}
         <div className={className.element('new_document_button')}
           onClick={this.props.createCourse}>
@@ -148,26 +155,9 @@ export default class Administration extends React.Component {
       )
     })
 
-    if(this.props.hackathons.caughtError) {
-      if(this.props.hackathons.error.errors) {
-        _.values(this.props.hackathons.error.errors).forEach((error) => {
-          rows.unshift(
-            <div className='alert alert-danger' key={error.message}>
-              {error.message}
-            </div>
-          )
-        })
-      } else {
-        rows.unshift(
-          <div className='alert alert-danger' key='error'>
-            {this.props.hackathons.error.message}
-          </div>
-        )
-      }
-    }
-
     return (
       <div className={className.element('course_table')}>
+        {this.renderValidationErrors(this.props.hackathons)}
         {rows}
         <div className={className.element('new_document_button')}
           onClick={this.props.createHackathon}>
