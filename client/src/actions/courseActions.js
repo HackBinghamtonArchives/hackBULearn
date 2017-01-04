@@ -21,12 +21,12 @@ const fetchedCourses = (courses) => {
   }
 }
 
-const caughtCoursesError = (message) => {
+const caughtCoursesError = (error) => {
   return {
     type: FETCH_COURSES,
     isFetching: false,
     caughtError: true,
-    message
+    error
   }
 }
 
@@ -39,7 +39,7 @@ export const fetchCourses = (dispatch) => () => {
     })
     .then(response => response.json())
     .then(json => dispatch(fetchedCourses(json)))
-    .catch((error) => dispatch(caughtCoursesError(error.message)))
+    .catch((error) => dispatch(caughtCoursesError(error)))
 }
 
 // ACTION: Fetch course
@@ -62,12 +62,12 @@ const fetchedCourse = (course) => {
   }
 }
 
-const caughtCourseError = (message) => {
+const caughtCourseError = (error) => {
   return {
     type: FETCH_COURSE,
     isFetching: false,
     caughtError: true,
-    message
+    error
   }
 }
 
@@ -78,9 +78,13 @@ export const fetchCourse = (dispatch) => (id) => {
       credentials: 'same-origin',
       method: 'get'
     })
-    .then(response => response.json())
+    .then((response) => {
+      if(response.ok) return response.json()
+      response.json()
+        .then(json => dispatch(caughtCourseError(json)))
+    })
     .then(json => dispatch(fetchedCourse(json)))
-    .catch((error) => dispatch(caughtCourseError(error.message)))
+    .catch((error) => dispatch(caughtCourseError(error)))
 }
 
 // ACTION: Save course
@@ -117,9 +121,13 @@ export const saveCourse = (dispatch) => (course) => {
       },
       body: JSON.stringify(course)
     })
-    .then(response => response.json())
+    .then((response) => {
+      if(response.ok) return response.json()
+      response.json()
+        .then(json => dispatch(caughtCourseError(json)))
+    })
     .then(json => dispatch(savedCourse(json)))
-    .catch((error) => dispatch(caughtCourseError(error.message)))
+    .catch((error) => dispatch(caughtCourseError(error)))
 }
 
 // ACTION: Delete course
@@ -154,9 +162,13 @@ export const deleteCourse = (dispatch) => (course) => {
       },
       body: JSON.stringify(course)
     })
-    .then(response => response.json())
+    .then((response) => {
+      if(response.ok) return response.json()
+      response.json()
+        .then(json => dispatch(caughtCourseError(json)))
+    })
     .then(json => dispatch(deletedCourse(course._id)))
-    .catch((error) => dispatch(caughtCourseError(error.message)))
+    .catch((error) => dispatch(caughtCourseError(error)))
 }
 
 // ACTION: Clear new course

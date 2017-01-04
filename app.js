@@ -60,6 +60,14 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'dev' ||
     app.get('env') === 'test') {
   app.use(function(err, req, res, next) {
+    switch (err.name) {
+      case 'ValidationError':
+        res.status(400);
+        break;
+      default:
+        res.status(500);
+    }
+
     res.json(err);
   });
 }

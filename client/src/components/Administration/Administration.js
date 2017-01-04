@@ -71,7 +71,7 @@ export default class Administration extends React.Component {
   }
 
   renderCoursesView(className) {
-    if(this.props.courses.isFetching || this.props.courses.caughtError || _.isEmpty(this.props.courses.data)) {
+    if(this.props.courses.isFetching || _.isEmpty(this.props.courses.data)) {
       return this.renderActivityIndicator(className)
     }
 
@@ -89,6 +89,24 @@ export default class Administration extends React.Component {
       )
     })
 
+    if(this.props.courses.caughtError) {
+      if(this.props.courses.error.errors) {
+        _.values(this.props.courses.error.errors).forEach((error) => {
+          rows.unshift(
+            <div className='alert alert-danger' key={error.message}>
+              {error.message}
+            </div>
+          )
+        })
+      } else {
+        rows.unshift(
+          <div className='alert alert-danger' key='error'>
+            {this.props.courses.error.message}
+          </div>
+        )
+      }
+    }
+
     return (
       <div className={className.element('course_table')}>
         {rows}
@@ -101,7 +119,7 @@ export default class Administration extends React.Component {
   }
 
   renderHackathonsView(className) {
-    if(this.props.hackathons.isFetching || this.props.hackathons.caughtError || _.isEmpty(this.props.hackathons.data)) {
+    if(this.props.hackathons.isFetching || _.isEmpty(this.props.hackathons.data)) {
       return this.renderActivityIndicator(className)
     }
 
@@ -129,6 +147,24 @@ export default class Administration extends React.Component {
           deleteDocument={this.props.deleteHackathon} />
       )
     })
+
+    if(this.props.hackathons.caughtError) {
+      if(this.props.hackathons.error.errors) {
+        _.values(this.props.hackathons.error.errors).forEach((error) => {
+          rows.unshift(
+            <div className='alert alert-danger' key={error.message}>
+              {error.message}
+            </div>
+          )
+        })
+      } else {
+        rows.unshift(
+          <div className='alert alert-danger' key='error'>
+            {this.props.hackathons.error.message}
+          </div>
+        )
+      }
+    }
 
     return (
       <div className={className.element('course_table')}>

@@ -20,12 +20,12 @@ const fetchedHackathons = (hackathons) => {
   }
 }
 
-const caughtHackathonsError = (message) => {
+const caughtHackathonsError = (error) => {
   return {
     type: FETCH_HACKATHONS,
     isFetching: false,
     caughtError: true,
-    message
+    error
   }
 }
 
@@ -36,9 +36,13 @@ export const fetchHackathons = (dispatch) => () => {
       credentials: 'same-origin',
       method: 'get'
     })
-    .then(response => response.json())
+    .then((response) => {
+      if(response.ok) return response.json()
+      response.json()
+        .then(json => dispatch(caughtHackathonsError(json)))
+    })
     .then(json => dispatch(fetchedHackathons(json)))
-    .catch((error) => dispatch(caughtHackathonsError(error.message)))
+    .catch((error) => dispatch(caughtHackathonsError(error)))
 }
 
 // ACTION: Save hackathon
@@ -75,9 +79,13 @@ export const saveHackathon = (dispatch) => (hackathon) => {
       },
       body: JSON.stringify(hackathon)
     })
-    .then(response => response.json())
+    .then((response) => {
+      if(response.ok) return response.json()
+      response.json()
+        .then(json => dispatch(caughtHackathonsError(json)))
+    })
     .then(json => dispatch(savedHackathon(json)))
-    .catch((error) => dispatch(caughtHackathonError(error.message)))
+    .catch((error) => dispatch(caughtHackathonsError(error)))
 }
 
 // ACTION: Delete hackathon
@@ -112,9 +120,13 @@ export const deleteHackathon = (dispatch) => (hackathon) => {
       },
       body: JSON.stringify(hackathon)
     })
-    .then(response => response.json())
+    .then((response) => {
+      if(response.ok) return response.json()
+      response.json()
+        .then(json => dispatch(caughtHackathonsError(json)))
+    })
     .then(json => dispatch(deletedHackathon(hackathon._id)))
-    .catch((error) => dispatch(caughtHackathonError(error.message)))
+    .catch((error) => dispatch(caughtHackathonsError(error)))
 }
 
 // ACTION: Clear new hackathon

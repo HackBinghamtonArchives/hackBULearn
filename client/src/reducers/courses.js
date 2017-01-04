@@ -20,7 +20,7 @@ export const courses = (state = {
       return {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
-        message: action.message,
+        error: action.error,
         data: data,
         cached: true
       }
@@ -33,7 +33,7 @@ export const courses = (state = {
       return {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
-        message: action.message,
+        error: action.error,
         data: state.data,
         cached: state.cached
       }
@@ -46,7 +46,7 @@ export const courses = (state = {
       return {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
-        message: action.message,
+        error: action.error,
         data: _.omit(state.data, '-1'),
         cached: state.cached
       }
@@ -61,7 +61,7 @@ export const courses = (state = {
       return {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
-        message: action.message,
+        error: action.error,
         data: state.data,
         cached: state.cached
       }
@@ -71,7 +71,7 @@ export const courses = (state = {
       return {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
-        message: action.message,
+        error: action.error,
         data: state.data,
         cached: true
       }
@@ -79,7 +79,7 @@ export const courses = (state = {
       return {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
-        message: action.message,
+        error: action.error,
         data: _.omit(state.data, '-1'),
         cached: state.cached
       }
