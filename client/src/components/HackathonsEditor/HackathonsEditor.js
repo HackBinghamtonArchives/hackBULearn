@@ -60,20 +60,116 @@ export default class HackathonsEditor extends React.Component {
     if(!this.props.hackathons.isFetching) {
       return _.values(this.props.hackathons.data).map((hackathon) => {
         const columns = {
-          'Name': 'name',
-          'Start Date': 'dates.start',
-          'End Date': 'dates.end',
-          'Facility': 'location.facility',
-          'University': 'location.university',
-          'Address': 'location.streetAddress',
-          'City': 'location.city',
-          'State': 'location.state',
-          'Zip Code': 'location.zipCode',
-          'Country': 'location.country',
-          'Banner URL': 'bannerImage',
-          'Website URL': 'websiteURL',
-          'Registration URL': 'registrationURL',
-          'Capacity': 'capacity'
+          'Name': {
+            key: 'name',
+            type: 'text'
+          },
+          'Start Date': {
+            key: 'dates.start',
+            type: 'date'
+          },
+          'End Date': {
+            key: 'dates.end',
+            type: 'date'
+          },
+          'Facility': {
+            key: 'location.facility',
+            type: 'text'
+          },
+          'University': {
+            key: 'location.university',
+            type: 'text'
+          },
+          'Address': {
+            key: 'location.streetAddress',
+            type: 'text'
+          },
+          'City': {
+            key: 'location.city',
+            type: 'text'
+          },
+          'State': {
+            key: 'location.state',
+            type: 'select',
+            choices: [
+              'Alaska',
+              'Alabama',
+              'Arkansas',
+              'Arizona',
+              'California',
+              'Colorado',
+              'Connecticut',
+              'District of Columbia',
+              'Delaware',
+              'Florida',
+              'Georgia',
+              'Hawaii',
+              'Iowa',
+              'Idaho',
+              'Illinois',
+              'Indiana',
+              'Kansas',
+              'Kentucky',
+              'Louisiana',
+              'Massachusetts',
+              'Maryland',
+              'Maine',
+              'Michigan',
+              'Minnesota',
+              'Missouri',
+              'Mississippi',
+              'Montana',
+              'North Carolina',
+              'North Dakota',
+              'Nebraska',
+              'New Hampshire',
+              'New Jersey',
+              'New Mexico',
+              'Nevada',
+              'New York',
+              'Ohio',
+              'Oklahoma',
+              'Oregon',
+              'Pennsylvania',
+              'Rhode Island',
+              'South Carolina',
+              'South Dakota',
+              'Tennessee',
+              'Texas',
+              'Utah',
+              'Virginia',
+              'Vermont',
+              'Washington',
+              'Wisconsin',
+              'West Virginia',
+              'Wyoming'
+            ]
+          },
+          'Zip Code': {
+            key: 'location.zipCode',
+            type: 'text'
+          },
+          'Country': {
+            key: 'location.country',
+            type: 'select',
+            choices: ['USA', 'Canada', 'Mexico']
+          },
+          'Banner URL': {
+            key: 'bannerImage',
+            type: 'text'
+          },
+          'Website URL': {
+            key: 'websiteURL',
+            type: 'text'
+          },
+          'Registration URL': {
+            key: 'registrationURL',
+            type: 'text'
+          },
+          'Capacity': {
+            key: 'capacity',
+            type: 'text'
+          }
         }
 
         return (

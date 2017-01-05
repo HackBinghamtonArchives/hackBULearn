@@ -48,7 +48,6 @@ export default class Administration extends React.Component {
         <SplitView subviews={subviews}>
           <UsersEditor
             fetchUsers={this.props.fetchUsers}
-            createUser={this.props.createUser}
             saveUser={this.props.saveUser}
             deleteUser={this.props.deleteUser}
             users={this.props.users} />

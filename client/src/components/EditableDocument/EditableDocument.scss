@@ -40,6 +40,42 @@
       &:focus {
         border-color: $turquoise;
       }
+
+      &--select {
+        -webkit-border-radius: 0;
+        -webkit-appearance: none;
+      }
+
+      &--date {
+        padding: 0;
+        width: 100%;
+
+        &:hover, &:focus {
+          border-color: $content-bg;
+        }
+
+        div {
+          width: 100%;
+        }
+
+        input {
+          outline: none;
+          border: none;
+          background-color: $content-bg;
+          border-bottom: 1px solid $content-bg;
+          padding: 5px 0;
+          transition: border-color 0.25s ease-in-out;
+          width: 100%;
+
+          &:hover {
+            border-color: $gray-lighter;
+          }
+
+          &:focus {
+            border-color: $turquoise;
+          }
+        }
+      }
     }
   }
 

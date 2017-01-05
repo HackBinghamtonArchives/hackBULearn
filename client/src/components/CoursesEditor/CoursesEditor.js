@@ -60,9 +60,18 @@ export default class CoursesEditor extends React.Component {
     if(!this.props.courses.isFetching) {
       return _.values(this.props.courses.data).map((course) => {
         const columns = {
-          'Title': 'title',
-          'Description': 'description',
-          'Thumbnail': 'thumbnail'
+          'Title': {
+            key: 'title',
+            type: 'text'
+          },
+          'Description': {
+            key: 'description',
+            type: 'text'
+          },
+          'Thumbnail': {
+            key: 'thumbnail',
+            type: 'text'
+          }
         }
 
         return (

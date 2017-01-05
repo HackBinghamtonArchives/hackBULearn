@@ -1,5 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
 import { block as BEM } from 'bem-class'
 
 import './EditableDocument.scss'
@@ -50,14 +52,48 @@ export default class EditableDocument extends React.Component {
     this.setState({ row: _.cloneDeep(this.props.row), saved: true })
   }
 
-  renderCell(key, header, data, className) {
+  renderCell(title, options, className) {
+    var input;
+    switch(options.type) {
+      case 'date':
+        input = (
+          <div className={className.element('cell_data').modifier('date')}>
+            <DatePicker
+              selected={moment(_.get(this.state.row, options.key))}
+              onChange={(date) => this.changeData(options.key, date)} />
+          </div>
+        )
+        break
+      case 'select':
+        const choices = options.choices.map((choice) => {
+          return <option value={choice} key={choice}>{choice}</option>
+        })
+
+        input = (
+          <select
+            className={className.element('cell_data').modifier('select')}
+            value={_.get(this.state.row, options.key)}
+            onChange={(e) => this.changeData(options.key, e.target.value)}>
+            {choices}
+          </select>
+        )
+        break
+      default:
+        input = (
+          <input
+            type='text'
+            className={className.element('cell_data').modifier('text')}
+            value={_.get(this.state.row, options.key)}
+            onChange={(e) => this.changeData(options.key, e.target.value)} />
+        )
+    }
+
     return (
-      <div className={className.element('cell')} key={header}>
+      <div className={className.element('cell')} key={title}>
         <div className={className.element('cell_header')}>
-          {header}
+          {title}
         </div>
-        <input type='text' className={className.element('cell_data')}
-          value={data} onChange={(e) => this.changeData(key, e.target.value)} />
+        {input}
       </div>
     )
   }
@@ -65,9 +101,8 @@ export default class EditableDocument extends React.Component {
   renderCells(className) {
     if(this.state.row) {
       const cells = Object.keys(this.props.columns).map((column) => {
-        const key = this.props.columns[column]
-        const data = _.get(this.state.row, key)
-        return this.renderCell(key, column, data, className)
+        const options = this.props.columns[column]
+        return this.renderCell(column, options, className)
       })
 
       return (

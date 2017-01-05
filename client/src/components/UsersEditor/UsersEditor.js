@@ -8,7 +8,6 @@ import './UsersEditor.scss'
 export default class UsersEditor extends React.Component {
   static propTypes = {
     fetchUsers: React.PropTypes.func.isRequired,
-    createUser: React.PropTypes.func.isRequired,
     saveUser: React.PropTypes.func.isRequired,
     deleteUser: React.PropTypes.func.isRequired,
     users: React.PropTypes.object.isRequired
@@ -60,11 +59,26 @@ export default class UsersEditor extends React.Component {
     if(!this.props.users.isFetching) {
       return _.values(this.props.users.data).map((user) => {
         const columns = {
-          'First Name': 'local.firstname',
-          'Last Name': 'local.lastname',
-          'Username': 'local.username',
-          'Email': 'local.email',
-          'Permission': 'permission'
+          'First Name': {
+            key: 'local.firstname',
+            type: 'text'
+          },
+          'Last Name': {
+            key: 'local.lastname',
+            type: 'text'
+          },
+          'Username': {
+            key: 'local.username',
+            type: 'text'
+          },
+          'Email': {
+            key: 'local.email',
+            type: 'text'
+          },
+          'Permission': {
+            key: 'permission',
+            type: 'text'
+          }
         }
 
         return (
