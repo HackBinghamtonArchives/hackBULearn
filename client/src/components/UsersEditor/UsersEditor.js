@@ -77,7 +77,13 @@ export default class UsersEditor extends React.Component {
           },
           'Permission': {
             key: 'permission',
-            type: 'text'
+            type: 'select',
+            choices: [
+              'superuser',
+              'administrator',
+              'facilitator',
+              'member'
+            ]
           }
         }
 
