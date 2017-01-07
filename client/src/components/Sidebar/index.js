@@ -2,7 +2,7 @@ import React from 'react'
 import { block as BEM } from 'bem-class'
 import { Link } from 'react-router'
 
-import './Sidebar.scss'
+import './style.scss'
 
 export default class Sidebar extends React.Component {
   static propTypes = {

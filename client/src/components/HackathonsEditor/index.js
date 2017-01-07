@@ -3,7 +3,7 @@ import React from 'react'
 import { block as BEM } from 'bem-class'
 import { ActivityIndicator, EditableDocument } from 'components'
 
-import './HackathonsEditor.scss'
+import './style.scss'
 
 export default class HackathonsEditor extends React.Component {
   static propTypes = {

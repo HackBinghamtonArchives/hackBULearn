@@ -1,7 +1,7 @@
 import React from 'react'
 import { block as BEM } from 'bem-class'
 
-import './Hackathon.scss'
+import './style.scss'
 
 export default class Hackathon extends React.Component {
   static propTypes = {

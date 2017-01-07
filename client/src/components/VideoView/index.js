@@ -2,7 +2,7 @@ import React from 'react'
 import { block as BEM } from 'bem-class'
 import YouTube from 'react-youtube'
 
-import './VideoView.scss'
+import './style.scss'
 
 export default class VideoView extends React.Component {
   static propTypes = {

@@ -3,7 +3,7 @@ import React from 'react'
 import { block as BEM } from 'bem-class'
 import { ActivityIndicator, EditableDocument } from 'components'
 
-import './UsersEditor.scss'
+import './style.scss'
 
 export default class UsersEditor extends React.Component {
   static propTypes = {

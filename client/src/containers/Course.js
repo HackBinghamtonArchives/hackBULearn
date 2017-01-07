@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { fetchCourse, addVideoToUser, fetchUserInfo } from 'actions'
-import Course from 'components/Course/Course'
+import Course from 'components/Course'
 
 const mapStateToProps = (state) => {
   return {

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { fetchUserInfo } from 'actions'
-import Overview from 'components/Overview/Overview'
+import Overview from 'components/Overview'
 
 const mapStateToProps = (state) => {
   return {

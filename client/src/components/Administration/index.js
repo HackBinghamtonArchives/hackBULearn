@@ -6,7 +6,7 @@ import {
   EditableDocument, CoursesEditor, HackathonsEditor, UsersEditor
 } from 'components'
 
-import './Administration.scss'
+import './style.scss'
 
 export default class Administration extends React.Component {
   static propTypes = {

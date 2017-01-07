@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { block as BEM } from 'bem-class'
 import { DashboardDetail, ActivityIndicator } from 'components'
 
-import './Overview.scss'
+import './style.scss'
 
 export default class Overview extends React.Component {
   static propTypes = {

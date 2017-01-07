@@ -1,10 +1,10 @@
 import React from 'react'
 import { block as BEM } from 'bem-class'
-import { ActivityIndicator } from 'components'
+import { ActivityIndicator } from 'components/ActivityIndicator'
 import fetch from 'isomorphic-fetch'
 import _ from 'lodash'
 
-import './LoginForm.scss'
+import './style.scss'
 
 export default class LoginForm extends React.Component {
   static propTypes = {}

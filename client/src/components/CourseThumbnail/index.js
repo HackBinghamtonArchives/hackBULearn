@@ -4,7 +4,7 @@ import { block as BEM } from 'bem-class'
 
 import placeholder from './placeholder.svg'
 
-import './CourseThumbnail.scss'
+import './style.scss'
 
 export default class CourseThumbnail extends React.Component {
   static propTypes = {

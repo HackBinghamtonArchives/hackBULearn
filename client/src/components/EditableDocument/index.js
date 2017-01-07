@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import { block as BEM } from 'bem-class'
 
-import './EditableDocument.scss'
+import './style.scss'
 
 export default class EditableDocument extends React.Component {
   static propTypes = {

@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { block as BEM } from 'bem-class'
 import { DashboardDetail, ActivityIndicator, Hackathon } from 'components'
 
-import './Hackathons.scss'
+import './style.scss'
 
 export default class Hackathons extends React.Component {
   static propTypes = {

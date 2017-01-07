@@ -3,7 +3,7 @@ import React from 'react'
 import { block as BEM } from 'bem-class'
 import { DashboardDetail, VideoView, ActivityIndicator } from 'components'
 
-import './Course.scss'
+import './style.scss'
 
 export default class Course extends React.Component {
   static propTypes = {

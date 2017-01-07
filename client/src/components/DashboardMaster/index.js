@@ -3,7 +3,7 @@ import { block as BEM } from 'bem-class'
 
 import { Sidebar } from 'containers'
 
-import './DashboardMaster.scss'
+import './style.scss'
 
 export default class DashboardMaster extends React.Component {
   static propTypes = {}

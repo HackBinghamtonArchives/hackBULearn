@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { block as BEM } from 'bem-class'
 
-import './DashboardDetail.scss'
+import './style.scss'
 
 export default class DashboardDetail extends React.Component {
   static propTypes = {

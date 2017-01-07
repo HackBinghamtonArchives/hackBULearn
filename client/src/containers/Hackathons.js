@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { fetchHackathons } from 'actions'
-import Hackathons from 'components/Hackathons/Hackathons'
+import Hackathons from 'components/Hackathons'
 
 const mapStateToProps = (state) => {
   return {

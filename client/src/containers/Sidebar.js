@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { fetchUserInfo } from 'actions'
-import Sidebar from 'components/Sidebar/Sidebar'
+import Sidebar from 'components/Sidebar'
 
 const mapStateToProps = (state) => {
   return {

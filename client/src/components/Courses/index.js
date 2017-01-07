@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { block as BEM } from 'bem-class'
 import { CourseThumbnail, DashboardDetail, ActivityIndicator } from 'components'
 
-import './Courses.scss'
+import './style.scss'
 
 export default class Courses extends React.Component {
   static propTypes = {

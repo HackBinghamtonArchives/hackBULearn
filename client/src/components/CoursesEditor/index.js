@@ -3,7 +3,7 @@ import React from 'react'
 import { block as BEM } from 'bem-class'
 import { ActivityIndicator, EditableDocument } from 'components'
 
-import './CoursesEditor.scss'
+import './style.scss'
 
 export default class CoursesEditor extends React.Component {
   static propTypes = {

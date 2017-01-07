@@ -1,7 +1,7 @@
 import React from 'react'
 import { block as BEM } from 'bem-class'
 
-import './SplitView.scss'
+import './style.scss'
 
 export default class SplitView extends React.Component {
   static propTypes = {

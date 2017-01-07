@@ -1,7 +1,7 @@
 import React from 'react'
 import { block as BEM } from 'bem-class'
 
-import './ActivityIndicator.scss'
+import './style.scss'
 
 export default class ActivityIndicator extends React.Component {
   static propTypes = {}

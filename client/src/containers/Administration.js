@@ -4,7 +4,7 @@ import {
   deleteCourse, createCourse, saveUser, deleteUser, fetchHackathons,
   saveHackathon, createHackathon, deleteHackathon
 } from 'actions'
-import Administration from 'components/Administration/Administration'
+import Administration from 'components/Administration'
 
 const mapStateToProps = (state) => {
   return {
