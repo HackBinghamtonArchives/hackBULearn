@@ -5,6 +5,6 @@ import LoginForm from 'components/LoginForm'
 
 import './login.scss'
 
-const container = document.getElementById('login_container')
+const container = document.getElementById('login-container')
 
 ReactDOM.render(<LoginForm />, container)

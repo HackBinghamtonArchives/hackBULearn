@@ -47,15 +47,15 @@ export default class DashboardDetail extends React.Component {
   }
 
   render() {
-    const dashboard_detail = BEM('dashboard_detail')
+    const className = BEM('dashboard-detail')
 
     return (
-      <div className={dashboard_detail}>
-        <div className={dashboard_detail.element('title')}>
+      <div className={className}>
+        <div className={className.element('title')}>
           {this.renderTitle()}
-          {this.renderBreadcrumb(dashboard_detail)}
+          {this.renderBreadcrumb(className)}
         </div>
-        <div className={dashboard_detail.element('content')}>
+        <div className={className.element('content')}>
           {this.props.children}
         </div>
       </div>

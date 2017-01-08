@@ -27,7 +27,7 @@ export default class CoursesEditor extends React.Component {
   renderActivityIndicator(className) {
     if(this.props.courses.isFetching) {
       return (
-        <div className={className.element('activity_indicator')}>
+        <div className={className.element('activity-indicator')}>
           <ActivityIndicator />
         </div>
       )
@@ -88,7 +88,7 @@ export default class CoursesEditor extends React.Component {
   renderNewDocumentButton(className) {
     if(!this.props.courses.isFetching) {
       return (
-        <div className={className.element('new_document_button')}
+        <div className={className.element('new-document-button')}
           onClick={this.props.createCourse}>
           New Course
         </div>
@@ -97,14 +97,14 @@ export default class CoursesEditor extends React.Component {
   }
 
   render() {
-    const courses_editor = BEM('courses_editor')
+    const className = BEM('courses-editor')
 
     return (
-      <div className={courses_editor}>
-        {this.renderActivityIndicator(courses_editor)}
+      <div className={className}>
+        {this.renderActivityIndicator(className)}
         {this.renderValidationErrors()}
-        {this.renderRows(courses_editor)}
-        {this.renderNewDocumentButton(courses_editor)}
+        {this.renderRows(className)}
+        {this.renderNewDocumentButton(className)}
       </div>
     )
   }

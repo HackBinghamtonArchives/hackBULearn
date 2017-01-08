@@ -19,7 +19,7 @@ import { Courses, Course, Overview, Hackathons,
 
 import "./dashboard.scss"
 
-const container = document.getElementById('dashboard_container')
+const container = document.getElementById('dashboard-container')
 
 ReactDOM.render(
   (

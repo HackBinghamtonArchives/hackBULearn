@@ -50,8 +50,6 @@ export default class Administration extends React.Component {
   }
 
   render() {
-    const administration = BEM('administration')
-
     const subviews = [
       { title: 'User Management' },
       { title: 'Course Data' },

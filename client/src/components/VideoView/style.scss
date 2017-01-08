@@ -1,9 +1,9 @@
 @import '../../lib/common.scss';
 
-.video_view {
+.video-view {
   padding-bottom: 15px;
 
-  &__download_button, &__next_video_button {
+  &__download-button, &__next-video-button {
     @include content-box-shadow;
     height: 45px;
     line-height: 45px;
@@ -23,7 +23,7 @@
     }
   }
 
-  &__download_button {
+  &__download-button {
     background-color: $peter-river;
     color: saturate(lighten($peter-river, 40%), 50%);
     border: 1px solid darken($peter-river, 5%);
@@ -39,7 +39,7 @@
     }
   }
 
-  &__next_video_button {
+  &__next-video-button {
     background-color: darken($content-bg, 10%);
     color: $gray;
     border: 1px solid darken($content-bg, 15%);

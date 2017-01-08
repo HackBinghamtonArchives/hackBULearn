@@ -28,7 +28,7 @@ export default class SplitView extends React.Component {
     })
 
     return (
-      <div className={ className.element('table_view') }>
+      <div className={ className.element('table-view') }>
         <TableView activeItem={ this.props.activeView }>
           { items }
         </TableView>
@@ -39,7 +39,7 @@ export default class SplitView extends React.Component {
   renderContentView(className) {
     if(this.props.activeView > -1) {
       return (
-        <div className={ className.element('content_view') }>
+        <div className={ className.element('content-view') }>
           { this.props.children[this.props.activeView] }
         </div>
       )
@@ -47,12 +47,12 @@ export default class SplitView extends React.Component {
   }
 
   render() {
-    const split_view = BEM('split_view')
+    const className = BEM('split-view')
 
     return (
-      <div className={split_view}>
-        { this.renderTableView(split_view) }
-        { this.renderContentView(split_view) }
+      <div className={className}>
+        { this.renderTableView(className) }
+        { this.renderContentView(className) }
       </div>
     )
   }

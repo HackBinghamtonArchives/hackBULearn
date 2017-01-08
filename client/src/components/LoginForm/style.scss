@@ -43,7 +43,7 @@
   }
 }
 
-.auth_form {
+.auth-form {
   @include make-xs-column(4);
   @include make-xs-column-offset(4);
   position: absolute;
@@ -143,7 +143,7 @@
     }
   }
 
-  &__activity_indicator {
+  &__activity-indicator {
     @include content-box-shadow;
     width: 60px;
     height: 60px;
@@ -157,7 +157,7 @@
     border-radius: 5px;
   }
 
-  &__switch_link {
+  &__switch-link {
     margin-top: 15px;
     font-size: $font-size-small;
     font-weight: 200;

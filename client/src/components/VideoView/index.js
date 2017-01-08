@@ -25,18 +25,18 @@ export default class VideoView extends React.Component {
   }
 
   render () {
-    const video_view = BEM('video_view')
+    const className = BEM('video-view')
 
     return (
-      <div className={video_view}>
+      <div className={className}>
         <div className='embed-responsive embed-responsive-16by9'>
         <YouTube videoId={this.props.videoid}
           onStateChange={this.videoStateChanged} />
         </div>
-        <div className={video_view.element('download_button')}>
+        <div className={className.element('download-button')}>
           Download Example Files
         </div>
-        <div className={video_view.element('next_video_button').modifier({
+        <div className={className.element('next-video-button').modifier({
             disabled: this.props.nextVideoAvailable
           })} onClick={this.props.didClickNextVideo}>
           Next Video

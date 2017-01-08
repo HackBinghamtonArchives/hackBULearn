@@ -1,6 +1,6 @@
 @import '../../lib/common.scss';
 
-body, html, #login_container {
+body, html, #login-container {
   height: 100%;
   min-height: 100%;
   font-family: $roboto;
@@ -10,6 +10,6 @@ body {
   @include linear-gradient(135deg, $turquoise, $emerald);
 }
 
-#login_container {
+#login-container {
   position: relative;
 }

@@ -7,23 +7,23 @@ import placeholder from './placeholder.svg'
 import './style.scss'
 
 const Thumbnail = (props) => {
-  const thumbnail = BEM('thumbnail')
+  const className = BEM('thumbnail')
 
   return (
-    <div className={thumbnail}>
+    <div className={className}>
       <Link to={'/dashboard/courses/' + props.course_id}
-        className={thumbnail.element('content')}>
-          <div className={thumbnail.element('image')}>
+        className={className.element('content')}>
+          <div className={className.element('image')}>
             <img src={placeholder} />
           </div>
-          <div className={thumbnail.element('text')}>
-            <div className={thumbnail.element('title')}>
+          <div className={className.element('text')}>
+            <div className={className.element('title')}>
               {props.title}
             </div>
-            <div className={thumbnail.element('description')}>
+            <div className={className.element('description')}>
               {props.description}
             </div>
-            <div className={thumbnail.element('button')}>
+            <div className={className.element('button')}>
               Open Course
             </div>
           </div>

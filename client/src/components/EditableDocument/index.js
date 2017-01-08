@@ -133,12 +133,12 @@ export default class EditableDocument extends React.Component {
   }
 
   render() {
-    const editable_document = BEM('editable_document')
+    const className = BEM('editable-document')
 
     return (
-      <div className={editable_document}>
-        {this.renderCells(editable_document)}
-        {this.renderButtons(editable_document)}
+      <div className={className}>
+        {this.renderCells(className)}
+        {this.renderButtons(className)}
       </div>
     )
   }

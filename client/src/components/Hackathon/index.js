@@ -40,10 +40,10 @@ export default class Hackathon extends React.Component {
 
     return (
       <div className={className.element('dates')}>
-        <div className={className.element('start_date')}>
+        <div className={className.element('start-date')}>
           {months[startDate.getMonth()]} {startDate.getDate()}
         </div>
-        <div className={className.element('end_date')}>
+        <div className={className.element('end-date')}>
           {months[endDate.getMonth()]} {endDate.getDate()}
         </div>
       </div>
@@ -89,15 +89,15 @@ export default class Hackathon extends React.Component {
   }
 
   render () {
-    const hackathon = BEM('hackathon')
+    const className = BEM('hackathon')
 
     return (
-      <div className={hackathon}>
-        {this.renderBanner(hackathon)}
-        <div className={hackathon.element('info')}>
-          {this.renderTitle(hackathon)}
-          {this.renderDates(hackathon)}
-          {this.renderActions(hackathon)}
+      <div className={className}>
+        {this.renderBanner(className)}
+        <div className={className.element('info')}>
+          {this.renderTitle(className)}
+          {this.renderDates(className)}
+          {this.renderActions(className)}
         </div>
       </div>
     )

@@ -105,7 +105,7 @@ export default class LoginForm extends React.Component {
   renderActivityIndicator(className) {
     if(this.state.loading) {
       return (
-        <div className={className.element('activity_indicator')}>
+        <div className={className.element('activity-indicator')}>
           <ActivityIndicator />
         </div>
       )
@@ -211,13 +211,13 @@ export default class LoginForm extends React.Component {
     if(this.state.loading == false) {
       if(this.state.currentForm == 'login') {
         return (
-          <div className={className.element('switch_link')}>
+          <div className={className.element('switch-link')}>
             Don&#39;t have an account? <b onClick={this.switchForm}>Sign Up</b>
           </div>
         )
       } else {
         return (
-          <div className={className.element('switch_link')}>
+          <div className={className.element('switch-link')}>
             Already have an account? <b onClick={this.switchForm}>Log In</b>
           </div>
         )
@@ -226,14 +226,14 @@ export default class LoginForm extends React.Component {
   }
 
   render() {
-    const auth_form = BEM('auth_form')
+    const className = BEM('auth-form')
 
     return (
-      <div className={auth_form}>
-        {this.renderActivityIndicator(auth_form)}
-        {this.renderLoginForm(auth_form)}
-        {this.renderSignupForm(auth_form)}
-        {this.renderSwitchLink(auth_form)}
+      <div className={className}>
+        {this.renderActivityIndicator(className)}
+        {this.renderLoginForm(className)}
+        {this.renderSignupForm(className)}
+        {this.renderSwitchLink(className)}
       </div>
     )
   }

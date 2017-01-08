@@ -46,16 +46,16 @@ export default class Sidebar extends React.Component {
   }
 
   render () {
-    const sidebar = BEM('sidebar')
+    const className = BEM('sidebar')
 
     return (
       <div className='sidebar'>
-        {this.renderLogo(sidebar)}
-        {this.renderLink('Overview', 'square-o', 'overview', sidebar)}
-        {this.renderAdminLink(sidebar)}
-        {this.renderLink('Hackathons', 'calendar-o', 'hackathons', sidebar)}
-        {this.renderLink('Courses', 'folder-o', 'courses', sidebar)}
-        {this.renderLink('Questions', 'comment-o', 'questions', sidebar)}
+        {this.renderLogo(className)}
+        {this.renderLink('Overview', 'square-o', 'overview', className)}
+        {this.renderAdminLink(className)}
+        {this.renderLink('Hackathons', 'calendar-o', 'hackathons', className)}
+        {this.renderLink('Courses', 'folder-o', 'courses', className)}
+        {this.renderLink('Questions', 'comment-o', 'questions', className)}
       </div>
     )
   }

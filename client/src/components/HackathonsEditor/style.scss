@@ -1,7 +1,7 @@
 @import '../../lib/common.scss';
 
-.hackathons_editor {
-  &__activity_indicator {
+.hackathons-editor {
+  &__activity-indicator {
     width: 30px;
     height: 30px;
     position: absolute;
@@ -11,7 +11,7 @@
     margin-top: -15px;
   }
 
-  &__new_document_button {
+  &__new-document-button {
     @include content-box-shadow;
     display: inline-block;
     font-size: $font-size-small - 2;

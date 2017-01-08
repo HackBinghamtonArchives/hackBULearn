@@ -6,12 +6,12 @@ import { Sidebar } from 'containers'
 import './style.scss'
 
 const DashboardMaster = (props) => {
-  const dashboard_master = BEM('dashboard_master')
+  const className = BEM('dashboard-master')
 
   return (
-    <div className={dashboard_master}>
+    <div className={className}>
       <Sidebar />
-      <div className={dashboard_master.element('content_container')}>
+      <div className={className.element('content-container')}>
         {props.children}
       </div>
     </div>

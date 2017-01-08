@@ -70,7 +70,7 @@
     }
   }
 
-  &__media_view {
+  &__media-view {
     @include make-xs-column(9);
     @include make-xs-column-offset(3);
     padding-top: 15px;
@@ -83,7 +83,7 @@
     overflow-x: hidden;
   }
 
-  &__activity_indicator {
+  &__activity-indicator {
     width: 30px;
     height: 30px;
     position: absolute;

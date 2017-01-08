@@ -26,7 +26,7 @@ export default class UsersEditor extends React.Component {
   renderActivityIndicator(className) {
     if(this.props.users.isFetching) {
       return (
-        <div className={className.element('activity_indicator')}>
+        <div className={className.element('activity-indicator')}>
           <ActivityIndicator />
         </div>
       )
@@ -99,13 +99,13 @@ export default class UsersEditor extends React.Component {
   }
 
   render() {
-    const users_editor = BEM('users_editor')
+    const className = BEM('users-editor')
 
     return (
-      <div className={users_editor}>
-        {this.renderActivityIndicator(users_editor)}
+      <div className={className}>
+        {this.renderActivityIndicator(className)}
         {this.renderValidationErrors()}
-        {this.renderRows(users_editor)}
+        {this.renderRows(className)}
       </div>
     )
   }

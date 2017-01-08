@@ -110,10 +110,10 @@ class Course extends React.Component {
 
       return (
         <div>
-          <div className={ className.element('table_view') }>
+          <div className={ className.element('table-view') }>
             {this.renderTableView(course)}
           </div>
-          <div className={ className.element('media_view') }>
+          <div className={ className.element('media-view') }>
             { this.renderVideoView(course) }
           </div>
         </div>
@@ -124,7 +124,7 @@ class Course extends React.Component {
   renderActivityIndicator(className) {
     if(this.props.courses.isFetching) {
       return (
-        <div className={className.element('activity_indicator')}>
+        <div className={className.element('activity-indicator')}>
           <ActivityIndicator />
         </div>
       )

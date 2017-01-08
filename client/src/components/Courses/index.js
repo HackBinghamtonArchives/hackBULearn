@@ -39,7 +39,7 @@ export default class Courses extends React.Component {
   renderActivityIndicator(className) {
     if(this.props.courses.isFetching) {
       return (
-        <div className={className.element('activity_indicator')}>
+        <div className={className.element('activity-indicator')}>
           <ActivityIndicator />
         </div>
       )
@@ -47,16 +47,16 @@ export default class Courses extends React.Component {
   }
 
   render() {
-    const courses = BEM('courses')
+    const className = BEM('courses')
 
     return (
       <DashboardDetail title='Courses' icon='folder-o'>
-        <div className={courses}>
-          <div className={courses.element('tile_container')}>
+        <div className={className}>
+          <div className={className.element('tile-container')}>
             {this.renderTiles()}
           </div>
         </div>
-        {this.renderActivityIndicator(courses)}
+        {this.renderActivityIndicator(className)}
       </DashboardDetail>
     )
   }

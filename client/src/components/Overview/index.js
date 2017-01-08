@@ -28,7 +28,7 @@ export default class Overview extends React.Component {
   renderActivityIndicator(className) {
     if(this.props.user.isFetching) {
       return (
-        <div className={className.element('activity_indicator')}>
+        <div className={className.element('activity-indicator')}>
           <ActivityIndicator />
         </div>
       )
@@ -36,11 +36,11 @@ export default class Overview extends React.Component {
   }
 
   render () {
-    const overview = BEM('overview')
+    const className = BEM('overview')
 
     return (
       <DashboardDetail title='Overview' icon='square-o'>
-        {this.renderActivityIndicator(overview)}
+        {this.renderActivityIndicator(className)}
       </DashboardDetail>
     )
   }

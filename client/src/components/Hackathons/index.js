@@ -35,7 +35,7 @@ export default class Hackathons extends React.Component {
   renderActivityIndicator(className) {
     if(this.props.hackathons.isLoading) {
       return (
-        <div className={className.element('activity_indicator')}>
+        <div className={className.element('activity-indicator')}>
           <ActivityIndicator />
         </div>
       )
@@ -43,13 +43,13 @@ export default class Hackathons extends React.Component {
   }
 
   render () {
-    const hackathons = BEM('hackathons')
+    const className = BEM('hackathons')
 
     return (
       <DashboardDetail title='Hackathons' icon='calendar-o'>
-        {this.renderActivityIndicator(hackathons)}
-        <div className={hackathons}>
-          {this.renderHackathons(hackathons)}
+        {this.renderActivityIndicator(className)}
+        <div className={className}>
+          {this.renderHackathons(className)}
         </div>
       </DashboardDetail>
     )

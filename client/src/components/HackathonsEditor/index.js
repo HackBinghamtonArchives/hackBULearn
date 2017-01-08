@@ -27,7 +27,7 @@ export default class HackathonsEditor extends React.Component {
   renderActivityIndicator(className) {
     if(this.props.hackathons.isFetching) {
       return (
-        <div className={className.element('activity_indicator')}>
+        <div className={className.element('activity-indicator')}>
           <ActivityIndicator />
         </div>
       )
@@ -186,7 +186,7 @@ export default class HackathonsEditor extends React.Component {
   renderNewDocumentButton(className) {
     if(!this.props.hackathons.isFetching) {
       return (
-        <div className={className.element('new_document_button')}
+        <div className={className.element('new-document-button')}
           onClick={this.props.createHackathon}>
           New Hackathon
         </div>
@@ -195,14 +195,14 @@ export default class HackathonsEditor extends React.Component {
   }
 
   render() {
-    const hackathons_editor = BEM('hackathons_editor')
+    const className = BEM('hackathons-editor')
 
     return (
-      <div className={hackathons_editor}>
-        {this.renderActivityIndicator(hackathons_editor)}
+      <div className={className}>
+        {this.renderActivityIndicator(className)}
         {this.renderValidationErrors()}
-        {this.renderRows(hackathons_editor)}
-        {this.renderNewDocumentButton(hackathons_editor)}
+        {this.renderRows(className)}
+        {this.renderNewDocumentButton(className)}
       </div>
     )
   }
