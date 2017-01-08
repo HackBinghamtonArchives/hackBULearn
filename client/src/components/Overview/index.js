@@ -1,7 +1,9 @@
 import React from 'react'
 import _ from 'lodash'
 import { block as BEM } from 'bem-class'
-import { DashboardDetail, ActivityIndicator } from 'components'
+
+import ActivityIndicator from 'components/ActivityIndicator'
+import DashboardDetail from 'components/DashboardDetail'
 
 import './style.scss'
 

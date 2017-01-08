@@ -12,7 +12,7 @@ import reducers from 'reducers'
 import thunkMiddleware from 'redux-thunk'
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
-import { DashboardMaster } from 'components'
+import DashboardMaster from 'components/DashboardMaster'
 
 import { Courses, Course, Overview, Hackathons,
   Administration } from 'containers'

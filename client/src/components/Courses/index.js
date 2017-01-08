@@ -1,7 +1,10 @@
 import React from 'react'
 import _ from 'lodash'
 import { block as BEM } from 'bem-class'
-import { CourseThumbnail, DashboardDetail, ActivityIndicator } from 'components'
+
+import ActivityIndicator from 'components/ActivityIndicator'
+import DashboardDetail from 'components/DashboardDetail'
+import Thumbnail from './Thumbnail'
 
 import './style.scss'
 
@@ -24,7 +27,7 @@ export default class Courses extends React.Component {
       return _.values(this.props.courses.data).map((course) => {
         if(course._id === -1) return
         return (
-          <CourseThumbnail title={course.title}
+          <Thumbnail title={course.title}
             key={course._id}
             course_id={course._id}
             description={course.description} />

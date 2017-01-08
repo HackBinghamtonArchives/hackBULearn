@@ -13,19 +13,22 @@ export const courses = (state = {
 }, action) => {
   switch(action.type) {
     case FETCH_COURSES:
-      const data = _.merge(state.data, action.courses, (a, b) => {
-        return (a.cached) ? a : b
-      })
+      if(action.courses) {
+        state.data = _.mergeWith(state.data, action.courses, (a, b) => {
+          if(a && a.cached) return a
+          return b
+        })
+      }
 
       return {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         error: action.error,
-        data: data,
+        data: state.data,
         cached: true
       }
     case FETCH_COURSE:
-      if(action.course && !action.course.cached) {
+      if(action.course) {
         action.course.cached = true
         state.data[action.course._id] = action.course
       }

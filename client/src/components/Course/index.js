@@ -1,16 +1,25 @@
 import _ from 'lodash'
 import React from 'react'
 import { block as BEM } from 'bem-class'
-import { DashboardDetail, VideoView, ActivityIndicator } from 'components'
+
+import ActivityIndicator from 'components/ActivityIndicator'
+import DashboardDetail from 'components/DashboardDetail'
+import TableView from 'components/TableView'
+import SplitView from 'components/SplitView'
+import VideoView from 'components/VideoView'
 
 import './style.scss'
 
-export default class Course extends React.Component {
+class Course extends React.Component {
   static propTypes = {
     fetchCourse: React.PropTypes.func.isRequired,
     addVideoToUser: React.PropTypes.func,
     fetchUserInfo: React.PropTypes.func.isRequired,
-    user: React.PropTypes.object,
+    user: React.PropTypes.shape({
+      data: React.PropTypes.shape({
+        videos: React.PropTypes.arrayOf(React.PropTypes.string)
+      })
+    }),
     courses: React.PropTypes.object
   }
 
@@ -62,52 +71,50 @@ export default class Course extends React.Component {
     this.setState({ selection: i })
   }
 
-  renderTableViewItem(video, index, className) {
-    var complete = (this.props.user.data.videos
-      && this.props.user.data.videos.indexOf(video._id) != -1);
+  renderContent(course, className) {
+    if(!_.isEmpty(course) && !this.props.courses.isFetching
+      && !_.isEmpty(this.props.user.data) && course.cached == true) {
+      const subviews = course.videos.map((video) => {
+        const isComplete = (this.props.user.data.videos.indexOf(video._id) != -1)
+        const iconType = isComplete ? 'check-circle' : 'circle-o'
+        const iconStyle = isComplete ? 'success' : 'default'
 
-    className = className.element('item').modifier({
-      complete: complete,
-      active: this.state.selection == index
-    })
+        return {
+          title: video.title,
+          icon: {
+            type: iconType,
+            style: iconStyle
+          }
+        }
+      })
 
-    return (
-      <div className={className} key={video._id}
-           onClick={() => this.changeSelection(index)}>
-        {video.title}
-      </div>
-    )
-  }
-
-  renderTableView(course) {
-    const table_view = BEM('course__table_view');
-    return _.map(course.videos, (video, i) => {
-      return this.renderTableViewItem(video, i, table_view)
-    })
-  }
-
-  renderVideoView(course) {
-    if(this.state.selection != -1) {
-      const selected_video = course.videos[this.state.selection]
+      const content = course.videos.map((video) => {
+        return (
+          <VideoView
+            key={video._id}
+            videoid={video.videoid}
+            nextVideoAvailable={ this.isLastVideo(course) }
+            didClickNextVideo={ () => this.goToNextVideo(course) }
+            didCompleteVideo={ () => this.markVideoAsComplete(course) } />
+        )
+      })
 
       return (
-        <VideoView videoid={selected_video.videoid}
-          nextVideoAvailable={this.isLastVideo(course)}
-          didClickNextVideo={() => this.goToNextVideo(course)}
-          didCompleteVideo={() => this.markVideoAsComplete(course)} />
+        <SplitView
+          subviews={ subviews }
+          onChange={ this.changeSelection }
+          activeView={ this.state.selection }>
+          { content }
+        </SplitView>
       )
-    }
-  }
 
-  renderContent(course, className) {
-    if(!_.isEmpty(course) && !this.props.courses.isFetching) {
       return (
         <div>
-          <div className={className.element('table_view')}>
+          <div className={ className.element('table_view') }>
             {this.renderTableView(course)}
           </div>
-          <div className={className.element('media_view')}>
-            {this.renderVideoView(course)}
+          <div className={ className.element('media_view') }>
+            { this.renderVideoView(course) }
           </div>
         </div>
       )
@@ -140,3 +147,5 @@ export default class Course extends React.Component {
     )
   }
 }
+
+export default Course

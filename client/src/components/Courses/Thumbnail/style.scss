@@ -1,8 +1,10 @@
-@import '../../lib/common.scss';
+@import '../../../lib/common.scss';
 
-.course_thumbnail {
+.thumbnail {
   @include make-xs-column(4);
   margin-top: 15px;
+  border: none;
+  background-color: transparent;
 
   &__content {
     @include clearfix;

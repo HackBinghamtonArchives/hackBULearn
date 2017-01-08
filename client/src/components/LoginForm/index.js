@@ -1,8 +1,9 @@
 import React from 'react'
 import { block as BEM } from 'bem-class'
-import { ActivityIndicator } from 'components/ActivityIndicator'
 import fetch from 'isomorphic-fetch'
 import _ from 'lodash'
+
+import ActivityIndicator from 'components/ActivityIndicator'
 
 import './style.scss'
 

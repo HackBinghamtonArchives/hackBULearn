@@ -1,7 +1,9 @@
 import _ from 'lodash'
 import React from 'react'
 import { block as BEM } from 'bem-class'
-import { ActivityIndicator, EditableDocument } from 'components'
+
+import ActivityIndicator from 'components/ActivityIndicator'
+import EditableDocument from 'components/EditableDocument'
 
 import './style.scss'
 
