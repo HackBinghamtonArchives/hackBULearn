@@ -1,0 +1,17 @@
+@import '../../lib/common.scss';
+
+.hackathons-list {
+  @include content-box-shadow;
+  background-color: $content-bg;
+  border-radius: 5px;
+
+  &__activity-indicator {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 50%;
+    margin-left: -15px;
+    top: 50%;
+    margin-top: -15px;
+  }
+}

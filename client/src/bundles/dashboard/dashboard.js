@@ -13,9 +13,9 @@ import thunkMiddleware from 'redux-thunk'
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 import DashboardMaster from 'components/DashboardMaster'
+import Administration from 'components/Administration'
 
-import { Courses, Course, Overview, Hackathons,
-  Administration } from 'containers'
+import { Courses, Course, Overview, Hackathons } from 'containers'
 
 import "./dashboard.scss"
 

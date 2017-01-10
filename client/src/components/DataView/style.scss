@@ -1,0 +1,78 @@
+@import '../../lib/common.scss';
+
+.data-view {
+  width: 100%;
+
+  th, td {
+    padding: 15px;
+  }
+
+  td {
+    border-left: 1px solid $border-color;
+  }
+
+  tr {
+    border-bottom: 1px solid $border-color;
+
+    td:first-of-type {
+      border: none;
+    }
+  }
+
+  th {
+    color: $turquoise;
+    letter-spacing: 1px;
+    font-size: $font-size-small;
+    text-transform: uppercase;
+    font-weight: normal;
+  }
+
+  tr:nth-child(even) {
+    background-color: lighten($border-color, 4%);
+  }
+
+  tr:last-of-type {
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  &__row-buttons {
+    width: 96px;
+    text-align: right;
+  }
+
+  &__row-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    line-height: 30px;
+    margin-left: 5px;
+    border: 1px solid $peter-river;
+    color: $peter-river;
+    font-size: 15px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+
+    &::before {
+      @include fa-icon;
+    }
+
+    &--edit::before {
+      content: '\f040';
+    }
+
+    &--delete {
+      color: $alizarin;
+      border-color: $alizarin;
+
+      &::before {
+        content: '\f014';
+      }
+    }
+
+    &:first-of-type {
+      margin-left: 0px;
+    }
+  }
+}

@@ -1,6 +1,8 @@
 // Utility Libraries
 import _ from 'lodash'
 import jQuery from 'jquery'
+import 'bem-class'
+import 'classnames'
 
 // React Libraries
 import React from 'react'
