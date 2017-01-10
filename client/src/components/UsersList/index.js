@@ -54,6 +54,10 @@ export default class UsersList extends React.Component {
     this.setState({ userBeingEdited: null })
   }
 
+  deleteUser(id) {
+    this.props.deleteUser({ _id: id })
+  }
+
   renderEditorPopup() {
     if(this.state.userBeingEdited) {
       return (
@@ -99,7 +103,8 @@ export default class UsersList extends React.Component {
         <DataView
           columns={columns}
           data={data}
-          onEdit={this.enableEditor}/>
+          onEdit={this.enableEditor}
+          onDelete={this.deleteUser} />
       </div>
     )
   }

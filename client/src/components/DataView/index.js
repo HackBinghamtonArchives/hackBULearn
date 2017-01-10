@@ -23,7 +23,8 @@ const DataView = (props) => {
             onClick={() => props.onEdit(id)}>
           </div>
           <div
-            className={className.element('row-button').modifier('delete')}>
+            className={className.element('row-button').modifier('delete')}
+            onClick={() => props.onDelete(id)}>
           </div>
         </td>
       </tr>)

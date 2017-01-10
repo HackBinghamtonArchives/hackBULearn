@@ -29,6 +29,7 @@ export default class CoursesList extends React.Component {
 
     this.enableEditor = this.enableEditor.bind(this)
     this.disableEditor = this.disableEditor.bind(this)
+    this.deleteCourse = this.deleteCourse.bind(this)
   }
 
   enableEditor(id) {
@@ -43,6 +44,10 @@ export default class CoursesList extends React.Component {
       isEditing: false,
       currentCourse: -1
     })
+  }
+
+  deleteCourse(id) {
+    this.props.deleteCourse({ _id: id })
   }
 
   render () {
@@ -72,7 +77,8 @@ export default class CoursesList extends React.Component {
       <DataView
         columns={ columns }
         data={ data }
-        onEdit={ this.enableEditor } />
+        onEdit={ this.enableEditor }
+        onDelete={ this.deleteCourse } />
     )
 
     return (

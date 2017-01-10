@@ -29,6 +29,7 @@ export default class HackathonsList extends React.Component {
 
     this.enableEditor = this.enableEditor.bind(this)
     this.disableEditor = this.disableEditor.bind(this)
+    this.deleteHackathon = this.deleteHackathon.bind(this)
   }
 
   enableEditor(id) {
@@ -43,6 +44,10 @@ export default class HackathonsList extends React.Component {
       isEditing: false,
       currentHackathon: -1
     })
+  }
+
+  deleteHackathon(id) {
+    this.props.deleteHackathon({ _id: id })
   }
 
   renderDate(dateString) {
@@ -81,7 +86,8 @@ export default class HackathonsList extends React.Component {
       <DataView
         columns={ columns }
         data={ data }
-        onEdit={ this.enableEditor } />
+        onEdit={ this.enableEditor }
+        onDelete={ this.deleteHackathon } />
     )
 
     return (
