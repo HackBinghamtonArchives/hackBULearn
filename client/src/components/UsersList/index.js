@@ -104,7 +104,8 @@ export default class UsersList extends React.Component {
           columns={columns}
           data={data}
           onEdit={this.enableEditor}
-          onDelete={this.deleteUser} />
+          onDelete={this.deleteUser}
+          disabled={true} />
       </div>
     )
   }
