@@ -27,7 +27,7 @@ export const hackathons = (state = {
       }
 
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
@@ -45,7 +45,7 @@ export const hackathons = (state = {
       }
 
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
@@ -55,7 +55,7 @@ export const hackathons = (state = {
       break
     case CREATE_HACKATHON:
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isEditing: true,
         currentHackathon: null
       })
@@ -63,7 +63,7 @@ export const hackathons = (state = {
       break
     case EDIT_HACKATHON:
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isEditing: true,
         currentHackathon: action.currentHackathon
       })
@@ -71,7 +71,7 @@ export const hackathons = (state = {
       break
     case EXIT_HACKATHON:
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isEditing: false,
         currentHackathon: null
       })
@@ -82,7 +82,7 @@ export const hackathons = (state = {
       if(action.hackathonId) delete nextState.data[action.hackathonId]
 
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         error: action.error,

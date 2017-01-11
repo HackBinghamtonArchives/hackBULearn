@@ -28,7 +28,7 @@ export const courses = (state = {
       }
 
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
@@ -46,7 +46,7 @@ export const courses = (state = {
       }
 
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
@@ -63,7 +63,7 @@ export const courses = (state = {
       }
 
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
@@ -73,7 +73,7 @@ export const courses = (state = {
       break
     case CREATE_COURSE:
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isEditing: true,
         currentCourse: null
       })
@@ -81,7 +81,7 @@ export const courses = (state = {
       break
     case EDIT_COURSE:
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isEditing: true,
         currentCourse: action.currentCourse
       })
@@ -89,7 +89,7 @@ export const courses = (state = {
       break
     case EXIT_COURSE:
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isEditing: false,
         currentCourse: null
       })
@@ -100,7 +100,7 @@ export const courses = (state = {
       if(action.courseId) delete nextState.data[action.courseId]
 
       // Update status data
-      _.merge(nextState, {
+      _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         error: action.error,

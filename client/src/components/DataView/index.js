@@ -11,22 +11,22 @@ const DataView = (props) => {
     return <th key={column}>{column}</th>
   })
 
-  const actionButtons = !props.disabled && (
-    <td className={className.element('row-buttons')}>
-      <div
-        className={className.element('row-button').modifier('edit')}
-        onClick={() => props.onEdit(id)}>
-      </div>
-      <div
-        className={className.element('row-button').modifier('delete')}
-        onClick={() => props.onDelete(id)}>
-      </div>
-    </td>
-  )
-
   const rows = Object.keys(props.data).map((id) => {
     const row = props.data[id]
     const cells = row.map((cell, i) => <td key={`cell.${id}.${i}`}>{cell}</td>)
+    const actionButtons = !props.disabled && (
+      <td className={className.element('row-buttons')}>
+        <div
+          className={className.element('row-button').modifier('edit')}
+          onClick={() => props.onEdit(id)}>
+        </div>
+        <div
+          className={className.element('row-button').modifier('delete')}
+          onClick={() => props.onDelete(id)}>
+        </div>
+      </td>
+    )
+
     return (
       <tr key={ `row.${id}` }>
         { cells }
