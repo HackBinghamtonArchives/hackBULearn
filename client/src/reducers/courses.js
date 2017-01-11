@@ -75,7 +75,10 @@ export const courses = (state = {
       // Update status data
       _.assign(nextState, {
         isEditing: true,
-        currentCourse: null
+        currentCourse: null,
+        caughtError: false,
+        message: null,
+        error: null
       })
 
       break
@@ -83,7 +86,10 @@ export const courses = (state = {
       // Update status data
       _.assign(nextState, {
         isEditing: true,
-        currentCourse: action.currentCourse
+        currentCourse: action.currentCourse,
+        caughtError: false,
+        message: null,
+        error: null
       })
 
       break
@@ -91,7 +97,10 @@ export const courses = (state = {
       // Update status data
       _.assign(nextState, {
         isEditing: false,
-        currentCourse: null
+        currentCourse: null,
+        caughtError: false,
+        message: null,
+        error: null
       })
 
       break

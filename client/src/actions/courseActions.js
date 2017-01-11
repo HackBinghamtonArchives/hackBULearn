@@ -103,6 +103,7 @@ const savedCourse = (course) => {
     type: SAVE_COURSE,
     isFetching: false,
     caughtError: false,
+    message: 'This course was saved successfully.',
     course
   }
 }
@@ -146,6 +147,7 @@ const deletedCourse = (id) => {
     type: DELETE_COURSE,
     isFetching: false,
     caughtError: false,
+    message: 'This course was deleted successfully.',
     courseId: id
   }
 }

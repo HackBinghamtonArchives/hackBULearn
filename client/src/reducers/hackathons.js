@@ -57,7 +57,10 @@ export const hackathons = (state = {
       // Update status data
       _.assign(nextState, {
         isEditing: true,
-        currentHackathon: null
+        currentHackathon: null,
+        caughtError: false,
+        message: null,
+        error: null
       })
 
       break
@@ -65,7 +68,10 @@ export const hackathons = (state = {
       // Update status data
       _.assign(nextState, {
         isEditing: true,
-        currentHackathon: action.currentHackathon
+        currentHackathon: action.currentHackathon,
+        caughtError: false,
+        message: null,
+        error: null
       })
 
       break
@@ -73,7 +79,10 @@ export const hackathons = (state = {
       // Update status data
       _.assign(nextState, {
         isEditing: false,
-        currentHackathon: null
+        currentHackathon: null,
+        caughtError: false,
+        message: null,
+        error: null
       })
 
       break

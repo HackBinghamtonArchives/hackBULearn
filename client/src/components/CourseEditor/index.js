@@ -72,10 +72,24 @@ export default class CourseEditor extends React.Component {
       </FormView>
     )
 
+    const messageAlert = !_.isNil(this.props.courses.message) && (
+      <div className='alert alert-info'>
+        { this.props.courses.message }
+      </div>
+    )
+
+    const errorAlert = this.props.courses.caughtError && (
+      <div className='alert alert-danger'>
+        { this.props.courses.error.message }
+      </div>
+    )
+
     return (
       <PopupView title='Edit Course' onClose={ this.props.exitCourse }>
-        {activityIndicator}
-        {form}
+        { activityIndicator }
+        { messageAlert }
+        { errorAlert }
+        { form }
       </PopupView>
     )
   }

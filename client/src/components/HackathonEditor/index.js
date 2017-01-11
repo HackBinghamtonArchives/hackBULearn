@@ -79,10 +79,24 @@ export default class HackathonEditor extends React.Component {
       </FormView>
     )
 
+    const messageAlert = !_.isNil(this.props.hackathons.message) && (
+      <div className='alert alert-info'>
+        { this.props.hackathons.message }
+      </div>
+    )
+
+    const errorAlert = this.props.hackathons.caughtError && (
+      <div className='alert alert-danger'>
+        { this.props.hackathons.error.message }
+      </div>
+    )
+
     return (
       <PopupView title='Edit Hackathon' onClose={ this.props.exitHackathon }>
-        {activityIndicator}
-        {form}
+        { activityIndicator }
+        { messageAlert }
+        { errorAlert }
+        { form }
       </PopupView>
     )
   }

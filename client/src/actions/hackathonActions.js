@@ -61,6 +61,7 @@ const savedHackathon = (hackathon) => {
     type: SAVE_HACKATHON,
     isFetching: false,
     caughtError: false,
+    message: 'This hackathon was saved successfully.',
     hackathon
   }
 }
@@ -104,6 +105,7 @@ const deletedHackathon = (id) => {
     type: DELETE_HACKATHON,
     isFetching: false,
     caughtError: false,
+    message: 'This hackathon was deleted successfully.',
     hackathonId: id
   }
 }

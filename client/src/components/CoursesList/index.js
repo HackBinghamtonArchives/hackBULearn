@@ -54,11 +54,13 @@ export default class CoursesList extends React.Component {
     })
 
     const dataTable = (
-      <DataView
-        columns={ columns }
-        data={ data }
-        onEdit={ this.props.editCourse }
-        onDelete={ this.deleteCourse } />
+      <div className='courses-list__data-view'>
+        <DataView
+          columns={ columns }
+          data={ data }
+          onEdit={ this.props.editCourse }
+          onDelete={ this.deleteCourse } />
+      </div>
     )
 
     const newCourseButton = !this.props.courses.isEditing && (
@@ -69,10 +71,24 @@ export default class CoursesList extends React.Component {
       </div>
     )
 
+    const messageAlert = !_.isNil(this.props.courses.message) && (
+      <div className='alert alert-info'>
+        { this.props.courses.message }
+      </div>
+    )
+
+    const errorAlert = this.props.courses.caughtError && (
+      <div className='alert alert-danger'>
+        { this.props.courses.error.message }
+      </div>
+    )
+
     return (
       <div className='courses-list'>
         { activityIndicator }
         { editorPopup }
+        { messageAlert }
+        { errorAlert }
         { dataTable }
         { newCourseButton }
       </div>

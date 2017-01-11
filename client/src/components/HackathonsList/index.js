@@ -63,11 +63,13 @@ export default class HackathonsList extends React.Component {
     })
 
     const dataTable = (
-      <DataView
-        columns={ columns }
-        data={ data }
-        onEdit={ this.props.editHackathon }
-        onDelete={ this.deleteHackathon } />
+      <div className='hackathons-list__data-view'>
+        <DataView
+          columns={ columns }
+          data={ data }
+          onEdit={ this.props.editHackathon }
+          onDelete={ this.deleteHackathon } />
+      </div>
     )
 
     const newHackathonButton = !this.props.hackathons.isEditing && (
@@ -78,10 +80,24 @@ export default class HackathonsList extends React.Component {
       </div>
     )
 
+    const messageAlert = !_.isNil(this.props.hackathons.message) && (
+      <div className='alert alert-info'>
+        { this.props.hackathons.message }
+      </div>
+    )
+
+    const errorAlert = this.props.hackathons.caughtError && (
+      <div className='alert alert-danger'>
+        { this.props.hackathons.error.message }
+      </div>
+    )
+
     return (
       <div className='hackathons-list'>
         { activityIndicator }
         { editorPopup }
+        { messageAlert }
+        { errorAlert }
         { dataTable }
         { newHackathonButton }
       </div>
