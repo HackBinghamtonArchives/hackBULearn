@@ -1,73 +1,100 @@
 import {
   FETCH_HACKATHONS, SAVE_HACKATHON, CREATE_HACKATHON, DELETE_HACKATHON,
-  CLEAR_NEW_HACKATHON
-} from 'actions'
+  EDIT_HACKATHON, EXIT_HACKATHON
+} from 'actions/hackathonActions'
 
 export const hackathons = (state = {
   isFetching: false,
   caughtError: false,
-  data: {}
+  message: null,
+  error: null,
+  data: {},
+  cached: false,
+  currentHackathon: null
 }, action) => {
+  // Clone old state
+  const nextState = _.cloneDeep(state)
+
+  // Mutate nextState according to the action type
   switch(action.type) {
     case FETCH_HACKATHONS:
-      const data = _.merge(state.data, action.hackathons, (a, b) => {
-        return (a.cached) ? a : b
+      // Overwrite with new hackathons, except for cached hackathons
+      if(action.hackathons) {
+        _.mergeWith(nextState.data, action.hackathons, (o,n) => {
+          if(o && o.cached) return o
+          return n
+        })
+      }
+
+      // Update status data
+      _.merge(nextState, {
+        isFetching: action.isFetching,
+        caughtError: action.caughtError,
+        message: action.message,
+        error: action.error,
+        cached: true
       })
 
-      return {
-        isFetching: action.isFetching,
-        caughtError: action.caughtError,
-        error: action.error,
-        data: data,
-        cached: true
-      }
+      break
     case SAVE_HACKATHON:
+      // Add new hackathon to existing hackathons, if it exists
       if(action.hackathon) {
-        action.hackathon.cached = true
-        state.data[action.hackathon._id] = action.hackathon
+        const hackathon = _.cloneDeep(action.hackathon)
+        hackathon.cached = false
+        nextState.data[hackathon._id] = hackathon
       }
 
-      return {
+      // Update status data
+      _.merge(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
-        error: action.error,
-        data: _.omit(state.data, '-1'),
-        cached: state.cached
-      }
+        message: action.message,
+        error: action.error
+      })
+
+      break
     case CREATE_HACKATHON:
-      state.data[-1] = {
-        _id: -1,
-        title: '',
-        description: '',
-        thumbnail: ''
-      }
+      // Update status data
+      _.merge(nextState, {
+        isEditing: true,
+        currentHackathon: null
+      })
 
-      return {
-        isFetching: action.isFetching,
-        caughtError: action.caughtError,
-        error: action.error,
-        data: state.data,
-        cached: state.cached
-      }
+      break
+    case EDIT_HACKATHON:
+      // Update status data
+      _.merge(nextState, {
+        isEditing: true,
+        currentHackathon: action.currentHackathon
+      })
+
+      break
+    case EXIT_HACKATHON:
+      // Update status data
+      _.merge(nextState, {
+        isEditing: false,
+        currentHackathon: null
+      })
+
+      break
     case DELETE_HACKATHON:
-      if(action.hackathonId) delete state.data[action.hackathonId]
+      // Delete hackathon from loaded hackathon array
+      if(action.hackathonId) delete nextState.data[action.hackathonId]
 
-      return {
+      // Update status data
+      _.merge(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         error: action.error,
-        data: state.data,
-        cached: true
-      }
-    case CLEAR_NEW_HACKATHON:
-      return {
-        isFetching: action.isFetching,
-        caughtError: action.caughtError,
-        error: action.error,
-        data: _.omit(state.data, '-1'),
-        cached: state.cached
-      }
+        message: action.message
+      })
+
+      break
     default:
-      return state
+      // Do not mutate state
+      break
   }
+
+  // Return mutated state
+  return nextState
 }

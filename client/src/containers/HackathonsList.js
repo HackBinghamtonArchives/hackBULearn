@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import { fetchHackathons, createHackathon, deleteHackathon } from 'actions'
+import { fetchHackathons, createHackathon,
+  editHackathon, deleteHackathon } from 'actions/hackathonActions'
 import HackathonsList from 'components/HackathonsList'
 
 const mapStateToProps = (state) => {
@@ -12,7 +13,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchHackathons: fetchHackathons(dispatch),
     createHackathon: createHackathon(dispatch),
-    deleteHackathon: deleteHackathon(dispatch)
+    deleteHackathon: deleteHackathon(dispatch),
+    editHackathon: editHackathon(dispatch)
   }
 }
 

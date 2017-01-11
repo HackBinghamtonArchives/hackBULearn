@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { saveHackathon } from 'actions'
+import { saveHackathon, exitHackathon } from 'actions/hackathonActions'
 import HackathonEditor from 'components/HackathonEditor'
 
 const mapStateToProps = (state) => {
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    saveHackathon: saveHackathon(dispatch)
+    saveHackathon: saveHackathon(dispatch),
+    exitHackathon: exitHackathon(dispatch)
   }
 }
 

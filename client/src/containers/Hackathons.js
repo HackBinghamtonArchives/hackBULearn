@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchHackathons } from 'actions'
+import { fetchHackathons } from 'actions/hackathonActions'
 import Hackathons from 'components/Hackathons'
 
 const mapStateToProps = (state) => {

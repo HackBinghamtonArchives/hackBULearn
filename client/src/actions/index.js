@@ -7,9 +7,3 @@ export {
 export {
   FETCH_USERS, fetchUsers, SAVE_USER, saveUser, DELETE_USER, deleteUser
 } from './usersActions'
-
-export {
-  FETCH_HACKATHONS, fetchHackathons, SAVE_HACKATHON, saveHackathon,
-  DELETE_HACKATHON, deleteHackathon, CREATE_HACKATHON, createHackathon,
-  CLEAR_NEW_HACKATHON
-} from './hackathonActions'

@@ -68,8 +68,8 @@ const savedHackathon = (hackathon) => {
 export const saveHackathon = (dispatch) => (hackathon) => {
   dispatch(savingHackathon())
 
-  const method = (hackathon._id == -1) ? 'POST' : 'PUT'
-  const route = (hackathon._id == -1) ? '' : hackathon._id
+  const method = (hackathon._id) ? 'PUT' : 'POST'
+  const route = (hackathon._id) ? hackathon._id : ''
 
   return fetch('/api/hackathons/' + route, {
       credentials: 'same-origin',
@@ -129,23 +129,30 @@ export const deleteHackathon = (dispatch) => (hackathon) => {
     .catch((error) => dispatch(caughtHackathonsError(error)))
 }
 
-// ACTION: Clear new hackathon
-export const CLEAR_NEW_HACKATHON = 'CLEAR_NEW_HACKATHON'
-const clearNewHackathon = (hackathon) => {
-  return {
-    type: CLEAR_NEW_HACKATHON,
-    isFetching: false,
-    caughtError: false
-  }
+// ACTION: Edit existing hackathon
+export const EDIT_HACKATHON = 'EDIT_HACKATHON'
+
+export const editHackathon = (dispatch) => (id) => {
+  dispatch({
+    type: EDIT_HACKATHON,
+    currentHackathon: id
+  })
 }
 
-// ACTION: Create hackathon
+// ACTION: Exit hackathon editor
+export const EXIT_HACKATHON = 'EXIT_HACKATHON'
+
+export const exitHackathon = (dispatch) => () => {
+  dispatch({
+    type: EXIT_HACKATHON
+  })
+}
+
+// ACTION: Create new hackathon
 export const CREATE_HACKATHON = 'CREATE_HACKATHON'
 
 export const createHackathon = (dispatch) => () => {
   dispatch({
-    type: CREATE_HACKATHON,
-    isFetching: false,
-    caughtError: false
+    type: CREATE_HACKATHON
   })
 }

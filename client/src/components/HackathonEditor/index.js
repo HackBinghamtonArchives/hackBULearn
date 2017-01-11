@@ -10,19 +10,25 @@ import './style.scss'
 export default class HackathonEditor extends React.Component {
   static propTypes = {
     hackathons: React.PropTypes.object.isRequired,
-    hackathonId: React.PropTypes.string.isRequired,
-    onClose: React.PropTypes.func.isRequired,
+    exitHackathon: React.PropTypes.func.isRequired,
     saveHackathon: React.PropTypes.func.isRequired
   }
 
   state = {
-    hackathon: null,
+    hackathon: {
+      dates: {
+        start: '1995-01-01T05:00:00.000Z',
+        end: '1995-01-01T05:00:00.000Z'
+      }
+    },
     saved: true
   }
 
   componentWillMount() {
-    const hackathon = _.cloneDeep(this.props.hackathons.data[this.props.hackathonId])
-    this.setState({ hackathon })
+    if(this.props.hackathons.currentHackathon) {
+      const hackathon = _.cloneDeep(this.props.hackathons.data[this.props.hackathons.currentHackathon])
+      this.setState({ hackathon })
+    }
   }
 
   constructor(props) {
@@ -74,7 +80,7 @@ export default class HackathonEditor extends React.Component {
     )
 
     return (
-      <PopupView title='Edit Hackathon' onClose={ this.props.onClose }>
+      <PopupView title='Edit Hackathon' onClose={ this.props.exitHackathon }>
         {activityIndicator}
         {form}
       </PopupView>

@@ -11,14 +11,12 @@ export default class HackathonsList extends React.Component {
   static propTypes = {
     fetchHackathons: React.PropTypes.func.isRequired,
     createHackathon: React.PropTypes.func.isRequired,
+    editHackathon: React.PropTypes.func.isRequired,
     deleteHackathon: React.PropTypes.func.isRequired,
     hackathons: React.PropTypes.object.isRequired
   }
 
-  state = {
-    isEditing: false,
-    currentHackathon: -1
-  }
+  state = {}
 
   componentDidMount() {
     this.props.fetchHackathons()
@@ -27,23 +25,7 @@ export default class HackathonsList extends React.Component {
   constructor(props) {
     super(props)
 
-    this.enableEditor = this.enableEditor.bind(this)
-    this.disableEditor = this.disableEditor.bind(this)
     this.deleteHackathon = this.deleteHackathon.bind(this)
-  }
-
-  enableEditor(id) {
-    this.setState({
-      isEditing: true,
-      currentHackathon: id
-    })
-  }
-
-  disableEditor() {
-    this.setState({
-      isEditing: false,
-      currentHackathon: -1
-    })
   }
 
   deleteHackathon(id) {
@@ -65,10 +47,8 @@ export default class HackathonsList extends React.Component {
       </div>
     )
 
-    const editorPopup = this.state.isEditing && (
-      <HackathonEditor
-        hackathonId={ this.state.currentHackathon }
-        onClose={ this.disableEditor } />
+    const editorPopup = this.props.hackathons.isEditing && (
+      <HackathonEditor />
     )
 
     const columns = ['Hackathon', 'Location', 'Start Date', 'End Date']
@@ -86,8 +66,16 @@ export default class HackathonsList extends React.Component {
       <DataView
         columns={ columns }
         data={ data }
-        onEdit={ this.enableEditor }
+        onEdit={ this.props.editHackathon }
         onDelete={ this.deleteHackathon } />
+    )
+
+    const newHackathonButton = !this.props.hackathons.isEditing && (
+      <div
+        className='hackathons-list__new-hackathon-button'
+        onClick={ this.props.createHackathon }>
+        New Hackathon
+      </div>
     )
 
     return (
@@ -95,6 +83,7 @@ export default class HackathonsList extends React.Component {
         { activityIndicator }
         { editorPopup }
         { dataTable }
+        { newHackathonButton }
       </div>
     )
   }
