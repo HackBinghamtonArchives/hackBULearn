@@ -26,4 +26,8 @@ TextInput.propTypes = {
   error: React.PropTypes.string
 }
 
+TextInput.defaultProps = {
+  value: ''
+}
+
 export default TextInput

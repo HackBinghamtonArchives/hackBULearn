@@ -32,4 +32,8 @@ SelectInput.propTypes = {
   error: React.PropTypes.string
 }
 
+SelectInput.defaultProps = {
+  value: ''
+}
+
 export default SelectInput

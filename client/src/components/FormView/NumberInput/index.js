@@ -26,4 +26,8 @@ NumberInput.propTypes = {
   error: React.PropTypes.string
 }
 
+NumberInput.defaultProps = {
+  value: 0
+}
+
 export default NumberInput

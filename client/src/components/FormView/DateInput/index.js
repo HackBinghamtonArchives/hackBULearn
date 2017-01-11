@@ -11,6 +11,10 @@ export default class DateInput extends React.Component {
     error: React.PropTypes.string
   }
 
+  static defaultProps = {
+    value: ''
+  }
+
   constructor(props) {
     super(props)
 
