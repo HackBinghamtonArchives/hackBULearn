@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { saveCourse } from 'actions'
+import { saveCourse, exitCourse } from 'actions/courseActions'
 import CourseEditor from 'components/CourseEditor'
 
 const mapStateToProps = (state) => {
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    saveCourse: saveCourse(dispatch)
+    saveCourse: saveCourse(dispatch),
+    exitCourse: exitCourse(dispatch)
   }
 }
 

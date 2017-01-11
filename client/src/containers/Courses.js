@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchCourses } from 'actions'
+import { fetchCourses } from 'actions/courseActions'
 import Courses from 'components/Courses'
 
 const mapStateToProps = (state) => {

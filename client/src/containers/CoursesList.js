@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import { fetchCourses, createCourse, deleteCourse } from 'actions'
+import { fetchCourses, createCourse,
+  editCourse, deleteCourse } from 'actions/courseActions'
 import CoursesList from 'components/CoursesList'
 
 const mapStateToProps = (state) => {
@@ -12,6 +13,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchCourses: fetchCourses(dispatch),
     createCourse: createCourse(dispatch),
+    editCourse: editCourse(dispatch),
     deleteCourse: deleteCourse(dispatch)
   }
 }

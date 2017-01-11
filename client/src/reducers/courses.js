@@ -1,92 +1,118 @@
 import _ from 'lodash'
 import {
   FETCH_COURSES, FETCH_COURSE, SAVE_COURSE, DELETE_COURSE,
-  CREATE_COURSE, CLEAR_NEW_COURSE
-} from 'actions'
+  CREATE_COURSE, EDIT_COURSE, EXIT_COURSE
+} from 'actions/courseActions'
 
 export const courses = (state = {
   isFetching: false,
   caughtError: false,
   message: null,
+  error: null,
   data: {},
-  cached: false
+  cached: false,
+  currentCourse: null
 }, action) => {
+  // Clone old state
+  const nextState = _.cloneDeep(state)
+
+  // Mutate nextState according to the action type
   switch(action.type) {
     case FETCH_COURSES:
+      // Overwrite with new courses, except for cached courses
       if(action.courses) {
-        state.data = _.mergeWith(state.data, action.courses, (a, b) => {
-          if(a && a.cached) return a
-          return b
+        _.mergeWith(nextState.data, action.courses, (o,n) => {
+          if(o && o.cached) return o
+          return n
         })
       }
 
-      return {
+      // Update status data
+      _.merge(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
+        message: action.message,
         error: action.error,
-        data: state.data,
         cached: true
-      }
+      })
+
+      break
     case FETCH_COURSE:
+      // Add fetched course to existing courses, if it exists
       if(action.course) {
-        action.course.cached = true
-        state.data[action.course._id] = action.course
+        const course = _.cloneDeep(action.course)
+        course.cached = true
+        nextState.data[course._id] = course
       }
 
-      return {
+      // Update status data
+      _.merge(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
-        error: action.error,
-        data: state.data,
-        cached: state.cached
-      }
+        message: action.message,
+        error: action.error
+      })
+
+      break
     case SAVE_COURSE:
+      // Add new course to existing courses, if it exists
       if(action.course) {
-        action.course.cached = true
-        state.data[action.course._id] = action.course
+        const course = _.cloneDeep(action.course)
+        course.cached = false
+        nextState.data[course._id] = course
       }
 
-      return {
+      // Update status data
+      _.merge(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
-        error: action.error,
-        data: _.omit(state.data, '-1'),
-        cached: state.cached
-      }
+        message: action.message,
+        error: action.error
+      })
+
+      break
     case CREATE_COURSE:
-      state.data[-1] = {
-        _id: -1,
-        title: '',
-        description: '',
-        thumbnail: ''
-      }
+      // Update status data
+      _.merge(nextState, {
+        isEditing: true,
+        currentCourse: null
+      })
 
-      return {
-        isFetching: action.isFetching,
-        caughtError: action.caughtError,
-        error: action.error,
-        data: state.data,
-        cached: state.cached
-      }
+      break
+    case EDIT_COURSE:
+      // Update status data
+      _.merge(nextState, {
+        isEditing: true,
+        currentCourse: action.currentCourse
+      })
+
+      break
+    case EXIT_COURSE:
+      // Update status data
+      _.merge(nextState, {
+        isEditing: false,
+        currentCourse: null
+      })
+
+      break
     case DELETE_COURSE:
-      if(action.courseId) delete state.data[action.courseId]
+      // Delete course from loaded course array
+      if(action.courseId) delete nextState.data[action.courseId]
 
-      return {
+      // Update status data
+      _.merge(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         error: action.error,
-        data: state.data,
-        cached: true
-      }
-    case CLEAR_NEW_COURSE:
-      return {
-        isFetching: action.isFetching,
-        caughtError: action.caughtError,
-        error: action.error,
-        data: _.omit(state.data, '-1'),
-        cached: state.cached
-      }
+        message: action.message
+      })
+
+      break
     default:
-      return state
+      // Do not mutate state
+      break
   }
+
+  // Return mutated state
+  return nextState
 }

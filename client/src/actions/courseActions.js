@@ -110,8 +110,8 @@ const savedCourse = (course) => {
 export const saveCourse = (dispatch) => (course) => {
   dispatch(savingCourse())
 
-  const method = (course._id == -1) ? 'POST' : 'PUT'
-  const route = (course._id == -1) ? '' : course._id
+  const method = (course._id) ? 'PUT' : 'POST'
+  const route = (course._id) ? course._id : ''
 
   return fetch('/api/courses/' + route, {
       credentials: 'same-origin',
@@ -151,7 +151,6 @@ const deletedCourse = (id) => {
 }
 
 export const deleteCourse = (dispatch) => (course) => {
-  if(course._id === -1) return dispatch(clearNewCourse(course))
   dispatch(deletingCourse())
 
   return fetch('/api/courses/' + course._id, {
@@ -171,23 +170,30 @@ export const deleteCourse = (dispatch) => (course) => {
     .catch((error) => dispatch(caughtCourseError(error)))
 }
 
-// ACTION: Clear new course
-export const CLEAR_NEW_COURSE = 'CLEAR_NEW_COURSE'
-const clearNewCourse = (course) => {
-  return {
-    type: CLEAR_NEW_COURSE,
-    isFetching: false,
-    caughtError: false
-  }
+// ACTION: Edit existing course
+export const EDIT_COURSE = 'EDIT_COURSE'
+
+export const editCourse = (dispatch) => (id) => {
+  dispatch({
+    type: EDIT_COURSE,
+    currentCourse: id
+  })
 }
 
-// ACTION: Create course
+// ACTION: Exit course editor
+export const EXIT_COURSE = 'EXIT_COURSE'
+
+export const exitCourse = (dispatch) => () => {
+  dispatch({
+    type: EXIT_COURSE
+  })
+}
+
+// ACTION: Create new course
 export const CREATE_COURSE = 'CREATE_COURSE'
 
 export const createCourse = (dispatch) => () => {
   dispatch({
-    type: CREATE_COURSE,
-    isFetching: false,
-    caughtError: false
+    type: CREATE_COURSE
   })
 }

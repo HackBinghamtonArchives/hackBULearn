@@ -11,14 +11,12 @@ export default class CoursesList extends React.Component {
   static propTypes = {
     fetchCourses: React.PropTypes.func.isRequired,
     createCourse: React.PropTypes.func.isRequired,
+    editCourse: React.PropTypes.func.isRequired,
     deleteCourse: React.PropTypes.func.isRequired,
     courses: React.PropTypes.object.isRequired
   }
 
-  state = {
-    isEditing: false,
-    currentCourse: -1
-  }
+  state = {}
 
   componentDidMount() {
     this.props.fetchCourses()
@@ -27,23 +25,7 @@ export default class CoursesList extends React.Component {
   constructor(props) {
     super(props)
 
-    this.enableEditor = this.enableEditor.bind(this)
-    this.disableEditor = this.disableEditor.bind(this)
     this.deleteCourse = this.deleteCourse.bind(this)
-  }
-
-  enableEditor(id) {
-    this.setState({
-      isEditing: true,
-      currentCourse: id
-    })
-  }
-
-  disableEditor() {
-    this.setState({
-      isEditing: false,
-      currentCourse: -1
-    })
   }
 
   deleteCourse(id) {
@@ -57,10 +39,8 @@ export default class CoursesList extends React.Component {
       </div>
     )
 
-    const editorPopup = this.state.isEditing && (
-      <CourseEditor
-        courseId={ this.state.currentCourse }
-        onClose={ this.disableEditor } />
+    const editorPopup = this.props.courses.isEditing && (
+      <CourseEditor />
     )
 
     const columns = ['Course', 'Description', 'Videos']
@@ -77,8 +57,16 @@ export default class CoursesList extends React.Component {
       <DataView
         columns={ columns }
         data={ data }
-        onEdit={ this.enableEditor }
+        onEdit={ this.props.editCourse }
         onDelete={ this.deleteCourse } />
+    )
+
+    const newCourseButton = !this.props.courses.isEditing && (
+      <div
+        className='courses-list__new-course-button'
+        onClick={ this.props.createCourse }>
+        New Course
+      </div>
     )
 
     return (
@@ -86,6 +74,7 @@ export default class CoursesList extends React.Component {
         { activityIndicator }
         { editorPopup }
         { dataTable }
+        { newCourseButton }
       </div>
     )
   }

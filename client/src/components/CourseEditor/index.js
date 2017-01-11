@@ -10,19 +10,22 @@ import './style.scss'
 export default class CourseEditor extends React.Component {
   static propTypes = {
     courses: React.PropTypes.object.isRequired,
-    courseId: React.PropTypes.string.isRequired,
-    onClose: React.PropTypes.func.isRequired,
+    exitCourse: React.PropTypes.func.isRequired,
     saveCourse: React.PropTypes.func.isRequired
   }
 
   state = {
-    course: null,
+    course: {
+      thumbnail: 'html'
+    },
     saved: true
   }
 
   componentWillMount() {
-    const course = _.cloneDeep(this.props.courses.data[this.props.courseId])
-    this.setState({ course })
+    if(this.props.courses.currentCourse) {
+      const course = _.cloneDeep(this.props.courses.data[this.props.courses.currentCourse])
+      this.setState({ course })
+    }
   }
 
   constructor(props) {
@@ -70,7 +73,7 @@ export default class CourseEditor extends React.Component {
     )
 
     return (
-      <PopupView title='Edit Course' onClose={ this.props.onClose }>
+      <PopupView title='Edit Course' onClose={ this.props.exitCourse }>
         {activityIndicator}
         {form}
       </PopupView>
