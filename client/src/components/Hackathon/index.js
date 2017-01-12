@@ -3,103 +3,98 @@ import { block as BEM } from 'bem-class'
 
 import './style.scss'
 
-export default class Hackathon extends React.Component {
-  static propTypes = {
-    hackathon: React.PropTypes.object.isRequired
-  }
+const Hackathon = (props) => {
+  const className = BEM('hackathon')
 
-  state = {}
-
-  constructor(props) {
-    super(props)
-  }
-
-  renderTitle(className) {
-    return (
-      <div className={className.element('title')}>
-        <div className={className.element('name')}>
-          {this.props.hackathon.name}
-        </div>
-        <div className={className.element('location')}>
-          {this.props.hackathon.location.city}, {this.props.hackathon.location.state}
-        </div>
+  // Title rendering logic
+  const title = (
+    <div className={ className.element('title') }>
+      <div className={ className.element('name') }>
+        { props.hackathon.name }
       </div>
-    )
-  }
-
-  renderDates(className) {
-    const months = [
-      "January", "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-    ]
-
-    const startDate = new Date(this.props.hackathon.dates.start)
-    const endDate = new Date(this.props.hackathon.dates.end)
-
-    return (
-      <div className={className.element('dates')}>
-        <div className={className.element('start-date')}>
-          {months[startDate.getMonth()]} {startDate.getDate()}
-        </div>
-        <div className={className.element('end-date')}>
-          {months[endDate.getMonth()]} {endDate.getDate()}
-        </div>
+      <div className={ className.element('location') }>
+        { props.hackathon.location.city }, { props.hackathon.location.state }
       </div>
-    )
-  }
+    </div>
+  )
 
-  renderWebsiteButton(className) {
-    if(this.props.hackathon.websiteURL) {
-      return (
-        <a
-          href={this.props.hackathon.websiteURL}
-          target="_blank"
-          title="View Hackathon Website"
-          className={className.element('button').modifier('website')}>
-            View Website
-        </a>
-      )
-    }
-  }
+  // Dates rendering logic
+  const months = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ]
 
-  renderActions(className) {
-    return (
-      <div className={className.element('actions')}>
-        {this.renderWebsiteButton(className)}
-        <div className={className.element('button').modifier('register')}>
-          Register
-        </div>
+  const startDate = new Date(props.hackathon.dates.start)
+  const endDate = new Date(props.hackathon.dates.end)
+
+  const dates = (
+    <div className={ className.element('dates') }>
+      <div className={ className.element('start-date') }>
+        { months[startDate.getMonth()] } { startDate.getDate() }
       </div>
-    )
-  }
-
-  renderBanner(className) {
-    const style = {
-      backgroundImage: 'url(' + this.props.hackathon.bannerImage + ')'
-    }
-
-    return (
-      <div
-        className={className.element('banner')}
-        style={style}>
+      <div className={ className.element('end-date') }>
+        { months[endDate.getMonth()] } { endDate.getDate() }
       </div>
-    )
+    </div>
+  )
+
+  // Button rendering logic
+  const websiteButton = !_.isNil(props.hackathon.websiteURL) && (
+    <a
+      href={ props.hackathon.websiteURL }
+      target="_blank"
+      title="View Hackathon Website"
+      className={ className.element('button').modifier('website') }>
+        View Website
+    </a>
+  )
+
+  const registerButton = !_.isNil(props.hackathon.registrationURL) && (
+    <a
+      href={ props.hackathon.registrationURL }
+      target="_blank"
+      title="Register for this hackathon"
+      className={ className.element('button').modifier('register') }>
+        Register
+    </a>
+  )
+
+  const actions = (
+    <div className={ className.element('actions') }>
+      { websiteButton }
+      { registerButton }
+    </div>
+  )
+
+  // Banner rendering logic
+  const bannerStyle = {
+    backgroundImage: 'url(' + props.hackathon.bannerImage + ')'
   }
 
-  render () {
-    const className = BEM('hackathon')
+  const banner = (
+    <div
+      className={ className.element('banner') }
+      style={ bannerStyle }>
+    </div>
+  )
 
-    return (
-      <div className={className}>
-        {this.renderBanner(className)}
-        <div className={className.element('info')}>
-          {this.renderTitle(className)}
-          {this.renderDates(className)}
-          {this.renderActions(className)}
-        </div>
+  // Component rendering logic
+  return (
+    <div className={ className }>
+      { banner }
+      <div className={ className.element('info') }>
+        { title }
+        { dates }
+        { actions }
       </div>
-    )
-  }
+    </div>
+  )
 }
+
+Hackathon.propTypes = {
+  hackathon: React.PropTypes.object.isRequired
+}
+
+export default Hackathon
