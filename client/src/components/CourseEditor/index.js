@@ -28,6 +28,13 @@ export default class CourseEditor extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.courses.currentCourse) {
+      const course = _.cloneDeep(nextProps.courses.data[nextProps.courses.currentCourse])
+      this.setState({ course })
+    }
+  }
+
   constructor(props) {
     super(props)
 
@@ -59,16 +66,12 @@ export default class CourseEditor extends React.Component {
         onChange={ this.onEdit }
         onSubmit={ this.onSave }
         disableSubmit={ this.state.saved } >
-        <FormView.TextInput
-          title='Title'
-          name='title' />
-        <FormView.TextInput
-          title='Description'
-          name='description' />
-        <FormView.SelectInput
-          title='Thumbnail'
-          name='thumbnail'
-          choices={ ['html', 'css', 'js'] } />
+        <FormView.TextInput title='Title' name='title' />
+        <FormView.TextInput title='Description' name='description' />
+        <FormView.SelectInput title='Thumbnail'
+          name='thumbnail' choices={ ['html', 'css', 'js'] } />
+        <FormView.CollectionInput title='Videos'
+          name='videos' input={FormView.VideoInput} />
       </FormView>
     )
 

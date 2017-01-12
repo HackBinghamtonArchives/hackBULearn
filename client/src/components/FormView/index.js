@@ -6,6 +6,8 @@ import TextInput from './TextInput'
 import SelectInput from './SelectInput'
 import DateInput from './DateInput'
 import NumberInput from './NumberInput'
+import VideoInput from './VideoInput'
+import CollectionInput from './CollectionInput'
 
 import './style.scss'
 
@@ -55,5 +57,7 @@ FormView.TextInput = TextInput
 FormView.SelectInput = SelectInput
 FormView.DateInput = DateInput
 FormView.NumberInput = NumberInput
+FormView.VideoInput = VideoInput
+FormView.CollectionInput = CollectionInput
 
 export default FormView

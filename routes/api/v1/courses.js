@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var router = require('express').Router();
+var map = require('async/map');
 var Course = require('../../../models/course');
 var Video = require('../../../models/video');
 var minimumRole = require('../../../middleware').roles;
@@ -11,10 +12,13 @@ const publicFields = ['_id', 'title', 'description', 'thumbnail', 'videos'];
  * Returns: Array of all courses
  */
 router.get('/', minimumRole('member'), function(req, res, next) {
-  Course.find({}, publicFields.join(' '), function(err, courses) {
-    if(err) return next(err);
-    return res.json(courses);
-  });
+  Course.find({})
+    .select(publicFields.join(' '))
+    .populate('videos')
+    .exec(function(err, courses) {
+      if(err) return next(err);
+      return res.json(courses);
+    });
 });
 
 /**
@@ -37,16 +41,23 @@ router.get('/:id', minimumRole('member'), function(req, res, next) {
  * Returns: New course
  */
 router.post('/', minimumRole('administrator'), function(req, res, next) {
-  const formData = _.omitBy({
-    title: req.body.title,
-    description: req.body.description,
-    thumbnail: req.body.thumbnail
-  }, _.isNil);
-
-  const course = new Course(formData);
-  course.save(function(err, course) {
+  map(req.body.videos, function(video, callback) {
+    Video.create(_.omit(video, '_id'), callback);
+  }, function(err, videos) {
     if(err) return next(err);
-    return res.json(_.pick(course, publicFields));
+
+    const formData = _.omitBy({
+      title: req.body.title,
+      description: req.body.description,
+      thumbnail: req.body.thumbnail,
+      videos: videos
+    }, _.isNil);
+
+    const course = new Course(formData);
+    course.save(function(err, course) {
+      if(err) return next(err);
+      return res.json(_.pick(course, publicFields));
+    });
   });
 });
 
@@ -56,19 +67,28 @@ router.post('/', minimumRole('administrator'), function(req, res, next) {
  * Returns: Modified course
  */
 router.put('/:id', minimumRole('administrator'), function(req, res, next) {
-  const formData = _.omitBy({
-    title: req.body.title,
-    description: req.body.description,
-    thumbnail: req.body.thumbnail
-  }, _.isNil);
-
-  Course.findByIdAndUpdate(req.params.id, formData, {
-    new: true,
-    runValidators: true,
-    select: publicFields.join(' ')
-  }, function(err, course) {
+  map(req.body.videos, function(video, callback) {
+    Video.findByIdAndUpdate(video._id, video, { new: true }, callback);
+  }, function(err, videos) {
     if(err) return next(err);
-    return res.json(course);
+
+    const formData = _.omitBy({
+      title: req.body.title,
+      description: req.body.description,
+      thumbnail: req.body.thumbnail,
+      videos: videos
+    }, _.isNil);
+
+    Course.findByIdAndUpdate(req.params.id, formData, {
+      new: true,
+      runValidators: true,
+      select: publicFields.join(' ')
+    })
+    .populate('videos')
+    .exec(function(err, course) {
+      if(err) return next(err);
+      return res.json(course);
+    });
   });
 });
 

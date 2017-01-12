@@ -60,6 +60,7 @@ export const courses = (state = {
         const course = _.cloneDeep(action.course)
         course.cached = false
         nextState.data[course._id] = course
+        nextState.currentCourse = course._id
       }
 
       // Update status data
