@@ -15,9 +15,12 @@ const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 import DashboardMaster from 'components/DashboardMaster'
 import Administration from 'components/Administration'
 
-import { Courses, Course, Overview, Hackathons } from 'containers'
+import Courses from 'containers/Courses'
+import Course from 'containers/Course'
+import Overview from 'containers/Overview'
+import Hackathons from 'containers/Hackathons'
 
-import "./dashboard.scss"
+import './dashboard.scss'
 
 const container = document.getElementById('dashboard-container')
 

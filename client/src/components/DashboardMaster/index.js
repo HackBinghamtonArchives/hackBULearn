@@ -1,7 +1,7 @@
 import React from 'react'
 import { block as BEM } from 'bem-class'
 
-import { Sidebar } from 'containers'
+import Sidebar from 'containers/Sidebar'
 
 import './style.scss'
 
