@@ -14,10 +14,10 @@ const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 import DashboardMaster from 'components/DashboardMaster'
 import Administration from 'components/Administration'
+import Overview from 'components/Overview'
 
 import Courses from 'containers/Courses'
 import Course from 'containers/Course'
-import Overview from 'containers/Overview'
 import Hackathons from 'containers/Hackathons'
 
 import './dashboard.scss'
