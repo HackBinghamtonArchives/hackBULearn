@@ -2,20 +2,16 @@ import React from 'react'
 import { Link } from 'react-router'
 import { block as BEM } from 'bem-class'
 
-import placeholder from './placeholder.svg'
-
 import './style.scss'
 
 const Thumbnail = (props) => {
-  const className = BEM('thumbnail')
+  const className = BEM('thumbnail').modifier(props.thumbnail)
 
   return (
     <div className={className}>
       <Link to={'/dashboard/courses/' + props.course_id}
         className={className.element('content')}>
-          <div className={className.element('image')}>
-            <img src={placeholder} />
-          </div>
+          <div className={className.element('image')}></div>
           <div className={className.element('text')}>
             <div className={className.element('title')}>
               {props.title}
@@ -37,6 +33,10 @@ Thumbnail.propTypes = {
   thumbnail: React.PropTypes.string,
   src: React.PropTypes.string,
   course_id: React.PropTypes.string
+}
+
+Thumbnail.defaultProps = {
+  thumbnail: 'generic'
 }
 
 export default Thumbnail

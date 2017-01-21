@@ -27,10 +27,11 @@ export default class Courses extends React.Component {
       return _.values(this.props.courses.data).map((course) => {
         if(course._id === -1) return
         return (
-          <Thumbnail title={course.title}
-            key={course._id}
-            course_id={course._id}
-            description={course.description} />
+          <Thumbnail title={ course.title }
+            key={ course._id }
+            course_id={ course._id }
+            description={ course.description }
+            thumbnail={ course.thumbnail } />
         )
       })
     }
@@ -51,12 +52,12 @@ export default class Courses extends React.Component {
 
     return (
       <DashboardDetail title='Courses' icon='folder-o'>
-        <div className={className}>
-          <div className={className.element('tile-container')}>
-            {this.renderTiles()}
+        <div className={ className }>
+          <div className={ className.element('tile-container') }>
+            { this.renderTiles() }
           </div>
         </div>
-        {this.renderActivityIndicator(className)}
+        { this.renderActivityIndicator(className) }
       </DashboardDetail>
     )
   }

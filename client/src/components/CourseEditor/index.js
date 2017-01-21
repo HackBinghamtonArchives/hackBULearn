@@ -59,6 +59,11 @@ export default class CourseEditor extends React.Component {
       </div>
     )
 
+    const thumbnails = [
+      'career', 'console', 'gamedev', 'generic',
+      'git', 'mobile', 'scripting', 'web'
+    ]
+
     const form = !this.props.courses.isFetching && (
       <FormView
         data={ this.state.course }
@@ -69,7 +74,7 @@ export default class CourseEditor extends React.Component {
         <FormView.TextInput title='Title' name='title' />
         <FormView.TextInput title='Description' name='description' />
         <FormView.SelectInput title='Thumbnail'
-          name='thumbnail' choices={ ['html', 'css', 'js'] } />
+          name='thumbnail' choices={ thumbnails } />
         <FormView.CollectionInput title='Videos'
           name='videos' input={FormView.VideoInput} />
       </FormView>

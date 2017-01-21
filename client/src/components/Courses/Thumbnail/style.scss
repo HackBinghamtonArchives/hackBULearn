@@ -22,10 +22,49 @@
     @include make-xs-column(4);
     margin: 15px 0;
     float: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 
-    img {
+    &:before {
+      content: '';
       width: 100%;
+      height: 0px;
+      padding-top: 100%;
+      display: block;
     }
+  }
+
+  &--career &__image {
+    background-image: url('./icons/career.png');
+  }
+
+  &--console &__image {
+    background-image: url('./icons/console.png');
+  }
+
+  &--gamedev &__image {
+    background-image: url('./icons/gamedev.png');
+  }
+
+  &--generic &__image {
+    background-image: url('./icons/generic.png');
+  }
+
+  &--git &__image {
+    background-image: url('./icons/git.png');
+  }
+
+  &--mobile &__image {
+    background-image: url('./icons/mobile.png');
+  }
+
+  &--scripting &__image {
+    background-image: url('./icons/scripting.png');
+  }
+
+  &--web &__image {
+    background-image: url('./icons/web.png');
   }
 
   &__text {
