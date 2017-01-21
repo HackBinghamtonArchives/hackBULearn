@@ -1,0 +1,59 @@
+@import '../../lib/common.scss';
+
+@keyframes activity-indicator-rotation {
+  0% {
+    background-color: $alizarin;
+    transform: rotate(0deg);
+  }
+
+  25% {
+    background-color: $emerald;
+    transform: rotate(360deg);
+  }
+
+  50% {
+    background-color: $peter-river;
+    transform: rotate(720deg);
+  }
+
+  75% {
+    background-color: $emerald;
+    transform: rotate(1080deg);
+  }
+
+  100% {
+    background-color: $alizarin;
+    transform: rotate(1440deg);
+  }
+}
+
+.activity-indicator {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background-color: $peter-river;
+  position: relative;
+  animation-name: activity-indicator-rotation;
+  animation-duration: 4s;
+  animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  animation-iteration-count: infinite;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+    background-color: $detail-bg;
+    border-radius: 100%;
+  }
+
+  &::after {
+    content: ' ';
+    background-color: $detail-bg;
+    display: block;
+    width: 50%;
+    height: 50%;
+  }
+}

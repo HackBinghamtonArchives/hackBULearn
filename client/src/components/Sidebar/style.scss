@@ -1,0 +1,47 @@
+@import '../../lib/common.scss';
+
+.sidebar {
+  @include make-xs-column(2);
+  margin-top: 15px;
+
+  &__logo {
+    width: 100%;
+    height: $logo-height;
+    background-size: 60%;
+    background-position: center;
+    background-image: url('./logo_white.png');
+    background-repeat: no-repeat;
+    border-bottom: 1px solid darken($turquoise, 2%);
+  }
+
+  &__link {
+    color: lighten($turquoise, 10%) !important;
+    text-decoration: none !important;
+    font-size: $font-size-large;
+    font-weight: 300;
+    line-height: $sidebar-link-height;
+    height: $sidebar-link-height;
+    display: block;
+    margin: 0 -15px;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: color 0.25s ease-in-out;
+
+    &__icon {
+      margin-right: 10px;
+      font-size: $font-size-large;
+      vertical-align: middle;
+      width: 30px;
+      text-align: center;
+    }
+
+    &:hover {
+      color: $body-bg !important;
+    }
+
+    &.active {
+      color: $body-bg !important;
+      cursor: default;
+    }
+  }
+}

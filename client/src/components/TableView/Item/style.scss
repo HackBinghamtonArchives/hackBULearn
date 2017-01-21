@@ -1,0 +1,64 @@
+@import '../../../lib/common.scss';
+
+.table-view__item {
+  position: relative;
+  border-bottom: 1px solid $border-color;
+  height: 45px;
+  line-height: 45px;
+  font-size: $font-size-base;
+  font-weight: 400;
+  color: black;
+  padding: 0 15px;
+  cursor: pointer;
+
+  &::after {
+    content: ' ';
+    display: block;
+    width: $font-size-base / 2;
+    height: $font-size-base / 2;
+    border-color: darken($content-bg, 20%);
+    border-style: solid;
+    border-width: 1px 1px 0 0;
+    transform: rotate(45deg) translateY(-50%);
+    position: absolute;
+    top: 20px;
+    right: 15px;
+  }
+
+  &--active {
+    background-color: $peter-river;
+    border-color: $peter-river;
+    color: $content-bg;
+
+    &::after {
+      border-color: mix($peter-river,$content-bg);
+    }
+
+    .fa {
+      color: mix($peter-river,$content-bg) !important;
+    }
+  }
+
+  .fa {
+    color: darken($content-bg, 15%);
+    margin-right: 10px;
+    font-size: 26px;
+    vertical-align: middle;
+
+    &--success {
+      color: $emerald;
+    }
+
+    &--danger {
+      color: $alizarin;
+    }
+
+    &--warning {
+      color: $carrot;
+    }
+
+    &--info {
+      color: $peter-river;
+    }
+  }
+}

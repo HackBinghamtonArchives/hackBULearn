@@ -1,0 +1,18 @@
+@import '../../lib/common.scss';
+
+.settings {
+  &__activity-indicator {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    margin: 30px auto;
+  }
+
+  &__form {
+    @include content-box-shadow;
+    background-color: $content-bg;
+    border-radius: 5px;
+    margin: 15px;
+    padding: 15px;
+  }
+}

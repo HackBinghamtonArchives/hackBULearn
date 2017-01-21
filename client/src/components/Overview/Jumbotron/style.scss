@@ -1,0 +1,36 @@
+@import '../../../lib/common.scss';
+
+.jumbotron {
+  @include content-box-shadow;
+  margin: 15px;
+  padding: 180px 60px;
+  border-radius: 5px;
+  background-image: url('./background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &__content {
+    padding-left: 120px;
+    background-image: url('./logo.png');
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+  }
+
+  h1 {
+    margin: 0 0 15px 0;
+    padding: 0;
+    font-size: $font-size-base * 3;
+    font-weight: 700;
+    color: $content-bg;
+  }
+
+  h2 {
+    margin: 0;
+    padding: 0;
+    font-size: $font-size-base * 1.5;
+    font-weight: 100;
+    color: transparentize($content-bg, 0.6);
+  }
+}

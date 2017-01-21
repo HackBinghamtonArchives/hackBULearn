@@ -1,0 +1,12 @@
+@import '../../lib/common.scss';
+
+.table-view {
+  background-color: $content-bg;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}

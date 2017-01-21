@@ -1,0 +1,187 @@
+@import '../../lib/common.scss';
+
+@keyframes auth_form_transition_in {
+  0% {
+    opacity: 0.0;
+    margin-top: -30px;
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  50% {
+    opacity: 0.0;
+    margin-top: -30px;
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  100% {
+    opacity: 1.0;
+    margin-top: 0px;
+    transform: translateY(-50%) scale(1.0);
+  }
+}
+
+@keyframes auth_form_display_message {
+  0% {
+    opacity: 0.0;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 0.0;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 1.0;
+    margin-top: 7.5px;
+    margin-bottom: 7.5px;
+    transform: scale(1.0);
+  }
+}
+
+.auth-form {
+  @include make-xs-column(4);
+  @include make-xs-column-offset(4);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(1.0);
+  animation-name: auth_form_transition_in;
+  animation-duration: 0.75s;
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-iteration-count: 1;
+
+  &__logo {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background-image: url('./bearcat_white.png');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: darken($content-bg, 20%);
+    margin: 0 auto;
+    margin-bottom: 30px;
+  }
+
+  &__fields {
+    @include content-box-shadow;
+    width: 100%;
+    background-color: $content-bg;
+    padding: 30px;
+    border-radius: 5px;
+  }
+
+  &__field {
+    margin-bottom: 15px;
+
+    label {
+      font-size: $font-size-small - 2;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: $turquoise;
+      letter-spacing: 1px;
+      margin-bottom: 0;
+    }
+
+    input {
+      outline: none;
+      display: block;
+      width: 100%;
+      border-style: solid;
+      border-width: 0 0 1px 0;
+      border-color: darken($content-bg, 5%);
+      font-size: $font-size-large;
+      padding-bottom: 2px;
+      transition: border-color 0.25s ease-in-out;
+      color: darken($content-bg, 75%);
+
+      &:focus {
+        border-color: $turquoise;
+      }
+    }
+  }
+
+  &__button {
+    $dimensions: 40px;
+    position: relative;
+    width: 2 * $dimensions;
+    margin: 0 auto;
+    font-size: $font-size-base;
+    font-weight: 300;
+    color: $peter-river;
+    text-align: center;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: color 0.25s ease-in-out;
+
+    &:hover {
+      color: darken($peter-river, 10%);
+
+      &::before {
+        border-color: darken($peter-river, 10%);
+      }
+    }
+
+    &::before {
+      @include fa-icon;
+      content: '\f00c';
+      display: block;
+      width: $dimensions;
+      height: $dimensions;
+      border-radius: $dimensions;
+      border: 1px solid $peter-river;
+      text-align: center;
+      line-height: $dimensions - 1;
+      font-size: $dimensions / 2;
+      position: relative;
+      margin: 0 auto 2px;
+      transition: border-color 0.25s ease-in-out;
+    }
+  }
+
+  &__activity-indicator {
+    @include content-box-shadow;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 50%;
+    margin-left: -30px;
+    top: 50%;
+    margin-top: -30px;
+    background-color: $detail-bg;
+    border: 15px solid $detail-bg;
+    border-radius: 5px;
+  }
+
+  &__switch-link {
+    margin-top: 15px;
+    font-size: $font-size-small;
+    font-weight: 200;
+    text-align: center;
+    color: saturate(lighten(mix($turquoise, $emerald), 20%), 20%);
+
+    b {
+      font-weight: 400;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  &__message {
+    color: $alizarin;
+    font-size: $font-size-small;
+    text-align: left;
+    margin-bottom: 7.5px;
+    margin-top: 7.5px;
+    opacity: 1.0;
+    transform: scale(1.0);
+    animation-name: auth_form_display_message;
+    animation-duration: 0.75s;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation-iteration-count: 1;
+  }
+}

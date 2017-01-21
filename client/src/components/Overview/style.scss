@@ -1,0 +1,28 @@
+@import '../../lib/common.scss';
+
+.overview {
+  &__activity-indicator {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 50%;
+    margin-left: -15px;
+    top: 50%;
+    margin-top: -15px;
+  }
+
+  &__footer {
+    @include clearfix;
+    margin: 15px;
+    padding: 15px 0;
+    border-top: 1px solid $border-color;
+    border-radius: 5px;
+    font-size: $font-size-small;
+    color: darken($detail-bg, 20%);
+
+    a {
+      color: darken($detail-bg, 30%);
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@import '../../lib/common.scss';
+
+.form-view {
+  &__submit-button {
+    $dimensions: 40px;
+    position: relative;
+    width: 2 * $dimensions;
+    margin: 0 auto;
+    font-size: $font-size-base;
+    font-weight: 300;
+    color: $peter-river;
+    text-align: center;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: color 0.25s ease-in-out;
+
+    &:hover {
+      color: darken($peter-river, 10%);
+
+      &::before {
+        border-color: darken($peter-river, 10%);
+        transition: border-color 0.25s ease-in-out;
+      }
+    }
+
+    &::before {
+      @include fa-icon;
+      content: '\f00c';
+      display: block;
+      width: $dimensions;
+      height: $dimensions;
+      border-radius: $dimensions;
+      border: 1px solid $peter-river;
+      text-align: center;
+      line-height: $dimensions - 1;
+      font-size: $dimensions / 2;
+      position: relative;
+      margin: 0 auto 2px;
+      transition: border-color 0.25s ease-in-out;
+    }
+
+    &--disabled, &--disabled:hover {
+      color: $gray-lighter;
+      cursor: not-allowed;
+
+      &::before {
+        border-color: $gray-lighter;
+      }
+    }
+  }
+}

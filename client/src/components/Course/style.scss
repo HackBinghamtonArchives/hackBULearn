@@ -1,0 +1,96 @@
+@import '../../lib/common.scss';
+
+.course {
+  &__table_view {
+    @include make-xs-column(3);
+    border-right: 1px solid $border-color;
+    background-color: $content-bg;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &__item {
+      position: relative;
+      border-bottom: 1px solid $border-color;
+      height: 45px;
+      line-height: 45px;
+      font-size: $font-size-base;
+      font-weight: 400;
+      color: black;
+      margin: 0 -15px;
+      padding: 0 15px;
+      cursor: pointer;
+
+      &::before {
+        @include fa-icon;
+        content: '\f10c';
+        color: darken($content-bg, 15%);
+        margin-right: 10px;
+        font-size: 26px;
+        vertical-align: middle;
+      }
+
+      &::after {
+        content: ' ';
+        display: block;
+        width: $font-size-base / 2;
+        height: $font-size-base / 2;
+        border-color: darken($content-bg, 20%);
+        border-style: solid;
+        border-width: 1px 1px 0 0;
+        transform: rotate(45deg) translateY(-50%);
+        position: absolute;
+        top: 20px;
+        right: 15px;
+      }
+
+      &--complete {
+        &::before {
+          color: $emerald;
+          content: '\f058';
+        }
+      }
+
+      &--active {
+        background-color: $peter-river;
+        border-color: $peter-river;
+        color: $content-bg;
+
+        &::before {
+          color: mix($peter-river,$content-bg);
+        }
+
+        &::after {
+          border-color: mix($peter-river,$content-bg);
+        }
+      }
+    }
+  }
+
+  &__media-view {
+    @include make-xs-column(9);
+    @include make-xs-column-offset(3);
+    padding-top: 15px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  &__activity-indicator {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 50%;
+    margin-left: -15px;
+    top: 50%;
+    margin-top: -15px;
+    z-index: 1;
+  }
+}

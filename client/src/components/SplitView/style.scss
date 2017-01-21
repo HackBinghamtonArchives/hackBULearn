@@ -1,0 +1,28 @@
+@import '../../lib/common.scss';
+
+.split-view {
+  &__table-view {
+    @include make-xs-column(3);
+    border-right: 1px solid $border-color;
+    background-color: $content-bg;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &__content-view {
+    @include make-xs-column(9);
+    @include make-xs-column-offset(3);
+    padding-top: 15px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}

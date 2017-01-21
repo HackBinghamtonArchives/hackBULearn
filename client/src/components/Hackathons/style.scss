@@ -1,0 +1,15 @@
+@import '../../lib/common.scss';
+
+.hackathons {
+  padding-top: 15px;
+
+  &__activity-indicator {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 50%;
+    margin-left: -15px;
+    top: 50%;
+    margin-top: -15px;
+  }
+}
