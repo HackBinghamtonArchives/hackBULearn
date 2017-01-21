@@ -9,6 +9,8 @@ router.get('/', function(req, res) {
 
 router.use('/courses', require('./courses.js'));
 router.use('/hackathons', require('./hackathons.js'));
+router.use('/session', require('./session.js'));
+router.use('/users', require('./users.js'));
 router.use('/videos', require('./videos.js'));
 
 module.exports = router;

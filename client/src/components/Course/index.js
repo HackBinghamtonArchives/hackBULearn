@@ -14,11 +14,13 @@ class Course extends React.Component {
   static propTypes = {
     fetchCourse: React.PropTypes.func.isRequired,
     addVideoToUser: React.PropTypes.func,
-    fetchUserInfo: React.PropTypes.func.isRequired,
-    user: React.PropTypes.shape({
-      data: React.PropTypes.shape({
-        videos: React.PropTypes.arrayOf(React.PropTypes.string)
-      })
+    fetchUser: React.PropTypes.func.isRequired,
+    saveUser: React.PropTypes.func.isRequired,
+    users: React.PropTypes.shape({
+      data: React.PropTypes.object,
+      isFetching: React.PropTypes.bool.isRequired,
+      caughtError: React.PropTypes.bool.isRequired,
+      me: React.PropTypes.string
     }),
     courses: React.PropTypes.object
   }
@@ -34,7 +36,7 @@ class Course extends React.Component {
   }
 
   fetchUserInfoIfNeeded() {
-    if(_.isEmpty(this.props.user.data)) this.props.fetchUserInfo()
+    if(_.isNil(this.props.users.me)) this.props.fetchUser('me')
   }
 
   componentDidMount() {
@@ -62,8 +64,12 @@ class Course extends React.Component {
 
   markVideoAsComplete(course) {
     const selected_video = course.videos[this.state.selection]
-    if(this.props.user.data.videos.indexOf(selected_video._id) == -1) {
-      this.props.addVideoToUser(selected_video._id)
+    const currentUser = this.props.users.data[this.props.users.me]
+    if(currentUser.videos.indexOf(selected_video._id) == -1) {
+      const user = _.cloneDeep(currentUser)
+      user._id = 'me'
+      user.videos.push(selected_video._id)
+      this.props.saveUser(_.pick(user, ['_id', 'videos']))
     }
   }
 
@@ -73,9 +79,11 @@ class Course extends React.Component {
 
   renderContent(course, className) {
     if(!_.isEmpty(course) && !this.props.courses.isFetching
-      && !_.isEmpty(this.props.user.data) && course.cached == true) {
+      && !_.isEmpty(this.props.users.data) && !_.isNil(this.props.users.me)
+      && course.cached == true) {
+      const currentUser = this.props.users.data[this.props.users.me]
       const subviews = course.videos.map((video) => {
-        const isComplete = (this.props.user.data.videos.indexOf(video._id) != -1)
+        const isComplete = (currentUser.videos.indexOf(video._id) != -1)
         const iconType = isComplete ? 'check-circle' : 'circle-o'
         const iconStyle = isComplete ? 'success' : 'default'
 

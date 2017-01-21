@@ -10,6 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var constants = require('./config/constants');
+var errorHandler = require('./middleware/errorHandler');
 
 // Connect to database
 const env = process.env.NODE_ENV;
@@ -42,8 +43,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Attach Routes
-require('./routes/login')(app, passport);
 require('./routes/user')(app);
+app.use('/login', require('./routes/login'));
 app.use('/dashboard', require('./routes/dashboard'));
 
 // Attach API
@@ -56,29 +57,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// Error Handler - Dev
-if (app.get('env') === 'dev' ||
-    app.get('env') === 'test') {
-  app.use(function(err, req, res, next) {
-    switch (err.name) {
-      case 'ValidationError':
-        res.status(400);
-        break;
-      default:
-        res.status(500);
-    }
-
-    res.json(err);
-  });
-}
-
-// Error Handler - Prod
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
+// Error Handler
+app.use(errorHandler);
 
 module.exports = app;

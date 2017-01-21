@@ -45,7 +45,7 @@ const ActionCards = () => {
   )
 
   const settingsCard = (
-    <Link to='/dashboard/overview'
+    <Link to='/dashboard/settings'
       className={ className.element('item').modifier('settings') }>
       <div className={ className.element('item-content') }>
         <h3>Change Settings</h3>

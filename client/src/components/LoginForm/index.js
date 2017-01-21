@@ -4,6 +4,7 @@ import fetch from 'isomorphic-fetch'
 import _ from 'lodash'
 
 import ActivityIndicator from 'components/ActivityIndicator'
+import FormView from 'components/FormView'
 
 import './style.scss'
 
@@ -11,49 +12,39 @@ export default class LoginForm extends React.Component {
   static propTypes = {}
 
   state = {
-    username: '',
-    password: '',
-    email: '',
-    firstname: '',
-    lastname: '',
-    loading: false,
+    user: {
+      local: {
+        username: '',
+        password: '',
+        email: '',
+        firstname: '',
+        lastname: ''
+      }
+    },
+    isFetching: false,
     currentForm: 'login',
-    messages: {}
+    error: null
   }
 
   constructor(props) {
     super(props)
 
-    this.onUsernameChange = this.onUsernameChange.bind(this)
-    this.onPasswordChange = this.onPasswordChange.bind(this)
-    this.onFirstNameChange = this.onFirstNameChange.bind(this)
-    this.onLastNameChange = this.onLastNameChange.bind(this)
-    this.onEmailChange = this.onEmailChange.bind(this)
-    this.submit = this.submit.bind(this)
-    this.switchForm = this.switchForm.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+    this.onSwitchForm = this.onSwitchForm.bind(this)
+    this.onEdit = this.onEdit.bind(this)
   }
 
-  onFirstNameChange(e) {
-    this.setState({ firstname: e.target.value });
+  onSuccess(json) {
+    window.location.href = '/dashboard'
   }
 
-  onLastNameChange(e) {
-    this.setState({ lastname: e.target.value });
+  onError(err) {
+    this.setState({ error: err, isFetching: false })
   }
 
-  onEmailChange(e) {
-    this.setState({ email: e.target.value });
-  }
+  onSubmit() {
+    const route = (this.state.currentForm == 'login') ? 'session' : 'users/me'
 
-  onUsernameChange(e) {
-    this.setState({ username: e.target.value });
-  }
-
-  onPasswordChange(e) {
-    this.setState({ password: e.target.value });
-  }
-
-  submit() {
     const options = {
       credentials: 'include',
       method: 'POST',
@@ -61,164 +52,114 @@ export default class LoginForm extends React.Component {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        email: this.state.email,
-        register: (this.state.currentForm == 'signup')
-      })
+      body: JSON.stringify(this.state.user)
     }
 
-    this.setState({ loading: true })
-    var that = this;
+    this.setState({ isFetching: true })
+    var that = this
 
-    fetch('/login', options)
+    return fetch(`/api/${route}`, options)
       .then((response) => {
-        var json = response.json();
-        if(response.status >= 200 && response.status < 300) {
-          return json
-        }
-        return json.then(err => { throw err })
-      })
-      .then((json) => {
-        if(json.error) {
-          that.setState({ loading: false, messages: json.error })
+        if(response.ok) {
+          response.json()
+            .then(json => that.onSuccess(json))
         } else {
-          window.location.href = '/dashboard';
+          response.json()
+            .then(json => that.onError(json))
         }
       })
-      .catch((error) => {
-        that.setState({ loading: false, messages: error.message })
-      })
+      .catch((error) => that.onError(error))
   }
 
-  switchForm() {
+  onSwitchForm() {
     if(this.state.currentForm == 'login') {
-      this.setState({ currentForm: 'signup', messages: {} })
+      this.setState({ currentForm: 'signup', error: null })
     } else {
-      this.setState({ currentForm: 'login', messages: {} })
+      this.setState({ currentForm: 'login', error: null })
     }
+  }
+
+  onEdit(e) {
+    var user = _.cloneDeep(this.state.user)
+    _.set(user, e.target.name, e.target.value)
+    this.setState({ user })
   }
 
   renderActivityIndicator(className) {
-    if(this.state.loading) {
-      return (
-        <div className={className.element('activity-indicator')}>
-          <ActivityIndicator />
-        </div>
-      )
-    }
+    return this.state.isFetching && (
+      <div className={className.element('activity-indicator')}>
+        <ActivityIndicator />
+      </div>
+    )
   }
 
   renderHeader(className) {
     return <div className={className.element('logo')}></div>
   }
 
-  renderLoginForm(className) {
-    if(this.state.loading == false && this.state.currentForm == 'login') {
-      return (
-        <div className={className.element('fields').modifier('login')}>
-          {this.renderHeader(className)}
-          <div className={className.element('field')}>
-            <label>Username</label>
-            <input type='text' value={this.state.username}
-              onChange={this.onUsernameChange} />
-            {this.renderMessageFor('username', className)}
-          </div>
-          <div className={className.element('field')}>
-            <label>Password</label>
-            <input type='password' value={this.state.password}
-              onChange={this.onPasswordChange} />
-            {this.renderMessageFor('password', className)}
-          </div>
-          {this.renderButton(className)}
-        </div>
-      )
-    }
-  }
-
-  renderMessageFor(field, className) {
-    if(this.state.messages[field]) {
-      return _.map(this.state.messages[field], (message) => {
-        return (
-          <div className={className.element('message')} key={message}>
-            {message}
-          </div>
-        )
-      })
-    }
-  }
-
-  renderSignupForm(className) {
-    if(this.state.loading == false && this.state.currentForm == 'signup') {
-      return (
-        <div className={className.element('fields').modifier('signup')}>
-          {this.renderHeader(className)}
-          <div className={className.element('field')}>
-            <label>First Name</label>
-            <input type='text' value={this.state.firstname}
-              onChange={this.onFirstNameChange} />
-            {this.renderMessageFor('firstname', className)}
-          </div>
-          <div className={className.element('field')}>
-            <label>Last Name</label>
-            <input type='text' value={this.state.lastname}
-              onChange={this.onLastNameChange} />
-            {this.renderMessageFor('lastname', className)}
-          </div>
-          <div className={className.element('field')}>
-            <label>Email Address</label>
-            <input type='text' value={this.state.email}
-              onChange={this.onEmailChange} />
-            {this.renderMessageFor('email', className)}
-          </div>
-          <div className={className.element('field')}>
-            <label>Username</label>
-            <input type='text' value={this.state.username}
-              onChange={this.onUsernameChange} />
-            {this.renderMessageFor('username', className)}
-          </div>
-          <div className={className.element('field')}>
-            <label>Password</label>
-            <input type='password' value={this.state.password}
-              onChange={this.onPasswordChange} />
-
-            {this.renderMessageFor('password', className)}
-          </div>
-          {this.renderButton(className)}
-        </div>
-      )
-    }
-  }
-
-  renderButton(className) {
-    var text = 'Login';
-    if(this.state.currentForm != 'login') {
-      text = 'Register'
-    }
-
-    return (
-      <div className={className.element('button')}
-           onClick={this.submit}>
-        {text}
+  renderError() {
+    return !_.isNil(this.state.error) && !_.isNil(this.state.error.message) && (
+      <div className='alert alert-danger'>
+        { this.state.error.message }
       </div>
     )
   }
 
+  renderLoginForm(className) {
+    if(this.state.isFetching == false && this.state.currentForm == 'login') {
+      return (
+        <div className={className.element('fields').modifier('signup')}>
+          { this.renderHeader(className) }
+          { this.renderError() }
+          <FormView
+            data={this.state.user}
+            error={ this.state.error }
+            onChange={ this.onEdit }
+            onSubmit={ this.onSubmit }
+            submitText='Login'>
+            <FormView.TextInput title='Username' name='local.username' />
+            <FormView.PasswordInput title='Password' name='local.password' />
+          </FormView>
+        </div>
+      )
+    }
+  }
+
+  renderSignupForm(className) {
+    if(this.state.isFetching == false && this.state.currentForm == 'signup') {
+      return (
+        <div className={className.element('fields').modifier('signup')}>
+          { this.renderHeader(className) }
+          { this.renderError() }
+          <FormView
+            data={this.state.user}
+            error={ this.state.error }
+            onChange={ this.onEdit }
+            onSubmit={ this.onSubmit }
+            submitText='Register'>
+            <FormView.TextInput title='First Name' name='local.firstname' />
+            <FormView.TextInput title='Last Name' name='local.lastname' />
+            <FormView.TextInput title='Email Address' name='local.email' />
+            <FormView.TextInput title='Username' name='local.username' />
+            <FormView.PasswordInput title='Password' name='local.password' />
+          </FormView>
+        </div>
+      )
+    }
+  }
+
   renderSwitchLink(className) {
-    if(this.state.loading == false) {
+    if(this.state.isFetching == false) {
       if(this.state.currentForm == 'login') {
         return (
           <div className={className.element('switch-link')}>
-            Don&#39;t have an account? <b onClick={this.switchForm}>Sign Up</b>
+            Don&#39;t have an account? <b onClick={this.onSwitchForm}>Sign Up</b>
           </div>
         )
       } else {
         return (
           <div className={className.element('switch-link')}>
-            Already have an account? <b onClick={this.switchForm}>Log In</b>
+            Already have an account? <b onClick={this.onSwitchForm}>Log In</b>
           </div>
         )
       }

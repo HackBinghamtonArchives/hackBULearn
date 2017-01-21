@@ -1,17 +1,17 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { fetchUserInfo } from 'actions'
+import { fetchUser } from 'actions/userActions'
 import Sidebar from 'components/Sidebar'
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    users: state.users
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserInfo: fetchUserInfo(dispatch)
+    fetchUser: fetchUser(dispatch)
   }
 }
 

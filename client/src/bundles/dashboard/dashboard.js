@@ -19,6 +19,7 @@ import Overview from 'components/Overview'
 import Courses from 'containers/Courses'
 import Course from 'containers/Course'
 import Hackathons from 'containers/Hackathons'
+import Settings from 'containers/Settings'
 
 import './dashboard.scss'
 
@@ -28,14 +29,15 @@ ReactDOM.render(
   (
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path='/dashboard' component={DashboardMaster}>
+        <Route path='/dashboard' component={ DashboardMaster }>
           <IndexRedirect to='overview' />
-          <Route path='overview' component={Overview} />
-          <Route path='courses' component={Courses} />
-          <Route path='courses/:id' component={Course} />
-          <Route path='hackathons' component={Hackathons} />
-          <Route path='questions' component={Overview} />
-          <Route path='admin' component={Administration} />
+          <Route path='overview' component={ Overview } />
+          <Route path='courses' component={ Courses } />
+          <Route path='courses/:id' component={ Course } />
+          <Route path='hackathons' component={ Hackathons } />
+          <Route path='questions' component={ Overview } />
+          <Route path='admin' component={ Administration } />
+          <Route path='settings' component={ Settings } />
         </Route>
       </Router>
     </Provider>

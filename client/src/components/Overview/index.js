@@ -5,6 +5,7 @@ import { block as BEM } from 'bem-class'
 import DashboardDetail from 'components/DashboardDetail'
 import Jumbotron from './Jumbotron'
 import ActionCards from './ActionCards'
+import LogoutButton from 'containers/LogoutButton'
 
 import './style.scss'
 
@@ -22,7 +23,7 @@ const Overview = () => {
           <a href='https://github.com/award28'>@award28</a>.
         </div>
         <div className='pull-right'>
-          <a href='/logout'>Logout</a>
+          <LogoutButton />
         </div>
       </div>
     </DashboardDetail>

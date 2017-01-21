@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=dev node ./bin/www",
+    "start": "NODE_ENV=dev DEBUG=express:* node ./bin/www",
     "clean": "rimraf ./public/bundles",
     "build:app": "webpack --progress -w --config ./app.webpack.config.js",
     "build:dll": "webpack --progress --config ./dll.webpack.config.js",
@@ -21,6 +21,7 @@
     "express-session": "^1.14.1",
     "mongoose": "^4.7.1",
     "morgan": "~1.6.1",
+    "serialize-error": "^2.1.0",
     "serve-favicon": "~2.3.0",
     "validate.js": "^0.11.1",
     "validator": "^6.1.0"

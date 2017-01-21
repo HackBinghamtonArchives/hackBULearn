@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import { block as BEM } from 'bem-class'
 import { Link } from 'react-router'
 
@@ -6,14 +7,24 @@ import './style.scss'
 
 export default class Sidebar extends React.Component {
   static propTypes = {
-    fetchUserInfo: React.PropTypes.func.isRequired
+    fetchUser: React.PropTypes.func.isRequired,
+    users: React.PropTypes.shape({
+      isFetching: React.PropTypes.bool.isRequired,
+      caughtError: React.PropTypes.bool.isRequired,
+      message: React.PropTypes.string,
+      error: React.PropTypes.object,
+      data: React.PropTypes.object,
+      cached: React.PropTypes.bool.isRequired,
+      currentUser: React.PropTypes.object,
+      me: React.PropTypes.string
+    }).isRequired
   }
 
   state = {}
 
   componentDidMount() {
-    if(_.isEmpty(this.props.user.data) && !this.props.user.isLoading) {
-      this.props.fetchUserInfo()
+    if(_.isNil(this.props.users.me) && !this.props.users.isLoading) {
+      this.props.fetchUser('me')
     }
   }
 
@@ -37,7 +48,8 @@ export default class Sidebar extends React.Component {
   }
 
   renderAdminLink(className) {
-    const currentRole = this.props.user.data.permission;
+    const currentUser = _.get(this.props.users.data, this.props.users.me)
+    const currentRole = !_.isNil(currentUser) && currentUser.permission;
     const requiredRoles = ['superuser', 'administrator'];
     const isAdmin = requiredRoles.indexOf(currentRole) != -1;
     if(isAdmin) {

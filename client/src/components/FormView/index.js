@@ -8,6 +8,7 @@ import DateInput from './DateInput'
 import NumberInput from './NumberInput'
 import VideoInput from './VideoInput'
 import CollectionInput from './CollectionInput'
+import PasswordInput from './PasswordInput'
 
 import './style.scss'
 
@@ -27,15 +28,15 @@ const FormView = (props) => {
   })
 
   const submitButton = (
-    <div className={submitButtonClasses} onClick={props.onSubmit}>
-      Submit
+    <div className={ submitButtonClasses } onClick={props.onSubmit}>
+      { props.submitText }
     </div>
   )
 
   return (
     <div className='form-view'>
-      <div className='form-view__fields-container'>{children}</div>
-      {submitButton}
+      <div className='form-view__fields-container'>{ children }</div>
+      { submitButton }
     </div>
   )
 }
@@ -46,11 +47,13 @@ FormView.propTypes = {
   children: React.PropTypes.node,
   data: React.PropTypes.object,
   error: React.PropTypes.object,
-  disableSubmit: React.PropTypes.bool
+  disableSubmit: React.PropTypes.bool,
+  submitText: React.PropTypes.string
 }
 
 FormView.defaultProps = {
-  disableSubmit: false
+  disableSubmit: false,
+  submitText: 'Submit'
 }
 
 FormView.TextInput = TextInput
@@ -59,5 +62,6 @@ FormView.DateInput = DateInput
 FormView.NumberInput = NumberInput
 FormView.VideoInput = VideoInput
 FormView.CollectionInput = CollectionInput
+FormView.PasswordInput = PasswordInput
 
 export default FormView
