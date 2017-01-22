@@ -5,6 +5,7 @@ const Schema = mongoose.Schema,
 const schema = new Schema({
   title   : { type: String, required: true },
   videoid : { type: String, required: true },
+  exampleFilesUrl : { type: String, required: false },
   course  : { type: Schema.Types.ObjectId, ref: 'Course' }
 });
 

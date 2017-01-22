@@ -34,6 +34,16 @@ const VideoInput = (props) => {
     </div>
   )
 
+  const exampleFileInput = (
+    <div className='video-input__example-file-input'>
+      <TextInput
+        title='Example Files URL'
+        value={ props.value.exampleFilesUrl }
+        name='exampleFilesUrl'
+        onChange={ changeHandler } />
+    </div>
+  )
+
   const validationError = (
     <div className='video-input__validation-error'>
       { props.error }
@@ -45,6 +55,7 @@ const VideoInput = (props) => {
       <div className='video-input__input-container'>
         { titleInput }
         { videoIdInput }
+        { exampleFileInput }
       </div>
       { validationError }
     </div>
@@ -56,7 +67,8 @@ VideoInput.propTypes = {
   value: React.PropTypes.shape({
     _id: React.PropTypes.string,
     title: React.PropTypes.string,
-    videoid: React.PropTypes.string
+    videoid: React.PropTypes.string,
+    exampleFilesUrl: React.PropTypes.string
   }),
   name: React.PropTypes.string.isRequired,
   error: React.PropTypes.string
@@ -65,7 +77,8 @@ VideoInput.propTypes = {
 VideoInput.defaultProps = {
   value: {
     title: '',
-    videoid: ''
+    videoid: '',
+    exampleFilesUrl: ''
   }
 }
 

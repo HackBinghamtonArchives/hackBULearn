@@ -1,6 +1,7 @@
 import React from 'react'
 import { block as BEM } from 'bem-class'
 import YouTube from 'react-youtube'
+import _ from 'lodash'
 
 import './style.scss'
 
@@ -9,10 +10,15 @@ const VideoView = (props) => {
     if(state.data === 0) return props.didCompleteVideo()
   }
 
+  const downloadHandler = () => {
+    window.open(props.exampleFilesUrl)
+  }
+
   const classes = BEM('video-view')
 
-  const downloadButton = (!_.isNil(props.exampleFilesUrl)) && (
-    <div className={ classes.element('download-button') }>
+  const downloadButton = (!_.isEmpty(props.exampleFilesUrl)) && (
+    <div className={ classes.element('download-button') }
+      onClick={ downloadHandler }>
       Download Example Files
     </div>
   )
