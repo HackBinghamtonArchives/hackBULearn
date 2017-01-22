@@ -22,5 +22,10 @@
 
   &__video-id-input {
     flex-grow: 1;
+    margin-right: 15px;
+  }
+
+  &__example-file-input {
+    flex-grow: 2;
   }
 }
