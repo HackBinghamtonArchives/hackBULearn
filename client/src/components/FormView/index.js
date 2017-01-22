@@ -13,6 +13,10 @@ import PasswordInput from './PasswordInput'
 import './style.scss'
 
 const FormView = (props) => {
+  const keyPressHandler = (e) => {
+    if(e.key === 'Enter') return props.onSubmit()
+  }
+
   const children = props.children.map((child, i) => {
     return React.cloneElement(child, {
       onChange: props.onChange,
@@ -34,7 +38,7 @@ const FormView = (props) => {
   )
 
   return (
-    <div className='form-view'>
+    <div className='form-view' onKeyPress={ keyPressHandler }>
       <div className='form-view__fields-container'>{ children }</div>
       { submitButton }
     </div>
