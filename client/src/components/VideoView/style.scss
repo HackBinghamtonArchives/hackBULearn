@@ -1,6 +1,7 @@
 @import '../../lib/common.scss';
 
 .video-view {
+  @include clearfix;
   padding-bottom: 15px;
 
   &__download-button, &__next-video-button {

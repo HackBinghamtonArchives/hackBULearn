@@ -101,6 +101,7 @@ class Course extends React.Component {
           <VideoView
             key={video._id}
             videoid={video.videoid}
+            exampleFilesUrl={video.exampleFilesUrl}
             nextVideoAvailable={ this.isLastVideo(course) }
             didClickNextVideo={ () => this.goToNextVideo(course) }
             didCompleteVideo={ () => this.markVideoAsComplete(course) } />
