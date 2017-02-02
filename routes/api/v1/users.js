@@ -4,6 +4,7 @@ var ObjectId = require('mongoose/lib/types/objectid');
 var User = require('../../../models/user');
 var Video = require('../../../models/video');
 var minimumRole = require('../../../middleware').roles;
+var strings = require('../../../config/strings');
 
 const publicFields = [
   '_id', 'local.username', 'local.firstname', 'local.lastname',
@@ -90,7 +91,6 @@ router.post('/', minimumRole('administrator'), function(req, res, next) {
  * Returns: Modified current user
  */
 router.put('/me', minimumRole('member'), function(req, res, next) {
-
   User.findById(req.user._id, function(err, user) {
     if(err) return next(err);
 
@@ -101,6 +101,24 @@ router.put('/me', minimumRole('member'), function(req, res, next) {
       if(local.firstname) user.local.firstname = local.firstname;
       if(local.lastname) user.local.lastname = local.lastname;
       if(local.email) user.local.email = local.email;
+
+      // Check for password confirmation if editing password
+      if(local.password && local.password != local.confirmPassword) {
+        const err = {
+          name: 'ValidationError',
+          message: 'User validation failed',
+          errors: {
+            'local.confirmPassword': {
+              kind: 'user defined',
+              message: strings.mismatchPassword,
+              name: 'ValidationError',
+              path: 'local.confirmPassword'
+            }
+          }
+        }
+
+        return next(err);
+      }
     }
 
     if(req.body.videos) {

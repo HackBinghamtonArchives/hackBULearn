@@ -78,12 +78,16 @@ export default class Settings extends React.Component {
           <FormView.TextInput title='First Name' name='local.firstname' />
           <FormView.TextInput title='Last Name' name='local.lastname' />
           <FormView.TextInput title='Email Address' name='local.email' />
+          <FormView.PasswordInput
+            title='New Password' name='local.password' />
+          <FormView.PasswordInput
+            title='Confirm Password' name='local.confirmPassword' />
         </FormView>
       </div>
     )
 
     return (
-      <DashboardDetail title='Settings' icon='gear'>
+      <DashboardDetail title='Account Settings' icon='gear'>
         { activityIndicator }
         { form }
       </DashboardDetail>

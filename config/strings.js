@@ -10,6 +10,7 @@ module.exports = {
   missingEmail: 'Please enter an email address to continue.',
   missingUsername: 'Please enter a username to continue.',
   missingPassword: 'Please enter a password to continue.',
+  mismatchPassword: 'Sorry, these passwords do not match.',
   usernameTooShort: 'Sorry, that username is too short.',
   passwordTooShort: 'Sorry, your password must be at least 10 characters.'
 }
