@@ -1,29 +1,30 @@
+import _ from 'lodash';
 import {
   FETCH_HACKATHONS, SAVE_HACKATHON, CREATE_HACKATHON, DELETE_HACKATHON,
-  EDIT_HACKATHON, EXIT_HACKATHON
-} from 'actions/hackathonActions'
+  EDIT_HACKATHON, EXIT_HACKATHON,
+} from 'actions/hackathonActions';
 
-export const hackathons = (state = {
+export default (state = {
   isFetching: false,
   caughtError: false,
   message: null,
   error: null,
   data: {},
   cached: false,
-  currentHackathon: null
+  currentHackathon: null,
 }, action) => {
   // Clone old state
-  const nextState = _.cloneDeep(state)
+  const nextState = _.cloneDeep(state);
 
   // Mutate nextState according to the action type
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_HACKATHONS:
       // Overwrite with new hackathons, except for cached hackathons
-      if(action.hackathons) {
-        _.mergeWith(nextState.data, action.hackathons, (o,n) => {
-          if(o && o.cached) return o
-          return n
-        })
+      if (action.hackathons) {
+        _.mergeWith(nextState.data, action.hackathons, (o, n) => {
+          if (o && o.cached) return o;
+          return n;
+        });
       }
 
       // Update status data
@@ -32,16 +33,16 @@ export const hackathons = (state = {
         caughtError: action.caughtError,
         message: action.message,
         error: action.error,
-        cached: true
-      })
+        cached: true,
+      });
 
-      break
+      break;
     case SAVE_HACKATHON:
       // Add new hackathon to existing hackathons, if it exists
-      if(action.hackathon) {
-        const hackathon = _.cloneDeep(action.hackathon)
-        hackathon.cached = false
-        nextState.data[hackathon._id] = hackathon
+      if (action.hackathon) {
+        const hackathon = _.cloneDeep(action.hackathon);
+        hackathon.cached = false;
+        nextState.data[hackathon._id] = hackathon;
       }
 
       // Update status data
@@ -49,10 +50,10 @@ export const hackathons = (state = {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
-        error: action.error
-      })
+        error: action.error,
+      });
 
-      break
+      break;
     case CREATE_HACKATHON:
       // Update status data
       _.assign(nextState, {
@@ -60,10 +61,10 @@ export const hackathons = (state = {
         currentHackathon: null,
         caughtError: false,
         message: null,
-        error: null
-      })
+        error: null,
+      });
 
-      break
+      break;
     case EDIT_HACKATHON:
       // Update status data
       _.assign(nextState, {
@@ -71,10 +72,10 @@ export const hackathons = (state = {
         currentHackathon: action.currentHackathon,
         caughtError: false,
         message: null,
-        error: null
-      })
+        error: null,
+      });
 
-      break
+      break;
     case EXIT_HACKATHON:
       // Update status data
       _.assign(nextState, {
@@ -82,28 +83,28 @@ export const hackathons = (state = {
         currentHackathon: null,
         caughtError: false,
         message: null,
-        error: null
-      })
+        error: null,
+      });
 
-      break
+      break;
     case DELETE_HACKATHON:
       // Delete hackathon from loaded hackathon array
-      if(action.hackathonId) delete nextState.data[action.hackathonId]
+      if (action.hackathonId) delete nextState.data[action.hackathonId];
 
       // Update status data
       _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         error: action.error,
-        message: action.message
-      })
+        message: action.message,
+      });
 
-      break
+      break;
     default:
       // Do not mutate state
-      break
+      break;
   }
 
   // Return mutated state
-  return nextState
-}
+  return nextState;
+};

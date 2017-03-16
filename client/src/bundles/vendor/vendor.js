@@ -1,21 +1,21 @@
 // Utility Libraries
-import _ from 'lodash'
-import jQuery from 'jquery'
-import 'bem-class'
-import 'classnames'
+import _ from 'lodash';
+import jQuery from 'jquery';
+import 'bem-class';
+import 'classnames';
 
 // React Libraries
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Redux Libraries
-import 'redux'
-import 'react-redux'
-import 'redux-thunk'
+import 'redux';
+import 'react-redux';
+import 'redux-thunk';
 
 // Async Library
-import 'isomorphic-fetch'
+import 'isomorphic-fetch';
 
 // UI Libraries
-import 'bootstrap-sass'
-import './vendor.scss'
+import 'bootstrap-sass';
+import './vendor.scss';

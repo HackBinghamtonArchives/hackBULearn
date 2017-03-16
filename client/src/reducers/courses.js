@@ -1,30 +1,30 @@
-import _ from 'lodash'
+import _ from 'lodash';
 import {
   FETCH_COURSES, FETCH_COURSE, SAVE_COURSE, DELETE_COURSE,
-  CREATE_COURSE, EDIT_COURSE, EXIT_COURSE
-} from 'actions/courseActions'
+  CREATE_COURSE, EDIT_COURSE, EXIT_COURSE,
+} from 'actions/courseActions';
 
-export const courses = (state = {
+export default (state = {
   isFetching: false,
   caughtError: false,
   message: null,
   error: null,
   data: {},
   cached: false,
-  currentCourse: null
+  currentCourse: null,
 }, action) => {
   // Clone old state
-  const nextState = _.cloneDeep(state)
+  const nextState = _.cloneDeep(state);
 
   // Mutate nextState according to the action type
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_COURSES:
       // Overwrite with new courses, except for cached courses
-      if(action.courses) {
-        _.mergeWith(nextState.data, action.courses, (o,n) => {
-          if(o && o.cached) return o
-          return n
-        })
+      if (action.courses) {
+        _.mergeWith(nextState.data, action.courses, (o, n) => {
+          if (o && o.cached) return o;
+          return n;
+        });
       }
 
       // Update status data
@@ -33,16 +33,16 @@ export const courses = (state = {
         caughtError: action.caughtError,
         message: action.message,
         error: action.error,
-        cached: true
-      })
+        cached: true,
+      });
 
-      break
+      break;
     case FETCH_COURSE:
       // Add fetched course to existing courses, if it exists
-      if(action.course) {
-        const course = _.cloneDeep(action.course)
-        course.cached = true
-        nextState.data[course._id] = course
+      if (action.course) {
+        const course = _.cloneDeep(action.course);
+        course.cached = true;
+        nextState.data[course._id] = course;
       }
 
       // Update status data
@@ -50,17 +50,17 @@ export const courses = (state = {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
-        error: action.error
-      })
+        error: action.error,
+      });
 
-      break
+      break;
     case SAVE_COURSE:
       // Add new course to existing courses, if it exists
-      if(action.course) {
-        const course = _.cloneDeep(action.course)
-        course.cached = false
-        nextState.data[course._id] = course
-        nextState.currentCourse = course._id
+      if (action.course) {
+        const course = _.cloneDeep(action.course);
+        course.cached = false;
+        nextState.data[course._id] = course;
+        nextState.currentCourse = course._id;
       }
 
       // Update status data
@@ -68,10 +68,10 @@ export const courses = (state = {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
-        error: action.error
-      })
+        error: action.error,
+      });
 
-      break
+      break;
     case CREATE_COURSE:
       // Update status data
       _.assign(nextState, {
@@ -79,10 +79,10 @@ export const courses = (state = {
         currentCourse: null,
         caughtError: false,
         message: null,
-        error: null
-      })
+        error: null,
+      });
 
-      break
+      break;
     case EDIT_COURSE:
       // Update status data
       _.assign(nextState, {
@@ -90,10 +90,10 @@ export const courses = (state = {
         currentCourse: action.currentCourse,
         caughtError: false,
         message: null,
-        error: null
-      })
+        error: null,
+      });
 
-      break
+      break;
     case EXIT_COURSE:
       // Update status data
       _.assign(nextState, {
@@ -101,28 +101,28 @@ export const courses = (state = {
         currentCourse: null,
         caughtError: false,
         message: null,
-        error: null
-      })
+        error: null,
+      });
 
-      break
+      break;
     case DELETE_COURSE:
       // Delete course from loaded course array
-      if(action.courseId) delete nextState.data[action.courseId]
+      if (action.courseId) delete nextState.data[action.courseId];
 
       // Update status data
       _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         error: action.error,
-        message: action.message
-      })
+        message: action.message,
+      });
 
-      break
+      break;
     default:
       // Do not mutate state
-      break
+      break;
   }
 
   // Return mutated state
-  return nextState
-}
+  return nextState;
+};

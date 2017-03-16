@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import { block as BEM } from 'bem-class'
 
 import './style.scss'

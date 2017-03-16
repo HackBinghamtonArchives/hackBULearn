@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import { block as BEM } from 'bem-class'
-import { Link } from 'react-router'
+import { NavLink } from 'react-router-dom'
 
 import './style.scss'
 
@@ -38,12 +38,13 @@ export default class Sidebar extends React.Component {
 
   renderLink(text,icon,href,className) {
     return (
-      <Link to={'/dashboard/' + href} className={className.element('link')}
+      <NavLink to={'/dashboard/' + href}
+        className={className.element('link').toString()}
         activeClassName='active'>
           <i className={'fa fa-' + icon + ' ' + className.element('link__icon')}
              aria-hidden='true'></i>
           {text}
-      </Link>
+      </NavLink>
     )
   }
 

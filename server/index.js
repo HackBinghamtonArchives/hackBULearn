@@ -24,7 +24,7 @@ require('./config/passport')(passport);
 var app = express();
 
 // Configure Views
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Configure passport
 app.use(passport.initialize());

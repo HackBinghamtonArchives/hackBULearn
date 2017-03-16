@@ -1,10 +1,10 @@
-import _ from 'lodash'
+import _ from 'lodash';
 import {
   FETCH_USERS, FETCH_USER, SAVE_USER, DELETE_USER,
-  CREATE_USER, EDIT_USER, EXIT_USER
-} from 'actions/userActions'
+  CREATE_USER, EDIT_USER, EXIT_USER,
+} from 'actions/userActions';
 
-export const users = (state = {
+export default (state = {
   isFetching: false,
   caughtError: false,
   message: null,
@@ -12,20 +12,20 @@ export const users = (state = {
   data: {},
   cached: false,
   currentUser: null,
-  me: null
+  me: null,
 }, action) => {
   // Clone old state
-  const nextState = _.cloneDeep(state)
+  const nextState = _.cloneDeep(state);
 
   // Mutate nextState according to the action type
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_USERS:
       // Overwrite with new users, except for cached users
-      if(action.users) {
-        _.mergeWith(nextState.data, action.users, (o,n) => {
-          if(o && o.cached) return o
-          return n
-        })
+      if (action.users) {
+        _.mergeWith(nextState.data, action.users, (o, n) => {
+          if (o && o.cached) return o;
+          return n;
+        });
       }
 
       // Update status data
@@ -34,19 +34,19 @@ export const users = (state = {
         caughtError: action.caughtError,
         message: action.message,
         error: action.error,
-        cached: true
-      })
+        cached: true,
+      });
 
-      break
+      break;
     case FETCH_USER:
       // Add fetched user to existing users, if it exists
-      if(action.user) {
-        const user = _.cloneDeep(action.user)
-        user.cached = true
-        nextState.data[user._id] = user
+      if (action.user) {
+        const user = _.cloneDeep(action.user);
+        user.cached = true;
+        nextState.data[user._id] = user;
 
         // Check if the fetched user is the current user
-        if(action.isMe) nextState.me = action.user._id
+        if (action.isMe) nextState.me = action.user._id;
       }
 
       // Update status data
@@ -54,16 +54,16 @@ export const users = (state = {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
-        error: action.error
-      })
+        error: action.error,
+      });
 
-      break
+      break;
     case SAVE_USER:
       // Add new user to existing users, if it exists
-      if(action.user) {
-        const user = _.cloneDeep(action.user)
-        user.cached = false
-        nextState.data[user._id] = user
+      if (action.user) {
+        const user = _.cloneDeep(action.user);
+        user.cached = false;
+        nextState.data[user._id] = user;
       }
 
       // Update status data
@@ -71,10 +71,10 @@ export const users = (state = {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         message: action.message,
-        error: action.error
-      })
+        error: action.error,
+      });
 
-      break
+      break;
     case CREATE_USER:
       // Update status data
       _.assign(nextState, {
@@ -82,10 +82,10 @@ export const users = (state = {
         currentUser: null,
         caughtError: false,
         message: null,
-        error: null
-      })
+        error: null,
+      });
 
-      break
+      break;
     case EDIT_USER:
       // Update status data
       _.assign(nextState, {
@@ -93,10 +93,10 @@ export const users = (state = {
         currentUser: action.currentUser,
         caughtError: false,
         message: null,
-        error: null
-      })
+        error: null,
+      });
 
-      break
+      break;
     case EXIT_USER:
       // Update status data
       _.assign(nextState, {
@@ -104,28 +104,28 @@ export const users = (state = {
         currentUser: null,
         caughtError: false,
         message: null,
-        error: null
-      })
+        error: null,
+      });
 
-      break
+      break;
     case DELETE_USER:
       // Delete user from loaded user array
-      if(action.userId) delete nextState.data[action.userId]
+      if (action.userId) delete nextState.data[action.userId];
 
       // Update status data
       _.assign(nextState, {
         isFetching: action.isFetching,
         caughtError: action.caughtError,
         error: action.error,
-        message: action.message
-      })
+        message: action.message,
+      });
 
-      break
+      break;
     default:
       // Do not mutate state
-      break
+      break;
   }
 
   // Return mutated state
-  return nextState
-}
+  return nextState;
+};

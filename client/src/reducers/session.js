@@ -1,23 +1,22 @@
-import _ from 'lodash'
-import { DELETE_SESSION } from 'actions/sessionActions'
+import _ from 'lodash';
 
-export const session = (state = {
+export default (state = {
   isFetching: false,
   caughtError: false,
   error: null,
-  didDelete: false
+  didDelete: false,
 }, action) => {
   // Clone old state
-  const nextState = _.cloneDeep(state)
+  const nextState = _.cloneDeep(state);
 
   // Mutate nextState
   _.assign(nextState, {
     isFetching: action.isFetching,
     caughtError: action.caughtError,
     error: action.error,
-    didDelete: action.didDelete
-  })
+    didDelete: action.didDelete,
+  });
 
   // Return mutated state
-  return nextState
-}
+  return nextState;
+};

@@ -5,9 +5,9 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: {
-    home: ['./client/src/bundles/home/home.js'],
-    dashboard: ['./client/src/bundles/dashboard/dashboard.js'],
-    login: ['./client/src/bundles/login/login.js'],
+    home: ['./client/src/bundles/home/home.jsx'],
+    dashboard: ['./client/src/bundles/dashboard/dashboard.jsx'],
+    login: ['./client/src/bundles/login/login.jsx'],
   },
   output: {
     path: path.resolve(__dirname, '../public/bundles'),
@@ -110,6 +110,12 @@ module.exports = {
       'node_modules', 'bower_components',
     ],
     extensions: ['.js', '.jsx'],
+    alias: {
+      components: path.resolve(__dirname, './src/components'),
+      reducers: path.resolve(__dirname, './src/reducers'),
+      containers: path.resolve(__dirname, './src/containers'),
+      actions: path.resolve(__dirname, './src/actions'),
+    },
   },
   plugins: [
     new webpack.DllReferencePlugin({

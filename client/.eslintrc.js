@@ -1,3 +1,13 @@
+/**
+ * Module dependencies.
+ */
+
+const path = require('path');
+
+/**
+ * ESLint configuration.
+ */
+
 module.exports = {
   extends: 'airbnb',
   env: {
@@ -6,11 +16,17 @@ module.exports = {
   settings: {
     'import/resolver': {
       webpack: {
-        config: './client/app.webpack.config.js'
+        config: path.resolve(__dirname, './app.webpack.config.js'),
       },
     },
     'import/core-modules': [
       'react', 'react-dom', 'classnames',
     ],
+  },
+  rules: {
+    'import/no-extraneous-dependencies': 0,
+    'no-underscore-dangle': [2, {
+      allow: ['_id']
+    }]
   },
 };
