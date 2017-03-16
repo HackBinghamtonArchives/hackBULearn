@@ -60,4 +60,5 @@ app.use(function(req, res, next) {
 // Error Handler
 app.use(errorHandler);
 
-module.exports = app;
+// Serve application
+app.listen(3000);
